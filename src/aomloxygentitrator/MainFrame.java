@@ -8,6 +8,7 @@ import java.util.Enumeration;
 import java.util.prefs.Preferences;
 import javax.swing.JTextArea;
 import aomloxygentitrator.ReadSerialPort;
+import java.awt.Component;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -30,6 +31,7 @@ public class MainFrame extends javax.swing.JFrame {
     private Preferences prefs;
     private SerialPort port = null;
     private CommPortIdentifier portId = null;
+    private boolean filesLoaded = false;
     private String serialPortName = "";
     private String OS = System.getProperty("os.name").toLowerCase();
     private Thread serialPortReader = null;
@@ -73,6 +75,8 @@ public class MainFrame extends javax.swing.JFrame {
     double ulOffset;
     double slope;
     double speed;
+
+   
     int wait;
     
     HashMap<Integer, Double> bottleVolumeMap;
@@ -112,6 +116,49 @@ public class MainFrame extends javax.swing.JFrame {
         }// end while        
 
         //loadFields();
+
+        resetAndSaveButton.setBackground(Color.YELLOW);
+        resetAndSaveButton.setOpaque(true);
+        resetAndSaveButton.setBorderPainted(false);
+        
+        fillButton.setBackground(Color.MAGENTA);
+        fillButton.setOpaque(true);
+        fillButton.setBorderPainted(false);    
+        
+        blankButton.setBackground(Color.decode("#fefefe"));
+        blankButton.setOpaque(true);
+        blankButton.setBorderPainted(false); 
+        
+        sampleButton.setBackground(Color.CYAN);
+        sampleButton.setOpaque(true);
+        sampleButton.setBorderPainted(false);
+        
+        saveButton.setBackground(Color.decode("#2c8cdc"));
+        saveButton.setOpaque(true);
+        saveButton.setBorderPainted(false);    
+        
+        uLSetButton.setBackground(Color.MAGENTA);
+        uLSetButton.setOpaque(true);
+        uLSetButton.setBorderPainted(false);  
+        
+        slopeSpeedWaitButton.setBackground(Color.MAGENTA);
+        slopeSpeedWaitButton.setOpaque(true);
+        slopeSpeedWaitButton.setBorderPainted(false);
+        
+        dateButton.setBackground(Color.MAGENTA);
+        dateButton.setOpaque(true);
+        dateButton.setBorderPainted(false);        
+        
+        serialDisconnectButton.setEnabled(false);
+        resetAndSaveButton.setEnabled(false);
+        fillButton.setEnabled(false);
+        blankButton.setEnabled(false);
+        sampleButton.setEnabled(false);
+        saveButton.setEnabled(false);
+        uLSetButton  .setEnabled(false);      
+        slopeSpeedWaitButton.setEnabled(false);        
+        dateButton.setEnabled(false);       
+                
         setVisible(true);
 
 //        resetAndSaveButton.setBackground(java.awt.Color.YELLOW);
@@ -147,19 +194,14 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel31 = new javax.swing.JLabel();
         jLabel33 = new javax.swing.JLabel();
         niskinSpinner = new javax.swing.JSpinner();
-        fillButton = new javax.swing.JButton();
         jLabel16 = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
-        saveButton = new javax.swing.JButton();
         NKIO3TextField = new javax.swing.JTextField();
-        blankButton = new javax.swing.JButton();
         longitudeTextField = new javax.swing.JTextField();
-        resetAndSaveButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
         botVolTextField = new javax.swing.JTextField();
         volRegTextField = new javax.swing.JTextField();
-        sampleButton = new javax.swing.JButton();
         jLabel34 = new javax.swing.JLabel();
         depthTextField = new javax.swing.JTextField();
         stationSpinner = new javax.swing.JSpinner();
@@ -190,6 +232,8 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel36 = new javax.swing.JLabel();
         jLabel35 = new javax.swing.JLabel();
         jLabel42 = new javax.swing.JLabel();
+        jLabel48 = new javax.swing.JLabel();
+        DrawTempBottleVolTextField = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         jLabel28 = new javax.swing.JLabel();
         jLabel39 = new javax.swing.JLabel();
@@ -209,6 +253,11 @@ public class MainFrame extends javax.swing.JFrame {
         m2TextField = new javax.swing.JTextField();
         jLabel47 = new javax.swing.JLabel();
         mse2TextField = new javax.swing.JTextField();
+        resetAndSaveButton = new javax.swing.JButton();
+        fillButton = new javax.swing.JButton();
+        blankButton = new javax.swing.JButton();
+        saveButton = new javax.swing.JButton();
+        sampleButton = new javax.swing.JButton();
         plot1Panel = new javax.swing.JPanel();
         plot2Panel = new javax.swing.JPanel();
         configurationJPanel = new javax.swing.JPanel();
@@ -258,16 +307,30 @@ public class MainFrame extends javax.swing.JFrame {
         setTitle("AOML Oxygen Titratior");
         setSize(new java.awt.Dimension(1366, 768));
 
+        thioTempTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                thioTempTextFieldActionPerformed(evt);
+            }
+        });
+
         salinityTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 salinityTextFieldActionPerformed(evt);
             }
         });
+        salinityTextField.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                salinityTextFieldPropertyChange(evt);
+            }
+        });
 
+        jLabel2.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
         jLabel2.setText("Station");
 
+        jLabel20.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
         jLabel20.setText("Niskin");
 
+        jLabel37.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
         jLabel37.setText("Vol KIO3, ml");
 
         drawTempTextField.addActionListener(new java.awt.event.ActionListener() {
@@ -284,36 +347,19 @@ public class MainFrame extends javax.swing.JFrame {
         rawOutputTextArea.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         rawOutputScrollPane.setViewportView(rawOutputTextArea);
 
+        jLabel31.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
         jLabel31.setText("Run Date");
 
+        jLabel33.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
         jLabel33.setText("Thio Temp");
 
         niskinSpinner.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
-        fillButton.setText("FILL");
-        fillButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fillButtonActionPerformed(evt);
-            }
-        });
-
+        jLabel16.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
         jLabel16.setText("Cast");
 
+        jLabel27.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
         jLabel27.setText("Sample Date");
-
-        saveButton.setText("SAVE");
-        saveButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                saveButtonActionPerformed(evt);
-            }
-        });
-
-        blankButton.setText("BLANK");
-        blankButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                blankButtonActionPerformed(evt);
-            }
-        });
 
         longitudeTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -321,27 +367,15 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        resetAndSaveButton.setBackground(java.awt.Color.yellow);
-        resetAndSaveButton.setText("RESET AND SAVE");
-        resetAndSaveButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                resetAndSaveButtonActionPerformed(evt);
-            }
-        });
-
+        jLabel1.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
         jLabel1.setText("Cruise");
 
+        jLabel25.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
         jLabel25.setText("Lattitude");
 
         botVolTextField.setEditable(false);
 
-        sampleButton.setText("SAMPLE");
-        sampleButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sampleButtonActionPerformed(evt);
-            }
-        });
-
+        jLabel34.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
         jLabel34.setText("N KIO3, ml");
 
         depthTextField.addActionListener(new java.awt.event.ActionListener() {
@@ -358,6 +392,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabel29.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
         jLabel29.setText("Bottle #");
 
         thioDensityTextField.setEditable(false);
@@ -371,10 +406,12 @@ public class MainFrame extends javax.swing.JFrame {
 
         M_thio_tl_TextField.setEditable(false);
 
+        jLabel38.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
         jLabel38.setText("STD, uL");
 
         EPTextField.setEditable(false);
 
+        jLabel18.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
         jLabel18.setText("Depth");
 
         M_thio_20C_TextField.setEditable(false);
@@ -384,180 +421,384 @@ public class MainFrame extends javax.swing.JFrame {
         o2umTextField.setEditable(false);
 
         o2_umolPerKgTextField.setEditable(false);
+        o2_umolPerKgTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                o2_umolPerKgTextFieldActionPerformed(evt);
+            }
+        });
 
+        jLabel24.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
         jLabel24.setText("Longitude");
 
+        jLabel15.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
         jLabel15.setText("Blk, uL");
 
+        jLabel17.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
         jLabel17.setText("Vol Reg");
 
+        jLabel21.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
         jLabel21.setText("Draw Temp");
 
+        jLabel19.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
         jLabel19.setText("Salinity");
 
+        jLabel22.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
         jLabel22.setText("EP, ul");
 
+        jLabel23.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
         jLabel23.setText("SW Density");
 
+        jLabel26.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
         jLabel26.setText("Thio Density");
 
+        jLabel32.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
         jLabel32.setText("M(Thio 20C)");
 
+        jLabel30.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
         jLabel30.setText("Bot Vol, mL");
 
+        jLabel36.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
         jLabel36.setText("O2, umol/kg");
 
+        jLabel35.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
         jLabel35.setText("O2, uM");
 
+        jLabel42.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
         jLabel42.setText("M(Thio, tL)");
+
+        jLabel48.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
+        jLabel48.setText("Vbot.tS, mL");
+
+        DrawTempBottleVolTextField.setEditable(false);
+
+        jLabel28.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
+        jLabel28.setText("Volume File");
+
+        jLabel39.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
+        jLabel39.setText("Data File");
+
+        btlVolFileTextField.setEditable(false);
+
+        dataFileTextField.setEditable(false);
+
+        openVolumeFileButton.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
+        openVolumeFileButton.setText("OPEN");
+        openVolumeFileButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                openVolumeFileButtonActionPerformed(evt);
+            }
+        });
+
+        openDataFileButton.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
+        openDataFileButton.setText("OPEN");
+        openDataFileButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                openDataFileButtonActionPerformed(evt);
+            }
+        });
+
+        jLabel41.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
+        jLabel41.setText("b1");
+
+        b1TextField.setEditable(false);
+        b1TextField.setText("                         ");
+        b1TextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b1TextFieldActionPerformed(evt);
+            }
+        });
+
+        jLabel43.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
+        jLabel43.setText("m1");
+
+        m1TextField.setEditable(false);
+        m1TextField.setText("                       ");
+        m1TextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                m1TextFieldActionPerformed(evt);
+            }
+        });
+
+        jLabel44.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
+        jLabel44.setText("mse1");
+
+        mse1TextField.setEditable(false);
+        mse1TextField.setText("                         ");
+
+        jLabel45.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
+        jLabel45.setText("b2");
+
+        b2TextField.setEditable(false);
+        b2TextField.setText("                         ");
+
+        jLabel46.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
+        jLabel46.setText("m2");
+
+        m2TextField.setEditable(false);
+        m2TextField.setText("                       ");
+
+        jLabel47.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
+        jLabel47.setText("mse2");
+
+        mse2TextField.setEditable(false);
+        mse2TextField.setText("                         ");
+        mse2TextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mse2TextFieldActionPerformed(evt);
+            }
+        });
+
+        resetAndSaveButton.setBackground(java.awt.Color.yellow);
+        resetAndSaveButton.setFont(new java.awt.Font("Monospaced", 0, 16)); // NOI18N
+        resetAndSaveButton.setForeground(java.awt.Color.black);
+        resetAndSaveButton.setText("RESET & SAVE");
+        resetAndSaveButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetAndSaveButtonActionPerformed(evt);
+            }
+        });
+
+        fillButton.setFont(new java.awt.Font("Monospaced", 0, 16)); // NOI18N
+        fillButton.setForeground(java.awt.Color.black);
+        fillButton.setText("FILL");
+        fillButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fillButtonActionPerformed(evt);
+            }
+        });
+
+        blankButton.setFont(new java.awt.Font("Monospaced", 0, 16)); // NOI18N
+        blankButton.setForeground(java.awt.Color.black);
+        blankButton.setText("BLANK");
+        blankButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                blankButtonActionPerformed(evt);
+            }
+        });
+
+        saveButton.setBackground(new java.awt.Color(44, 140, 220));
+        saveButton.setFont(new java.awt.Font("Monospaced", 0, 16)); // NOI18N
+        saveButton.setForeground(java.awt.Color.black);
+        saveButton.setText("SAVE");
+        saveButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveButtonActionPerformed(evt);
+            }
+        });
+
+        sampleButton.setFont(new java.awt.Font("Monospaced", 0, 16)); // NOI18N
+        sampleButton.setForeground(java.awt.Color.black);
+        sampleButton.setText("SAMPLE");
+        sampleButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sampleButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(0, 72, Short.MAX_VALUE)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel45)
+                            .addComponent(jLabel41))
+                        .addGap(26, 26, 26)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(b1TextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(b2TextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel46)
+                            .addComponent(jLabel43))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
+                                .addComponent(m2TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel47))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(m1TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel44)
+                                .addGap(8, 8, 8)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(mse1TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(mse2TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(sampleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 5, Short.MAX_VALUE))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(resetAndSaveButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(fillButton, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(blankButton))))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel39)
+                            .addComponent(jLabel28))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btlVolFileTextField)
+                            .addComponent(dataFileTextField))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(openVolumeFileButton)
+                            .addComponent(openDataFileButton))))
+                .addContainerGap())
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel41)
+                            .addComponent(b1TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel43)
+                            .addComponent(m1TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel44)
+                            .addComponent(mse1TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel45)
+                            .addComponent(b2TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel46)
+                            .addComponent(m2TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel47)
+                            .addComponent(mse2TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(resetAndSaveButton)
+                            .addComponent(fillButton)
+                            .addComponent(blankButton))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(sampleButton)
+                            .addComponent(saveButton))))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btlVolFileTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel28)
+                    .addComponent(openVolumeFileButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(openDataFileButton)
+                    .addComponent(dataFileTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel39))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGap(48, 48, 48)
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(cruiseTextField))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel3Layout.createSequentialGroup()
-                                    .addGap(32, 32, 32)
-                                    .addComponent(jLabel18))
-                                .addComponent(jLabel20, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(15, 15, 15)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel33, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel31, javax.swing.GroupLayout.Alignment.TRAILING)))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel37)
-                                    .addComponent(jLabel34)
-                                    .addComponent(jLabel38))
-                                .addGap(27, 27, 27)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(volKIO3TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(sampleDateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(bottleSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(runDateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(thioTempTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(longitudeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(stdulTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
-                                        .addComponent(NKIO3TextField, javax.swing.GroupLayout.Alignment.LEADING))))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(jPanel3Layout.createSequentialGroup()
-                                            .addGap(6, 6, 6)
-                                            .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLabel29)
-                                            .addComponent(jLabel24)))
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(jLabel27)
-                                        .addGap(9, 9, 9)))
-                                .addGap(12, 12, 12)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(stationSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(depthTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lattitudeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(niskinSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(castSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel20, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel25, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel24, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel29, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel27, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel31, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel33, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel37, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel34, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel38, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel26)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(thioDensityTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                        .addComponent(jLabel21)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(drawTempTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                        .addComponent(jLabel23)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(swDensityTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                        .addComponent(jLabel15)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(blkulTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                        .addComponent(jLabel17)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(volRegTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                            .addComponent(jLabel22)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(EPTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                            .addComponent(jLabel19)
-                                            .addGap(18, 18, 18)
-                                            .addComponent(salinityTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addGap(6, 6, 6)
-                                        .addComponent(jLabel42, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(M_thio_tl_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel36)
-                                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jLabel35, javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addComponent(jLabel30, javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addComponent(jLabel32)))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(o2umTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(o2_umolPerKgTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(botVolTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(M_thio_20C_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(107, 107, 107)
-                        .addComponent(cruiseTextField)))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(sampleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(castSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(stationSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(niskinSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(depthTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lattitudeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(longitudeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(bottleSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(sampleDateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(runDateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(thioTempTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(volKIO3TextField)
+                            .addComponent(NKIO3TextField)
+                            .addComponent(stdulTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(rawOutputScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(resetAndSaveButton)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(fillButton, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(blankButton, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel19, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel22, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel23, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel26, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel30, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel48, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel35, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel36, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel42, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel32, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(blkulTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(volRegTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(drawTempTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(salinityTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(EPTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(swDensityTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(thioDensityTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(M_thio_tl_TextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(M_thio_20C_TextField, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(botVolTextField, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(DrawTempBottleVolTextField, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(o2umTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
+                            .addComponent(o2_umolPerKgTextField, javax.swing.GroupLayout.Alignment.TRAILING))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(rawOutputScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
+
+        jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {NKIO3TextField, bottleSpinner, castSpinner, depthTextField, lattitudeTextField, longitudeTextField, niskinSpinner, runDateTextField, sampleDateTextField, stationSpinner, stdulTextField, thioTempTextField, volKIO3TextField});
+
+        jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {DrawTempBottleVolTextField, EPTextField, M_thio_20C_TextField, M_thio_tl_TextField, blkulTextField, botVolTextField, drawTempTextField, o2_umolPerKgTextField, o2umTextField, salinityTextField, swDensityTextField, thioDensityTextField, volRegTextField});
+
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(rawOutputScrollPane, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
                             .addComponent(cruiseTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(stationSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(blkulTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel15)))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(blkulTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel15)
+                            .addComponent(stationSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(volRegTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -608,11 +849,10 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(M_thio_tl_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel42))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel31)
-                                .addComponent(runDateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(M_thio_20C_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel31)
+                            .addComponent(runDateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(M_thio_20C_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel32))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -621,177 +861,44 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(botVolTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel30))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel37)
-                            .addComponent(volKIO3TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(o2umTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel35)))
-                    .addComponent(rawOutputScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel37)
+                                .addComponent(volKIO3TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel48))
+                            .addComponent(DrawTempBottleVolTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel34)
+                                .addComponent(NKIO3TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(o2umTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel35)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(stdulTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel38))
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(o2_umolPerKgTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel36)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel34)
-                    .addComponent(NKIO3TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(o2_umolPerKgTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(resetAndSaveButton)
-                    .addComponent(fillButton)
-                    .addComponent(blankButton)
-                    .addComponent(jLabel36))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel38)
-                    .addComponent(stdulTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(sampleButton)
-                    .addComponent(saveButton))
-                .addGap(36, 36, 36))
-        );
-
-        jLabel28.setText("Volume File");
-
-        jLabel39.setText("Data File");
-
-        btlVolFileTextField.setEditable(false);
-
-        dataFileTextField.setEditable(false);
-
-        openVolumeFileButton.setText("OPEN");
-        openVolumeFileButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                openVolumeFileButtonActionPerformed(evt);
-            }
-        });
-
-        openDataFileButton.setText("OPEN");
-        openDataFileButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                openDataFileButtonActionPerformed(evt);
-            }
-        });
-
-        jLabel41.setText("b1");
-
-        b1TextField.setEditable(false);
-        b1TextField.setText("                         ");
-        b1TextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                b1TextFieldActionPerformed(evt);
-            }
-        });
-
-        jLabel43.setText("m1");
-
-        m1TextField.setEditable(false);
-        m1TextField.setText("                       ");
-
-        jLabel44.setText("mse1");
-
-        mse1TextField.setEditable(false);
-        mse1TextField.setText("                         ");
-
-        jLabel45.setText("b2");
-
-        b2TextField.setEditable(false);
-        b2TextField.setText("                         ");
-
-        jLabel46.setText("m2");
-
-        m2TextField.setEditable(false);
-        m2TextField.setText("                       ");
-
-        jLabel47.setText("mse2");
-
-        mse2TextField.setEditable(false);
-        mse2TextField.setText("                         ");
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jLabel39)
-                        .addGap(24, 24, 24)
-                        .addComponent(dataFileTextField)
-                        .addGap(18, 18, 18)
-                        .addComponent(openDataFileButton))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel28)
-                        .addGap(24, 24, 24)
-                        .addComponent(btlVolFileTextField)
-                        .addGap(18, 18, 18)
-                        .addComponent(openVolumeFileButton))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(79, 79, 79)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jLabel41)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(b1TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(7, 7, 7)
-                                .addComponent(jLabel43)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(m1TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel44)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(mse1TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jLabel45)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(b2TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(7, 7, 7)
-                                .addComponent(jLabel46)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(m2TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel47)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(mse2TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel41)
-                    .addComponent(b1TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel43)
-                    .addComponent(m1TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel44)
-                    .addComponent(mse1TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel45)
-                    .addComponent(b2TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel46)
-                    .addComponent(m2TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel47)
-                    .addComponent(mse2TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel28)
-                    .addComponent(openVolumeFileButton)
-                    .addComponent(btlVolFileTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel39)
-                    .addComponent(dataFileTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(openDataFileButton))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+
+        jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {DrawTempBottleVolTextField, EPTextField, M_thio_20C_TextField, M_thio_tl_TextField, NKIO3TextField, blkulTextField, botVolTextField, bottleSpinner, castSpinner, cruiseTextField, depthTextField, drawTempTextField, lattitudeTextField, longitudeTextField, niskinSpinner, o2_umolPerKgTextField, o2umTextField, runDateTextField, salinityTextField, sampleDateTextField, stationSpinner, stdulTextField, swDensityTextField, thioDensityTextField, thioTempTextField, volKIO3TextField, volRegTextField});
 
         javax.swing.GroupLayout plot1PanelLayout = new javax.swing.GroupLayout(plot1Panel);
         plot1Panel.setLayout(plot1PanelLayout);
         plot1PanelLayout.setHorizontalGroup(
             plot1PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 548, Short.MAX_VALUE)
+            .addGap(0, 498, Short.MAX_VALUE)
         );
         plot1PanelLayout.setVerticalGroup(
             plot1PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 318, Short.MAX_VALUE)
+            .addGap(0, 333, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout plot2PanelLayout = new javax.swing.GroupLayout(plot2Panel);
@@ -802,7 +909,7 @@ public class MainFrame extends javax.swing.JFrame {
         );
         plot2PanelLayout.setVerticalGroup(
             plot2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 318, Short.MAX_VALUE)
+            .addGap(0, 323, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout mainJPanelLayout = new javax.swing.GroupLayout(mainJPanel);
@@ -811,9 +918,7 @@ public class MainFrame extends javax.swing.JFrame {
             mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mainJPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(plot1Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -824,22 +929,20 @@ public class MainFrame extends javax.swing.JFrame {
             mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mainJPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, mainJPanelLayout.createSequentialGroup()
+                .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 651, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(mainJPanelLayout.createSequentialGroup()
                         .addComponent(plot1Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(plot2Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, mainJPanelLayout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(18, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(plot2Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Main", mainJPanel);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Configure Titrator"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Configure Titrator", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12))); // NOI18N
 
+        jLabel3.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
         jLabel3.setText("uLperst");
 
         ulPerstTextField.addActionListener(new java.awt.event.ActionListener() {
@@ -848,6 +951,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabel4.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
         jLabel4.setText("uLoffset");
 
         ulOffsetTextField.addActionListener(new java.awt.event.ActionListener() {
@@ -856,6 +960,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        uLSetButton.setFont(new java.awt.Font("Monospaced", 0, 16)); // NOI18N
         uLSetButton.setText("SET");
         uLSetButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -863,10 +968,13 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabel5.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
         jLabel5.setText("Speed");
 
+        jLabel6.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
         jLabel6.setText("Wait");
 
+        slopeSpeedWaitButton.setFont(new java.awt.Font("Monospaced", 0, 16)); // NOI18N
         slopeSpeedWaitButton.setText("SET");
         slopeSpeedWaitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -874,10 +982,12 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabel7.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
         jLabel7.setText("Time");
 
         timeTextField.setEditable(false);
 
+        dateButton.setFont(new java.awt.Font("Monospaced", 0, 16)); // NOI18N
         dateButton.setText("SET");
         dateButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -885,10 +995,12 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabel8.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
         jLabel8.setText("Slope");
 
         dateTextField.setEditable(false);
 
+        jLabel9.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
         jLabel9.setText("Date");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -916,14 +1028,6 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addComponent(jLabel9)
                                 .addGap(12, 12, 12)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(speedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel6)
-                                .addGap(18, 18, 18)
-                                .addComponent(waitTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(slopeSpeedWaitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jSeparator1)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(dateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -940,9 +1044,22 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(ulOffsetTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(uLSetButton, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(42, 42, 42))
+                                .addComponent(uLSetButton, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(speedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel6)
+                                .addGap(18, 18, 18)
+                                .addComponent(waitTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(slopeSpeedWaitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(20, 20, 20))
         );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {dateTextField, slopeTextField, speedTextField, timeTextField, ulOffsetTextField, ulPerstTextField, waitTextField});
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {dateButton, slopeSpeedWaitButton, uLSetButton});
+
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -979,8 +1096,11 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Configure Serial Port"));
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {dateTextField, slopeTextField, speedTextField, timeTextField, ulOffsetTextField, ulPerstTextField, waitTextField});
 
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Configure Serial Port", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12))); // NOI18N
+
+        jLabel10.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
         jLabel10.setText("Serial Port");
 
         serialPortComboBox.setToolTipText("");
@@ -998,16 +1118,19 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabel11.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
         jLabel11.setText("Baud Rate");
 
         baudRateComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "300", "600", "1200", "2400", "4800", "9600", "19200", "38400", "57600", "115200" }));
         baudRateComboBox.setSelectedIndex(5);
 
+        jLabel12.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
         jLabel12.setText("Data Bits");
 
         dataBitsComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "8", "7", "6", "5" }));
         dataBitsComboBox.setToolTipText("");
 
+        jLabel13.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
         jLabel13.setText("Parity");
 
         parityComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "none", "even", "odd" }));
@@ -1017,14 +1140,17 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabel14.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
         jLabel14.setText("Stop Bits");
 
         stopBitsComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2" }));
 
         flowControlComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "none", "RTS/CTS", "Xon/Xoff" }));
 
+        jLabel40.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
         jLabel40.setText("Flow Control");
 
+        serialConnectButton.setFont(new java.awt.Font("Monospaced", 1, 15)); // NOI18N
         serialConnectButton.setText("Connect");
         serialConnectButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1032,6 +1158,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        serialDisconnectButton.setFont(new java.awt.Font("Monospaced", 1, 15)); // NOI18N
         serialDisconnectButton.setText("Disconnect");
         serialDisconnectButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1044,45 +1171,31 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(83, 83, 83)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(91, 91, 91)
-                        .addComponent(jLabel10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(serialPortComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(87, 87, 87)
-                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(baudRateComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(93, 93, 93)
-                        .addComponent(jLabel12)
-                        .addGap(18, 18, 18)
-                        .addComponent(dataBitsComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(116, 116, 116)
-                        .addComponent(jLabel13)
-                        .addGap(18, 18, 18)
-                        .addComponent(parityComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(68, 68, 68)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel40)
-                            .addComponent(jLabel14))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(stopBitsComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(flowControlComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(serialConnectButton, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(serialDisconnectButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel40, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(flowControlComboBox, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(stopBitsComboBox, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(parityComboBox, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dataBitsComboBox, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(baudRateComboBox, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(serialPortComboBox, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(serialConnectButton, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(serialDisconnectButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
+
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {baudRateComboBox, dataBitsComboBox, flowControlComboBox, parityComboBox, serialPortComboBox, stopBitsComboBox});
+
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -1115,6 +1228,8 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap(35, Short.MAX_VALUE))
         );
 
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {baudRateComboBox, dataBitsComboBox, flowControlComboBox, parityComboBox, serialPortComboBox, stopBitsComboBox});
+
         rawOutputTextAreaConfig.setEditable(false);
         rawOutputTextAreaConfig.setColumns(20);
         rawOutputTextAreaConfig.setRows(5);
@@ -1130,7 +1245,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 617, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 603, Short.MAX_VALUE)
                 .addContainerGap())
         );
         configurationJPanelLayout.setVerticalGroup(
@@ -1143,7 +1258,7 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(232, Short.MAX_VALUE))
+                .addContainerGap(193, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Configuration", configurationJPanel);
@@ -1161,16 +1276,15 @@ public class MainFrame extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1381, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1381, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1)
-                .addContainerGap())
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -1213,10 +1327,23 @@ public class MainFrame extends javax.swing.JFrame {
     private void serialConnectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_serialConnectButtonActionPerformed
 
         if (serialPortReader == null) {
+            serialConnectButton.setEnabled(false);
+            serialDisconnectButton.setEnabled(true);
+
+            resetAndSaveButton.setEnabled(true);
+            fillButton.setEnabled(true);
+            blankButton.setEnabled(true);
+            sampleButton.setEnabled(true);
+            saveButton.setEnabled(true);
+            uLSetButton.setEnabled(true);
+            slopeSpeedWaitButton.setEnabled(true);
+            dateButton.setEnabled(true);
+
             rsp = new ReadSerialPort(this);
             serialPortReader = new Thread(rsp);
             serialPortReader.start();
             loadFields();
+
         }
     }//GEN-LAST:event_serialConnectButtonActionPerformed
 
@@ -1228,6 +1355,16 @@ public class MainFrame extends javax.swing.JFrame {
             dateTextField.setText("");
             timeTextField.setText("");
             bottleVolumeMap.clear();
+            serialConnectButton.setEnabled(true);
+            serialDisconnectButton.setEnabled(false);
+            resetAndSaveButton.setEnabled(false);
+            fillButton.setEnabled(false);
+            blankButton.setEnabled(false);
+            sampleButton.setEnabled(false);
+            saveButton.setEnabled(false);
+            uLSetButton.setEnabled(false);
+            slopeSpeedWaitButton.setEnabled(false);
+            dateButton.setEnabled(false);
         }//end if
     }//GEN-LAST:event_serialDisconnectButtonActionPerformed
 
@@ -1442,16 +1579,22 @@ public class MainFrame extends javax.swing.JFrame {
         } else {
             botVolume = 0;
         }
-        botVolTextField.setText(botVolume + "");
+//        botVolTextField.setText(botVolume + "");
+        setBottleVol(botVolume);
+        if (filesLoaded) {
+//            setDrawTempBottleVol();
+//            setO2();
+            calculateAndUpdate();
+            
+
+        }//end if
+
 
     }//GEN-LAST:event_bottleSpinnerStateChanged
 
     private void salinityTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salinityTextFieldActionPerformed
-        salinity = Double.parseDouble(salinityTextField.getText());
-        drawTemp = Double.parseDouble(drawTempTextField.getText());
-        SWDensity = getSWDensity( drawTemp,salinity);
-        swDensityTextField.setText(String.format("%1$.4f", SWDensity) + "");
-        
+        calculateAndUpdate();
+
     }//GEN-LAST:event_salinityTextFieldActionPerformed
 
     private void ulOffsetTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ulOffsetTextFieldActionPerformed
@@ -1463,11 +1606,29 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_ulPerstTextFieldActionPerformed
 
     private void drawTempTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drawTempTextFieldActionPerformed
-        salinity = Double.parseDouble(salinityTextField.getText());
-        drawTemp = Double.parseDouble(drawTempTextField.getText());
-        SWDensity = getSWDensity( drawTemp,salinity);
-        swDensityTextField.setText(String.format("%1$.4f", SWDensity) + "");
+        calculateAndUpdate();
     }//GEN-LAST:event_drawTempTextFieldActionPerformed
+
+    private void salinityTextFieldPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_salinityTextFieldPropertyChange
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_salinityTextFieldPropertyChange
+
+    private void m1TextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m1TextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_m1TextFieldActionPerformed
+
+    private void o2_umolPerKgTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_o2_umolPerKgTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_o2_umolPerKgTextFieldActionPerformed
+
+    private void mse2TextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mse2TextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mse2TextFieldActionPerformed
+
+    private void thioTempTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_thioTempTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_thioTempTextFieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1480,6 +1641,7 @@ public class MainFrame extends javax.swing.JFrame {
     }//end run
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField DrawTempBottleVolTextField;
     private javax.swing.JTextField EPTextField;
     private javax.swing.JTextField M_thio_20C_TextField;
     private javax.swing.JTextField M_thio_tl_TextField;
@@ -1545,6 +1707,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel45;
     private javax.swing.JLabel jLabel46;
     private javax.swing.JLabel jLabel47;
+    private javax.swing.JLabel jLabel48;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -1828,11 +1991,14 @@ public class MainFrame extends javax.swing.JFrame {
         return x + "";
     }//end method   
 
-    String getThioTemp() {
+    double getThioTemp() {
         String s = thioTempTextField.getText();
         double x = Double.parseDouble(s);
-        return x + "";
-    }//end method   
+        thioTemp = x;
+        return thioTemp ;
+    }//end method 
+    
+    
 
     String getVolKIO3() {
         String s = volKIO3TextField.getText();
@@ -1840,46 +2006,46 @@ public class MainFrame extends javax.swing.JFrame {
         return x + "";
     }//end method   
 
-    String getNKIO3() {
+    double getNKIO3() {
         String s = NKIO3TextField.getText();
-        double x = Double.parseDouble(s);
-        return x + "";
+        NKIO3 = Double.parseDouble(s);
+        return NKIO3;
     }//end method  
 
-    String getStdul() {
+    double getStdul() {
         String s = stdulTextField.getText();
-        double x = Double.parseDouble(s);
-        return x + "";
+        stduL = Double.parseDouble(s);
+        return stduL;
     }//end method    
 
-    String getBlkul() {
+    double getBlkul() {
         String s = blkulTextField.getText();
-        double x = Double.parseDouble(s);
-        return x + "";
+        blkul = Double.parseDouble(s);
+        return blkul;
     }//end method
 
-    String getVolReg() {
+    double getVolReg() {
         String s = volRegTextField.getText();
-        double x = Double.parseDouble(s);
-        return x + "";
+        double volReg = Double.parseDouble(s);
+        return volReg;
     }//end method      
 
-    String getdrawTemp() {
+    double getDrawTemp() {
         String s = drawTempTextField.getText();
-        double x = Double.parseDouble(s);
-        return x + "";
+        drawTemp = Double.parseDouble(s);
+        return drawTemp;
     }//end method      
 
-    String getSalinty() {
-        String s = lattitudeTextField.getText();
-        double x = Double.parseDouble(s);
-        return x + "";
+    double getSalinty() {
+        String s = salinityTextField.getText();
+        salinity = Double.parseDouble(s);
+        return salinity;
     }//end method    
 
-    String getEPul() {
+    double getEPul() {
         String s = EPTextField.getText();
-        double x = Double.parseDouble(s);
-        return x + "";
+        EP = Double.parseDouble(s);
+        return EP;
     }//end method  
 
     String getSwDensity() {
@@ -1906,10 +2072,10 @@ public class MainFrame extends javax.swing.JFrame {
         return x + "";
     }//end method 
 
-    String getBotVol() {
+    double getBotVol() {
         String s = botVolTextField.getText();
-        double x = Double.parseDouble(s);
-        return x + "";
+        botVolume = Double.parseDouble(s);
+        return botVolume;
     }//end method       
 
     String getO2um() {
@@ -2033,6 +2199,7 @@ public class MainFrame extends javax.swing.JFrame {
         prefs.putDouble("slope", Double.parseDouble(slopeTextField.getText()));
         prefs.putDouble("speed", Double.parseDouble(speedTextField.getText()));
         prefs.putInt("wait", Integer.parseInt(waitTextField.getText()));
+        
 
     }
 
@@ -2141,14 +2308,14 @@ public class MainFrame extends javax.swing.JFrame {
 
         thioTemp = prefs.getDouble("thioTemp", -1);
         if (thioTemp == -1) {
-            thioTemp = 24.0;
+            thioTemp = 20.5;
             prefs.putDouble("thioTemp", thioTemp);
 
         }//end if         
 
         volKIO3 = prefs.getDouble("volKIO3", -1);
         if (volKIO3 == -1) {
-            volKIO3 = 9.97;
+            volKIO3 = 9.971;
             prefs.putDouble("volKIO3", volKIO3);
 
         }//end if    
@@ -2162,14 +2329,14 @@ public class MainFrame extends javax.swing.JFrame {
 
         stduL = prefs.getDouble("stduL", -1);
         if (stduL == -1) {
-            stduL = 0;
+            stduL = 702.0;
             prefs.putDouble("stduL", stduL);
 
         }//end if
 
         blkul = prefs.getDouble("blkul", -1);
         if (blkul == -1) {
-            blkul = 0;
+            blkul = 0.5;
             prefs.putDouble("blkul", blkul);
 
         }//end if
@@ -2195,6 +2362,14 @@ public class MainFrame extends javax.swing.JFrame {
 
         }//end if
 
+        EP = prefs.getDouble("EP", -1);
+        if (EP == -1) {
+            EP = 1001.20;
+            prefs.putDouble("EP", EP);
+
+        }//end if        
+        
+        
         ulPerst = prefs.getDouble("ulPerst", -1);
         if (ulPerst == -1) {
             ulPerst = .2514;
@@ -2243,15 +2418,22 @@ public class MainFrame extends javax.swing.JFrame {
         this.blkulTextField.setText(blkul + "");
         this.volRegTextField.setText(volReg + "");
         this.salinityTextField.setText(salinity + "");
+        this.EPTextField.setText(EP + "");
         this.drawTempTextField.setText(drawTemp + "");
         this.ulPerstTextField.setText(ulPerst + "");
         this.ulOffsetTextField.setText(ulOffset + "");
         this.slopeTextField.setText(slope + "");
         this.speedTextField.setText(speed + "");
         this.waitTextField.setText(wait + "");
+        filesLoaded = true;
+        calculateAndUpdate();
 
     }
-    
+   
+
+
+
+
 double getRHO(double S,double T){
 double rho=0.0;
 rho=999.842594+0.06793952*T-0.00909529*T*T + 
@@ -2268,9 +2450,122 @@ rho=999.842594+0.06793952*T-0.00909529*T*T +
 
 double getSWDensity(double T, double S){
     
-    return .001 * getRHO(S,T);
+    return round(.001 * getRHO(S,T),4);
 
 }//end method
 
+    void setSWDensity() {
+        
+        SWDensity = getSWDensity(getDrawTemp(), getSalinty());
+        swDensityTextField.setText(String.format("%1$.4f", SWDensity) + "");
+
+    }//end method
+
+    double getVIO3() {
+
+        double vio3;
+        volKIO3 = Double.parseDouble(this.volKIO3TextField.getText());
+        vio3 = volKIO3 * (1 + .00000975 * (getThioTemp() - 20));
+        return round(vio3,3);
+
+    }//end method
     
+    double getThioMolarity() {
+        double thioMolarity = -1;
+        double dV = getStdul() - getBlkul();
+        
+        if (dV != 0) {
+            thioMolarity = (1000 * getVIO3() * getNKIO3() / (dV));
+        }//end if
+
+        return round(thioMolarity,5);
+    }//end method
+
+    double getDrawTempBottleVol(){
+    
+        return round(getBotVol() * ( 1 + .00000975 * ( getThioTemp() - 20 ) ),3);
+    }//end method
+    
+    double getO2uM(){
+    
+        double o2um = -1;
+        double dV = getDrawTempBottleVol() - getVolReg();
+        if (dV !=0 ){ 
+           o2um = ( 250 * ( ( getEPul() - getBlkul() ) *  getThioMolarity() ) - 76 ) / dV;
+                }//end if
+        return round(o2um,2);
+    }//end method
+    
+    double getO2uMPerKg(){
+    
+    double swDen = -1;
+    double o2uMperKg = -1;
+    
+    swDen = getSWDensity(getDrawTemp(), getSalinty());
+    
+    if ( swDen !=0 ){
+        o2uMperKg = getO2uM() / swDen;
+    }//end if
+    return round(o2uMperKg,2);
+    }//end method
+    
+    void setO2(){
+        String s1;
+        String s2;
+        
+        
+        s1 = String.format("%1$.2f", getO2uM());
+        s2 = String.format("%1$.2f", getO2uMPerKg());
+        
+       o2umTextField.setText(s1);
+       o2_umolPerKgTextField.setText(s2);
+        
+    
+    }//end method
+    
+    void setThioMolaritytL(){
+    
+        String s1;
+        s1 = String.format("%1$.5f", getThioMolarity());
+        M_thio_tl_TextField.setText(s1);
+    
+    }//end method
+    
+    
+    void setBottleVol(double bv){
+        String s1;
+        s1 = String.format("%1$.3f", bv);
+        botVolTextField.setText(s1);
+        
+    
+    }//end method    
+    
+    void setDrawTempBottleVol(){
+        String s1;
+        s1 = String.format("%1$.3f", getDrawTempBottleVol());
+        DrawTempBottleVolTextField.setText(s1);
+        
+    
+    }//end method
+    
+    
+    
+    double round(double num , double place){
+        double k = Math.pow(10.0, place );
+        int x = (int)Math.round((num * k));
+        return ((double)x) / k;
+    
+    }//end method
+    
+    
+    void calculateAndUpdate() {
+        
+         setSWDensity();
+         setO2();
+         setThioMolaritytL();
+         setDrawTempBottleVol();
+         setDrawTempBottleVol();
+
+
+    }//end method
 }// end class
