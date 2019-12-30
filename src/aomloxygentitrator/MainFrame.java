@@ -12,8 +12,12 @@ import java.awt.Component;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import javax.swing.JFileChooser;
 import javax.swing.JTextField;
 
@@ -32,6 +36,7 @@ public class MainFrame extends javax.swing.JFrame {
     private SerialPort port = null;
     private CommPortIdentifier portId = null;
     private boolean filesLoaded = false;
+    private boolean resetAndSave = true;
     private String serialPortName = "";
     private String OS = System.getProperty("os.name").toLowerCase();
     private Thread serialPortReader = null;
@@ -43,8 +48,8 @@ public class MainFrame extends javax.swing.JFrame {
     int cast;
     int niskin;
     double depth;
-    double lattitude;
-    double longitude;
+    String lattitude;
+    String longitude;
     int bottle;
     String sampleDate;
     String runDate;
@@ -81,6 +86,7 @@ public class MainFrame extends javax.swing.JFrame {
     
     HashMap<Integer, Double> bottleVolumeMap;
 
+    
     /**
      * Creates new form MainFrame
      */
@@ -160,6 +166,7 @@ public class MainFrame extends javax.swing.JFrame {
         dateButton.setEnabled(false);       
                 
         setVisible(true);
+      
 
 //        resetAndSaveButton.setBackground(java.awt.Color.YELLOW);
 //        rawOutputTextArea.append("hello\nhello\nhello");
@@ -1292,9 +1299,13 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         this.saveFields();
+        saveDataFiles();
     }//GEN-LAST:event_saveButtonActionPerformed
 
     private void resetAndSaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetAndSaveButtonActionPerformed
+        
+        rawOutputTextArea.setText("");
+        rawOutputTextAreaConfig.setText("");
         if (port != null) {
 
             try {
@@ -1313,6 +1324,7 @@ public class MainFrame extends javax.swing.JFrame {
             }// end catch
 
             this.saveFields();
+            saveDataFiles();
         }//end if
     }//GEN-LAST:event_resetAndSaveButtonActionPerformed
 
@@ -1394,16 +1406,8 @@ public class MainFrame extends javax.swing.JFrame {
 
             try {
                 PrintStream os = null;
-                String s1 = "";
-                String s2 = "";
-                double num1 = Double.parseDouble(ulPerstTextField.getText());
-                double num2 = Double.parseDouble(ulOffsetTextField.getText());
-
-                s1 = String.format("%1$.4f", num1);
-                s2 = String.format("%1$.1f", num2);
                 os = new PrintStream(port.getOutputStream());
-                os.print("P " + s1 + " " + s2);
-
+                os.print("P " + getUlPerStep() + " " + getUlOffset());
                 if (os != null) {
                     os.flush();
                     os.close();
@@ -1422,19 +1426,8 @@ public class MainFrame extends javax.swing.JFrame {
 
             try {
                 PrintStream os = null;
-                String s1 = "";
-                String s2 = "";
-                String s3 = "";
-                double num1 = Double.parseDouble(slopeTextField.getText());
-                double num2 = Double.parseDouble(speedTextField.getText());
-                int num3 = Integer.parseInt(waitTextField.getText());
-
-                s1 = String.format("%1$.1f", num1);
-                s2 = String.format("%1$.1f", num2);
-                s3 = String.format("%1$04d", num3);
-
                 os = new PrintStream(port.getOutputStream());
-                os.print("C " + s1 + " " + s2 + " " + s3);
+                os.print("C " + getSlope() + " " + getSpeed() + " " + getWait());
 
                 if (os != null) {
                     os.flush();
@@ -1511,7 +1504,7 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_blankButtonActionPerformed
 
     private void sampleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sampleButtonActionPerformed
-        if (port != null) {
+        if (port != null && resetAndSave ) {
             //saveFields();
 
             try {
@@ -1968,27 +1961,21 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     String getLattitude() {
-        String s = lattitudeTextField.getText();
-        double x = Double.parseDouble(s);
-        return x + "";
+        return lattitudeTextField.getText();
     }//end method
 
     String getLongitude() {
-        String s = longitudeTextField.getText();
-        double x = Double.parseDouble(s);
-        return x + "";
+        return longitudeTextField.getText();
+
     }//end method    
 
     String getSampleDate() {
-        String s = sampleDateTextField.getText();
-        double x = Double.parseDouble(s);
-        return x + "";
+        return sampleDateTextField.getText();
     }//end method     
 
     String getRunDate() {
-        String s = runDateTextField.getText();
-        double x = Double.parseDouble(s);
-        return x + "";
+        return runDateTextField.getText();
+
     }//end method   
 
     double getThioTemp() {
@@ -2056,18 +2043,27 @@ public class MainFrame extends javax.swing.JFrame {
 
     String getThioDensity() {
         String s = thioDensityTextField.getText();
+        if (s.isEmpty()) {
+            s = "0.0";
+        }
         double x = Double.parseDouble(s);
         return x + "";
     }//end method      
 
     String getM_thio_tl() {
         String s = M_thio_tl_TextField.getText();
+        if (s.isEmpty()) {
+            s = "0.0";
+        }
         double x = Double.parseDouble(s);
         return x + "";
     }//end method    
 
     String getM_thio_20C() {
         String s = M_thio_20C_TextField.getText();
+        if (s.isEmpty()) {
+            s = "0.0";
+        }
         double x = Double.parseDouble(s);
         return x + "";
     }//end method 
@@ -2091,43 +2087,104 @@ public class MainFrame extends javax.swing.JFrame {
     }//end method     
 
     String getB1() {
-        String s = b1TextField.getText();
+        String s = b1TextField.getText().trim();
+        if (s.isEmpty()) {
+            s = "0.0";
+        }
         double x = Double.parseDouble(s);
         return x + "";
     }//end method 
 
     String getB2() {
-        String s = b2TextField.getText();
+        String s = b2TextField.getText().trim();
+        if (s.isEmpty()) {
+            s = "0.0";
+        }
         double x = Double.parseDouble(s);
         return x + "";
     }//end method  
 
     String getM1() {
-        String s = m1TextField.getText();
+        String s = m1TextField.getText().trim();
+        if (s.isEmpty()) {
+            s = "0.0";
+        }
         double x = Double.parseDouble(s);
         return x + "";
     }//end method     
 
     String getM2() {
-        String s = m2TextField.getText();
+        String s = m2TextField.getText().trim();
+        if (s.isEmpty()) {
+            s = "0.0";
+        }
         double x = Double.parseDouble(s);
         return x + "";
     }//end method 
 
     String getMse1() {
-        String s = mse1TextField.getText();
-        double x = Double.parseDouble(s);
-        return x + "";
+        String s = mse1TextField.getText().trim();
+        if (s.isEmpty()) {
+            s = "0.0000000";
+        }
+        s = String.format("%1$.6f", round(Double.parseDouble(s), 6));
+        //double x = Double.parseDouble(s);
+        return s;
     }//end method 
 
     String getMse2() {
-        String s = mse2TextField.getText();
-        double x = Double.parseDouble(s);
-        return x + "";
+        String s = mse2TextField.getText().trim();
+        if (s.isEmpty()) {
+            s = "0.0000000";
+        }
+        s = String.format("%1$.6f", round(Double.parseDouble(s), 6));
+        //double x = Double.parseDouble(s);
+        return s;
     }//end method  
+
+
+    String getUlPerStep() {
+        String s1 = "";
+        double num1 = Double.parseDouble(ulPerstTextField.getText().trim());
+        s1 = String.format("%1$.4f", num1);
+        return s1;
+    }//end method  
+    
+    
+    String getUlOffset() {
+        String s2 = "";
+        double num2 = Double.parseDouble(ulOffsetTextField.getText().trim());
+        s2 = String.format("%1$.1f", num2);
+        return s2;
+    }//end method    
+    
+    
+    String getSlope() {
+        String s1 = "";
+        double num1 = Double.parseDouble(slopeTextField.getText().trim());
+        s1 = String.format("%1$.1f", num1);
+        return s1;
+    }//end method
+    
+    String getSpeed() {
+        String s2 = "";
+        double num2 = Double.parseDouble(speedTextField.getText().trim());
+        s2 = String.format("%1$.1f", num2);
+        return s2;
+    }//end method
+    
+    String getWait() {
+        String s3 = "";
+        int num3 = Integer.parseInt(waitTextField.getText().trim().trim());
+        s3 = String.format("%1$04d", num3);
+        return s3;
+    }//end method
     
     void setEP(double ep) {
         EP = ep;
+        String s2;
+        s2 = String.format("%1$.2f", EP);
+        EPTextField.setText(s2);
     }//end method
 
     void loadBottleFile(String file) {
@@ -2180,11 +2237,11 @@ public class MainFrame extends javax.swing.JFrame {
         prefs.putInt("cast", Integer.parseInt(castSpinner.getValue().toString()));
         prefs.putInt("niskin", Integer.parseInt(niskinSpinner.getValue().toString()));
         prefs.putDouble("depth", Double.parseDouble(depthTextField.getText()));
-        prefs.putDouble("lattitude", Double.parseDouble(lattitudeTextField.getText()));
-        prefs.putDouble("longitude", Double.parseDouble(longitudeTextField.getText()));
+        prefs.put("lattitude", getLattitude());
+        prefs.put("longitude", getLongitude());
         prefs.putInt("bottle", Integer.parseInt(bottleSpinner.getValue().toString()));
-        prefs.put("sampleDate", sampleDateTextField.getText());
-        prefs.put("runDate", runDateTextField.getText());
+        prefs.put("sampleDate", getSampleDate());
+        prefs.put("runDate", getRunDate());
         prefs.putDouble("thioTemp", Double.parseDouble(thioTempTextField.getText()));
         prefs.putDouble("volKIO3", Double.parseDouble(volKIO3TextField.getText()));
         prefs.putDouble("NKIO3", Double.parseDouble(NKIO3TextField.getText()));
@@ -2271,19 +2328,12 @@ public class MainFrame extends javax.swing.JFrame {
 
         }//end if   
 
-        lattitude = prefs.getDouble("lattitude", -1);
-        if (lattitude == -1) {
-            lattitude = 0.0;
-            prefs.putDouble("lattitude", lattitude);
+        lattitude = prefs.get("lattitude", "lat");
+        prefs.put("lattitude", lattitude);
 
-        }//end if 
+        longitude = prefs.get("longitude", "lon");
 
-        longitude = prefs.getDouble("longitude", -1);
-        if (longitude == -1) {
-            longitude = 0.0;
-            prefs.putDouble("longitude", longitude);
-
-        }//end if 
+        prefs.put("longitude", longitude);
 
         bottle = prefs.getInt("bottle", -1);
         if (bottle == -1) {
@@ -2544,11 +2594,190 @@ double getSWDensity(double T, double S){
         String s1;
         s1 = String.format("%1$.3f", getDrawTempBottleVol());
         DrawTempBottleVolTextField.setText(s1);
-        
-    
+
     }//end method
+
+    void setresetAndSave(boolean r) {
+
+        resetAndSave = r;
+    }//end method
+
+    void saveDataFiles() {
+        String cruise,
+                sta,
+                cast,
+                nsk,
+                depth,
+                lat,
+                lon,
+                sampleDate,
+                runDate,
+                thioDensity,
+                flsk,
+                drawT,
+                sal,
+                ep,
+                volKIO3,
+                nKIO3,
+                stduL,
+                volReg,
+                btlVol,
+                swDensity,
+                uLpers,
+                uLOffset,
+                slope,
+                speed,
+                wait,
+                b1,
+                m1,
+                mse1,
+                b2,
+                m2,
+                mse2,
+                o2uM,
+                o2_umolpkg,
+                thio_m,
+                thio_m20c,
+                blk,
+                thio_t,
+                ABRline,
+                DATline,
+                ABRFileName,
+                DATFileName;
+
+        ABRFileName = getCruise() + "_" + getStationNumber() + ".dat_ABR";
+        ABRFileName = prefs.get("dataPath", "") + File.separator + ABRFileName;
+
+        File fN = new File(ABRFileName);
+
+        //create header
+        if (!fN.exists()) {
+            logText(" Sta\tCast\tNsk\tFlsk#\tDraw_T\tSal\tEp\t02_uM\t02_umol/kg\tThio_M\tBlank\tThio_T\n", ABRFileName);
+        }//end if  
+
+        DATFileName = getCruise() + "_" + getStationNumber() + ".dat";
+        DATFileName = prefs.get("dataPath", "") + File.separator + DATFileName;
+
+        File datfN = new File(DATFileName);
+
+        //create header
+        if (!datfN.exists()) {
+            //logText(" Sta\tCast\tNsk\tFlsk#\tDraw_T\tSal\tEp\t02_uM\t02_umol/kg\tThio_M\tBlank\tThio_T\n", DATFileName);
+        }//end if      
+
+        //ABR file
+        sta = getStationNumber();
+        cast = getCastNumber();
+        nsk = getNiskinNumber();
+        flsk = getBottleNumber();
+        drawT = String.format("%06.3f", getDrawTemp());
+        sal = String.format("%06.3f", getSalinty());
+        ep = String.format("%09.3f", getEPul());
+        o2uM = String.format("%07.3f", getO2uM());
+        o2_umolpkg = String.format("%07.3f", getO2uMPerKg());
+        thio_m = String.format("%07.5f", getThioMolarity());
+        blk = String.format("%06.3f", getBlkul());
+        thio_t = String.format("%05.2f", getThioTemp());
+
+        //DAT file
+        cruise = getCruise();
+        depth = getDepth();
+        lat = getLattitude();
+        lon = getLongitude();
+        sampleDate = getSampleDate();
+        runDate = getRunDate();
+        thioDensity = getThioDensity();
+        thio_m20c = getM_thio_20C();
+        volKIO3 = getVolKIO3();
+        nKIO3 = getNKIO3() + "";
+        stduL = getStdul() + "";
+        volReg = getVolReg() + "";
+        swDensity = getSwDensity();
+        uLpers = getUlPerStep();
+        uLOffset = getUlOffset();
+        slope = getSlope();
+        speed = getSpeed();
+        wait = getWait();
+        b1 = getB1();
+        m1 = getM1();
+        mse1 = getMse1();
+        b2 = getB2();
+        m2 = getM2();
+        mse2 = getMse2();
+
+        ABRline = " " + sta + "\t"
+                + cast + " \t"
+                + nsk + "\t"
+                + flsk + "\t"
+                + drawT + "\t"
+                + sal + "\t"
+                + ep + "\t"
+                + o2uM + "\t"
+                + o2_umolpkg + "\t"
+                + thio_m + "\t"
+                + blk + "\t"
+                + thio_t + " \t";
+
+        logText(ABRline + "\n", ABRFileName);
+
+        DATline = cruise + "\t"
+                + sta + "\t"
+                + cast + "\t"
+                + nsk + "\t"
+                + depth + "\t"
+                + lat + " \t"
+                + lon + " \t"
+                + flsk + "\t"
+                + sampleDate + "\t"
+                + runDate + "\t"
+                + thio_t + "\t"
+                + thioDensity + "\t"
+                + thio_m + "\t"
+                + thio_m20c + "\t"
+                + ep + "\t"
+                + volKIO3 + "\t"
+                + nKIO3 + "\t"
+                + stduL + "\t"
+                + blk + "\t"
+                + volReg + "\t"
+                + o2uM + "\t"
+                + drawT + "\t"
+                + sal + "\t"
+                + swDensity + "\t"
+                + o2_umolpkg + "\t"
+                + uLpers + "\t"
+                + uLOffset + "\t"
+                + slope + "\t"
+                + speed + "\t"
+                + wait + "\t"
+                + b1 + "\t"
+                + m1 + "\t"
+                + mse1 + "\t"
+                + b2 + "\t"
+                + m2 + "\t"
+                + mse2 + "\t";
+
+         logText(DATline + "\n", DATFileName);
+    }//end method
+
     
-    
+    /**
+     * When called strings passed to it are appended to a file
+     *
+     * @param line
+     * @param logFileName
+     */
+    public void logText(String line, String logFileName) {
+        
+        try {
+
+            FileWriter logFile = new FileWriter(logFileName, true);
+            logFile.append(line);
+            logFile.close();
+        } catch (Exception e) {
+
+        }// end catch
+    }// end logText    
     
     double round(double num , double place){
         double k = Math.pow(10.0, place );
@@ -2566,6 +2795,84 @@ double getSWDensity(double T, double S){
          setDrawTempBottleVol();
          setDrawTempBottleVol();
 
+
+    }//end method
+    
+    
+    void setPoints(HashMap<Integer,Points> points){
+
+    
+
+        //caclulate b2 m2 and mse2
+        double[] x = new double[points.size()];
+        double[] y = new double[points.size()];
+
+        ArrayList<Double> x2 = new ArrayList<>();
+        ArrayList<Double> y2 = new ArrayList<>();
+        ArrayList<Double> x1 = new ArrayList<>();
+        ArrayList<Double> y1 = new ArrayList<>();
+
+        int U;
+
+        Iterator pointsIterator = points.entrySet().iterator();
+
+        int i = 0;
+
+        while (pointsIterator.hasNext()) {
+            Map.Entry mapping = (Map.Entry) pointsIterator.next();
+            x[i] = ((Points) mapping.getValue()).getTitrant();
+            y[i] = ((Points) mapping.getValue()).getCurrent();
+            U = ((Points) mapping.getValue()).getU();
+
+            //detect the first batch of points
+            if (U == 1 && y[i] < 5.00) {
+                x1.add(x[i]);
+                y1.add(y[i]);
+
+            }//end if
+
+            //detect last points where U=2
+            if (U >= 2) {
+                x2.add(x[i]);
+                y2.add(y[i]);
+            }//end if
+
+            i++;
+        }//end while
+        
+        
+        
+        
+        double[] titrant1 = new double[x1.size()];
+        double[] current1 = new double[y1.size()];
+        
+        for (int j = 0; j < x1.size(); j++) {
+            titrant1[j] = x1.get(j);
+            current1[j] = y1.get(j);
+        
+        }//end for        
+        
+
+        double[] titrant2 = new double[x2.size()];
+        double[] current2 = new double[y2.size()];
+        
+        for (int j = 0; j < x2.size(); j++) {
+            titrant2[j] = x2.get(j);
+            current2[j] = y2.get(j);
+        
+        }//end for
+        
+     
+        LinearRegression l1 = new LinearRegression(titrant1, current1);
+        b1TextField.setText(String.format("%1$.3f", round(l1.intercept(), 3)));
+        m1TextField.setText(String.format("%1$.6f", round(l1.slope(), 6)));
+        mse1TextField.setText(String.format("%1$.6f", round(l1.getMSE(), 6)));
+
+        LinearRegression l2 = new LinearRegression(titrant2, current2);
+        b2TextField.setText(String.format("%1$.3f", round(l2.intercept(), 3)));
+        m2TextField.setText(String.format("%1$.6f", round(l2.slope(), 6)));
+        mse2TextField.setText(String.format("%1$.6f", round(l2.getMSE(), 6)));
+        //this.rawOutputTextArea.setText(l.toString()+"\n");
 
     }//end method
 }// end class
