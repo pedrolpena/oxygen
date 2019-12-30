@@ -509,6 +509,8 @@ public class MainFrame extends javax.swing.JFrame {
 
         b1TextField.setEditable(false);
         b1TextField.setText("                         ");
+        b1TextField.setMaximumSize(new java.awt.Dimension(85, 28));
+        b1TextField.setMinimumSize(new java.awt.Dimension(85, 28));
         b1TextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 b1TextFieldActionPerformed(evt);
@@ -520,6 +522,10 @@ public class MainFrame extends javax.swing.JFrame {
 
         m1TextField.setEditable(false);
         m1TextField.setText("                       ");
+        m1TextField.setMaximumSize(new java.awt.Dimension(85, 28));
+        m1TextField.setMinimumSize(new java.awt.Dimension(85, 28));
+        m1TextField.setName(""); // NOI18N
+        m1TextField.setPreferredSize(new java.awt.Dimension(85, 28));
         m1TextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 m1TextFieldActionPerformed(evt);
@@ -531,24 +537,35 @@ public class MainFrame extends javax.swing.JFrame {
 
         mse1TextField.setEditable(false);
         mse1TextField.setText("                         ");
+        mse1TextField.setMaximumSize(new java.awt.Dimension(85, 28));
+        mse1TextField.setMinimumSize(new java.awt.Dimension(85, 28));
+        mse1TextField.setName(""); // NOI18N
 
         jLabel45.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
         jLabel45.setText("b2");
 
         b2TextField.setEditable(false);
         b2TextField.setText("                         ");
+        b2TextField.setMaximumSize(new java.awt.Dimension(85, 28));
+        b2TextField.setMinimumSize(new java.awt.Dimension(85, 28));
 
         jLabel46.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
         jLabel46.setText("m2");
 
         m2TextField.setEditable(false);
         m2TextField.setText("                       ");
+        m2TextField.setMaximumSize(new java.awt.Dimension(85, 28));
+        m2TextField.setMinimumSize(new java.awt.Dimension(85, 28));
+        m2TextField.setName(""); // NOI18N
+        m2TextField.setPreferredSize(new java.awt.Dimension(85, 28));
 
         jLabel47.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
         jLabel47.setText("mse2");
 
         mse2TextField.setEditable(false);
         mse2TextField.setText("                         ");
+        mse2TextField.setMaximumSize(new java.awt.Dimension(85, 28));
+        mse2TextField.setMinimumSize(new java.awt.Dimension(85, 28));
         mse2TextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mse2TextFieldActionPerformed(evt);
@@ -633,7 +650,6 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel44)
                                 .addGap(8, 8, 8)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(mse1TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(mse2TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1956,8 +1972,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     String getDepth() {
         String s = depthTextField.getText();
-        double x = Double.parseDouble(s);
-        return x + "";
+        return s;
     }
 
     String getLattitude() {
@@ -1989,8 +2004,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     String getVolKIO3() {
         String s = volKIO3TextField.getText();
-        double x = Double.parseDouble(s);
-        return x + "";
+        return s;
     }//end method   
 
     double getNKIO3() {
@@ -2037,8 +2051,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     String getSwDensity() {
         String s = swDensityTextField.getText();
-        double x = Double.parseDouble(s);
-        return x + "";
+        return s;
     }//end method    
 
     String getThioDensity() {
@@ -2046,8 +2059,7 @@ public class MainFrame extends javax.swing.JFrame {
         if (s.isEmpty()) {
             s = "0.0";
         }
-        double x = Double.parseDouble(s);
-        return x + "";
+        return s;
     }//end method      
 
     String getM_thio_tl() {
@@ -2055,8 +2067,7 @@ public class MainFrame extends javax.swing.JFrame {
         if (s.isEmpty()) {
             s = "0.0";
         }
-        double x = Double.parseDouble(s);
-        return x + "";
+        return s;
     }//end method    
 
     String getM_thio_20C() {
@@ -2498,37 +2509,54 @@ rho=999.842594+0.06793952*T-0.00909529*T*T +
     return rho;
 }
 
-double getSWDensity(double T, double S){
+double computeSWDensity(double T, double S){
     
     return round(.001 * getRHO(S,T),4);
 
 }//end method
 
-    void setSWDensity() {
-        
-        SWDensity = getSWDensity(getDrawTemp(), getSalinty());
-        swDensityTextField.setText(String.format("%1$.4f", SWDensity) + "");
-
+    double computeThioDensity(double temp) {
+        double thioDensity;
+        thioDensity = 0.999842594 + 0.00006793952 * temp
+                - 0.00000909529 * temp * temp
+                + 0.0000001001685 * temp * temp * temp
+                - 0.000000001120083 * temp * temp * temp * temp
+                + 0.000000000006536332 * temp * temp * temp * temp * temp;
+        return thioDensity;
     }//end method
 
-    double getVIO3() {
 
-        double vio3;
-        volKIO3 = Double.parseDouble(this.volKIO3TextField.getText());
-        vio3 = volKIO3 * (1 + .00000975 * (getThioTemp() - 20));
-        return round(vio3,3);
+
+    void setSWDensity() {
+        
+        SWDensity = computeSWDensity(getDrawTemp(), getSalinty());
+        swDensityTextField.setText(String.format("%1$.4f", SWDensity));
 
     }//end method
     
-    double getThioMolarity() {
+    void setThioDensity(){
+    thioDensity = computeThioDensity(getThioTemp());
+    this.thioDensityTextField.setText(String.format("%1$.6f", thioDensity));
+    }
+
+    double computeVIO3(double temp) {
+
+        double vio3;
+        volKIO3 = Double.parseDouble(this.volKIO3TextField.getText());
+        vio3 = volKIO3 * ( 1.0 + (.00000975 * ( temp - 20) ) );
+        return round(vio3,6);
+
+    }//end method
+    
+    double computeThioMolarity(double temp) {
         double thioMolarity = -1;
         double dV = getStdul() - getBlkul();
         
         if (dV != 0) {
-            thioMolarity = (1000 * getVIO3() * getNKIO3() / (dV));
+            thioMolarity =  ( 1000 * computeVIO3(temp) * getNKIO3() ) / (dV) ;
         }//end if
 
-        return round(thioMolarity,5);
+        return round(thioMolarity,6);
     }//end method
 
     double getDrawTempBottleVol(){
@@ -2541,7 +2569,7 @@ double getSWDensity(double T, double S){
         double o2um = -1;
         double dV = getDrawTempBottleVol() - getVolReg();
         if (dV !=0 ){ 
-           o2um = ( 250 * ( ( getEPul() - getBlkul() ) *  getThioMolarity() ) - 76 ) / dV;
+           o2um = ( 250 * ( ( getEPul() - getBlkul() ) *  computeThioMolarity(getThioTemp()) ) - 76 ) / dV;
                 }//end if
         return round(o2um,2);
     }//end method
@@ -2551,7 +2579,7 @@ double getSWDensity(double T, double S){
     double swDen = -1;
     double o2uMperKg = -1;
     
-    swDen = getSWDensity(getDrawTemp(), getSalinty());
+    swDen = computeSWDensity(getDrawTemp(), getSalinty());
     
     if ( swDen !=0 ){
         o2uMperKg = getO2uM() / swDen;
@@ -2576,10 +2604,20 @@ double getSWDensity(double T, double S){
     void setThioMolaritytL(){
     
         String s1;
-        s1 = String.format("%1$.5f", getThioMolarity());
+        s1 = String.format("%1$.6f", computeThioMolarity(getThioTemp()));
         M_thio_tl_TextField.setText(s1);
     
     }//end method
+    
+    
+    void setThioMolaritytL20c(){
+    
+        String s1;
+        s1 = String.format("%1$.6f", computeThioMolarity(20));
+        M_thio_20C_TextField.setText(s1);
+     
+    
+    }//end method    
     
     
     void setBottleVol(double bv){
@@ -2675,7 +2713,7 @@ double getSWDensity(double T, double S){
         ep = String.format("%09.3f", getEPul());
         o2uM = String.format("%07.3f", getO2uM());
         o2_umolpkg = String.format("%07.3f", getO2uMPerKg());
-        thio_m = String.format("%07.5f", getThioMolarity());
+        thio_m = this.getM_thio_tl();
         blk = String.format("%06.3f", getBlkul());
         thio_t = String.format("%05.2f", getThioTemp());
 
@@ -2792,8 +2830,9 @@ double getSWDensity(double T, double S){
          setSWDensity();
          setO2();
          setThioMolaritytL();
+         setThioMolaritytL20c();
          setDrawTempBottleVol();
-         setDrawTempBottleVol();
+         setThioDensity();
 
 
     }//end method

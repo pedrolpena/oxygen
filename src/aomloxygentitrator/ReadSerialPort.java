@@ -106,7 +106,7 @@ public class ReadSerialPort implements Runnable {
                         }//end if
 
                         // detect when the titrator is done sampling
-                        if (someLine.contains("set clock in titrator")) {
+                        if (someLine.contains("set clock in titrator") || someLine.contains("Limit of data points exceeded")) {
                             isSampling = false;
 
                         }//end if 
