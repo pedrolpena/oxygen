@@ -403,7 +403,6 @@ public class MainFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("AOML Oxygen Titratior");
-        setResizable(false);
         setSize(new java.awt.Dimension(1366, 768));
 
         thioTempTextField.addActionListener(new java.awt.event.ActionListener() {
@@ -898,11 +897,9 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(o2umTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
                             .addComponent(o2_umolPerKgTextField, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(rawOutputScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(rawOutputScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {NKIO3TextField, bottleSpinner, castSpinner, depthTextField, lattitudeTextField, longitudeTextField, niskinSpinner, runDateTextField, sampleDateTextField, stationSpinner, stdulTextField, thioTempTextField, volKIO3TextField});
@@ -1010,7 +1007,7 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addComponent(o2_umolPerKgTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel36)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1026,7 +1023,7 @@ public class MainFrame extends javax.swing.JFrame {
             mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mainJPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(plot1JInternalFrame, javax.swing.GroupLayout.DEFAULT_SIZE, 593, Short.MAX_VALUE)
                 .addContainerGap())
@@ -1036,9 +1033,13 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(mainJPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(plot1JInternalFrame, javax.swing.GroupLayout.PREFERRED_SIZE, 639, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 651, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(67, Short.MAX_VALUE))
+                    .addGroup(mainJPanelLayout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(plot1JInternalFrame))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, mainJPanelLayout.createSequentialGroup()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 651, Short.MAX_VALUE)
+                        .addGap(6, 6, 6)))
+                .addGap(61, 61, 61))
         );
 
         jTabbedPane1.addTab("Main", mainJPanel);
@@ -1344,7 +1345,7 @@ public class MainFrame extends javax.swing.JFrame {
             configurationJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(configurationJPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(configurationJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(configurationJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
@@ -1356,12 +1357,14 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(configurationJPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(configurationJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 471, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(configurationJPanelLayout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 483, Short.MAX_VALUE))
                     .addGroup(configurationJPanelLayout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(231, Short.MAX_VALUE))
+                .addGap(231, 231, 231))
         );
 
         jTabbedPane1.addTab("Configuration", configurationJPanel);
@@ -1387,7 +1390,7 @@ public class MainFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTabbedPane1)
                 .addContainerGap())
         );
 
@@ -2338,31 +2341,33 @@ public class MainFrame extends javax.swing.JFrame {
             String line = "";
             String bottleNumber="0";
             String bottleVolume="";
+            String[] row;
 
             rawOutputTextArea.append("Loading Bottle Volumes\n");
             rawOutputTextAreaConfig.append("Loading Bottle Volumes\n");
             while (line != null) {
                 line = br.readLine();
 
-                if (line != null && !line.toLowerCase().contains("flask")) {
-                    
-                     bottleNumber = line.split("\t")[0];
-                     bottleVolume = line.split("\t")[1];
-                     
-                     bottle=Integer.parseInt(bottleNumber);
-                     botVolume=Double.parseDouble(bottleVolume);
-                     
-                     bottleVolumeMap.put(bottle,botVolume );
-                     
-                    
-                    rawOutputTextArea.append(line + "\n");
-                    rawOutputTextAreaConfig.append(line + "\n");
-                    
-                    
-                       
-                    
-                 
-                }
+                if (line != null && !line.toLowerCase().contains("flask") && !line.toLowerCase().contains("bottle")) {
+
+                    row = line.split("\t");
+
+                    if (row.length == 2 && line.matches("[0-9]+(\\t| )+[\\.0-9]+(.)[0-9]")) {
+                        
+                        bottleNumber = row[0];
+                        bottleVolume = row[1];
+
+                        bottle = Integer.parseInt(bottleNumber);
+                        botVolume = Double.parseDouble(bottleVolume);
+
+                        bottleVolumeMap.put(bottle, botVolume);
+
+                        rawOutputTextArea.append(line + "\n");
+                        rawOutputTextAreaConfig.append(line + "\n");
+
+                    }//end if
+
+                }//end if
             }
 
             this.bottleSpinner.setValue(bottle);
