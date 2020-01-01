@@ -131,6 +131,7 @@ public class ReadSerialPort implements Runnable {
                                 double current = Double.parseDouble(line[2].trim());
                                 int U = Integer.parseInt(line[4].trim());
                                 points.put(sampleNumber, new Points(titrant,current,U));
+                                mainFrame.updateRawDataPoints(points);
                             }//end if
                            
 

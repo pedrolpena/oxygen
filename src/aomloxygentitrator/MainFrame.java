@@ -1,25 +1,37 @@
 package aomloxygentitrator;
 
+
 import java.awt.Color;
 import javax.swing.UIManager;
 import gnu.io.CommPortIdentifier;
 import gnu.io.SerialPort;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.util.Enumeration;
 import java.util.prefs.Preferences;
 import javax.swing.JTextArea;
-import aomloxygentitrator.ReadSerialPort;
-import java.awt.Component;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import javax.swing.JFileChooser;
-import javax.swing.JTextField;
+import javax.swing.JPanel;
+import org.knowm.xchart.SwingWrapper;
+import org.knowm.xchart.XChartPanel;
+import org.knowm.xchart.XYChart;
+import org.knowm.xchart.XYChartBuilder;
+import org.knowm.xchart.XYSeries;
+import org.knowm.xchart.XYSeries.XYSeriesRenderStyle;
+import org.knowm.xchart.style.Styler.LegendPosition;
+import org.knowm.xchart.style.markers.SeriesMarkers;
+
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -80,14 +92,30 @@ public class MainFrame extends javax.swing.JFrame {
     double ulOffset;
     double slope;
     double speed;
+    float lineWidth = (float).1;
+    Color transparent;
 
    
     int wait;
-    
+
     HashMap<Integer, Double> bottleVolumeMap;
 
-    
+
+    // raw points x y plot
+    XYChart rawPoints = new XYChartBuilder().width(480).height(310).title("Points").xAxisTitle("Titrant (uL)").yAxisTitle("Detector Current (uA)").build();
+    JPanel rawPointsChartPanel;
+    XYSeries rawPointSeries;
+
+    //linear regression plots
+    XYChart lRegression = new XYChartBuilder().width(480).height(310).title("Linear Regression").xAxisTitle("Titrant (uL)").yAxisTitle("Detector Current (uA)").build();
+    JPanel lRegressionChartPanel;
+    XYSeries lRegressionPointsSeries1;
+    XYSeries lRegressionPointsSeries2;
+
+    XYSeries lRegressionLineSeries1;
+    XYSeries lRegressionLineSeries2;
     /**
+     * 
      * Creates new form MainFrame
      */
     public MainFrame() {
@@ -161,12 +189,76 @@ public class MainFrame extends javax.swing.JFrame {
         blankButton.setEnabled(false);
         sampleButton.setEnabled(false);
         saveButton.setEnabled(false);
-        uLSetButton  .setEnabled(false);      
-        slopeSpeedWaitButton.setEnabled(false);        
-        dateButton.setEnabled(false);       
-                
+        uLSetButton.setEnabled(false);
+        slopeSpeedWaitButton.setEnabled(false);
+        dateButton.setEnabled(false);
+
+        transparent = new Color(1f, 0f, 0f, 0f);
+
+        //plot1JInternalFrame.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        //plot1JInternalFrame.setUI(null);
+
+        //raw points plot
+        rawPoints.getStyler().setChartTitleVisible(false);
+        rawPoints.getStyler().setXAxisTitleVisible(false);
+        rawPoints.getStyler().setMarkerSize(8);
+        rawPoints.getStyler().setDefaultSeriesRenderStyle(XYSeriesRenderStyle.Scatter);
+        rawPoints.getStyler().setLegendVisible(false);
+        rawPointSeries = rawPoints.addSeries("points", new double[]{0}, new double[]{0});
+        rawPointSeries.setMarkerColor(Color.BLUE);
+        rawPointSeries.setMarker(SeriesMarkers.SQUARE);
+        rawPointsChartPanel = new XChartPanel<XYChart>(rawPoints);
+        //plot1JInternalFrame.add(rawPointsChartPanel, BorderLayout.CENTER);
+        plot1JInternalFrame.add(rawPointsChartPanel, BorderLayout.NORTH);
+
+        //linear regression plots
+        lRegression.getStyler().setChartTitleVisible(false);
+        lRegression.getStyler().setMarkerSize(8);
+        lRegression.getStyler().setDefaultSeriesRenderStyle(XYSeriesRenderStyle.Line);
+        lRegression.getStyler().setLegendVisible(false);
+        
+        //series 1
+        lRegressionPointsSeries1 = lRegression.addSeries("Points 1", new double[]{0}, new double[]{0});
+        lRegressionPointsSeries1.setMarkerColor(Color.GREEN);
+        lRegressionPointsSeries1.setLineColor(transparent);
+        lRegressionPointsSeries1.setLineWidth(lineWidth);
+        lRegressionPointsSeries1.setMarker(SeriesMarkers.SQUARE);
+        
+        //series 2
+        lRegressionPointsSeries2 = lRegression.addSeries("Points 2", new double[]{0}, new double[]{0});
+        lRegressionPointsSeries2.setMarkerColor(Color.RED);
+        lRegressionPointsSeries2.setLineColor(transparent);
+        lRegressionPointsSeries2.setLineWidth(lineWidth);
+        lRegressionPointsSeries2.setMarker(SeriesMarkers.SQUARE);  
+        
+        
+        
+        //series 3
+        lRegressionLineSeries1 = lRegression.addSeries("Line 1", new double[]{0}, new double[]{0});
+        lRegressionLineSeries1.setMarkerColor(transparent);
+        lRegressionLineSeries1.setLineColor(Color.GREEN);
+        lRegressionLineSeries1.setMarker(SeriesMarkers.SQUARE);        
+        
+        //series 4
+        lRegressionLineSeries2 = lRegression.addSeries("Line 2", new double[]{0}, new double[]{0});
+        lRegressionLineSeries2.setMarkerColor(transparent);
+        lRegressionLineSeries2.setLineColor(Color.RED);
+        lRegressionLineSeries2.setMarker(SeriesMarkers.SQUARE);  
+        
+        
+        
+  
+        
+        
+        
+        
+        
+        lRegressionChartPanel = new XChartPanel<XYChart>(lRegression);
+        plot1JInternalFrame.add(lRegressionChartPanel, BorderLayout.SOUTH);      
+
+        
         setVisible(true);
-      
+
 
 //        resetAndSaveButton.setBackground(java.awt.Color.YELLOW);
 //        rawOutputTextArea.append("hello\nhello\nhello");
@@ -265,8 +357,7 @@ public class MainFrame extends javax.swing.JFrame {
         blankButton = new javax.swing.JButton();
         saveButton = new javax.swing.JButton();
         sampleButton = new javax.swing.JButton();
-        plot1Panel = new javax.swing.JPanel();
-        plot2Panel = new javax.swing.JPanel();
+        plot1JInternalFrame = new javax.swing.JInternalFrame();
         configurationJPanel = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -312,6 +403,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("AOML Oxygen Titratior");
+        setResizable(false);
         setSize(new java.awt.Dimension(1366, 768));
 
         thioTempTextField.addActionListener(new java.awt.event.ActionListener() {
@@ -505,7 +597,8 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         jLabel41.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
-        jLabel41.setText("b1");
+        jLabel41.setForeground(java.awt.Color.green);
+        jLabel41.setText("B1");
 
         b1TextField.setEditable(false);
         b1TextField.setText("                         ");
@@ -518,7 +611,8 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         jLabel43.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
-        jLabel43.setText("m1");
+        jLabel43.setForeground(java.awt.Color.green);
+        jLabel43.setText("M1");
 
         m1TextField.setEditable(false);
         m1TextField.setText("                       ");
@@ -533,7 +627,8 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         jLabel44.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
-        jLabel44.setText("mse1");
+        jLabel44.setForeground(java.awt.Color.green);
+        jLabel44.setText("MSE1");
 
         mse1TextField.setEditable(false);
         mse1TextField.setText("                         ");
@@ -542,7 +637,8 @@ public class MainFrame extends javax.swing.JFrame {
         mse1TextField.setName(""); // NOI18N
 
         jLabel45.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
-        jLabel45.setText("b2");
+        jLabel45.setForeground(java.awt.Color.red);
+        jLabel45.setText("B2");
 
         b2TextField.setEditable(false);
         b2TextField.setText("                         ");
@@ -550,7 +646,8 @@ public class MainFrame extends javax.swing.JFrame {
         b2TextField.setMinimumSize(new java.awt.Dimension(85, 28));
 
         jLabel46.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
-        jLabel46.setText("m2");
+        jLabel46.setForeground(java.awt.Color.red);
+        jLabel46.setText("M2");
 
         m2TextField.setEditable(false);
         m2TextField.setText("                       ");
@@ -560,7 +657,8 @@ public class MainFrame extends javax.swing.JFrame {
         m2TextField.setPreferredSize(new java.awt.Dimension(85, 28));
 
         jLabel47.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
-        jLabel47.setText("mse2");
+        jLabel47.setForeground(java.awt.Color.red);
+        jLabel47.setText("MSE2");
 
         mse2TextField.setEditable(false);
         mse2TextField.setText("                         ");
@@ -680,6 +778,11 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(openDataFileButton))))
                 .addContainerGap())
         );
+
+        jPanel4Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {b1TextField, m1TextField, mse1TextField});
+
+        jPanel4Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {b2TextField, m2TextField, mse2TextField});
+
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
@@ -913,27 +1016,9 @@ public class MainFrame extends javax.swing.JFrame {
 
         jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {DrawTempBottleVolTextField, EPTextField, M_thio_20C_TextField, M_thio_tl_TextField, NKIO3TextField, blkulTextField, botVolTextField, bottleSpinner, castSpinner, cruiseTextField, depthTextField, drawTempTextField, lattitudeTextField, longitudeTextField, niskinSpinner, o2_umolPerKgTextField, o2umTextField, runDateTextField, salinityTextField, sampleDateTextField, stationSpinner, stdulTextField, swDensityTextField, thioDensityTextField, thioTempTextField, volKIO3TextField, volRegTextField});
 
-        javax.swing.GroupLayout plot1PanelLayout = new javax.swing.GroupLayout(plot1Panel);
-        plot1Panel.setLayout(plot1PanelLayout);
-        plot1PanelLayout.setHorizontalGroup(
-            plot1PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 498, Short.MAX_VALUE)
-        );
-        plot1PanelLayout.setVerticalGroup(
-            plot1PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 333, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout plot2PanelLayout = new javax.swing.GroupLayout(plot2Panel);
-        plot2Panel.setLayout(plot2PanelLayout);
-        plot2PanelLayout.setHorizontalGroup(
-            plot2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        plot2PanelLayout.setVerticalGroup(
-            plot2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 323, Short.MAX_VALUE)
-        );
+        plot1JInternalFrame.setFocusable(false);
+        plot1JInternalFrame.setFrameIcon(null);
+        plot1JInternalFrame.setVisible(true);
 
         javax.swing.GroupLayout mainJPanelLayout = new javax.swing.GroupLayout(mainJPanel);
         mainJPanel.setLayout(mainJPanelLayout);
@@ -943,22 +1028,17 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(plot1Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(plot2Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(plot1JInternalFrame, javax.swing.GroupLayout.DEFAULT_SIZE, 593, Short.MAX_VALUE)
                 .addContainerGap())
         );
         mainJPanelLayout.setVerticalGroup(
             mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mainJPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 651, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(mainJPanelLayout.createSequentialGroup()
-                        .addComponent(plot1Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(plot2Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(plot1JInternalFrame, javax.swing.GroupLayout.PREFERRED_SIZE, 639, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 651, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(67, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Main", mainJPanel);
@@ -1268,7 +1348,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 603, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 698, Short.MAX_VALUE)
                 .addContainerGap())
         );
         configurationJPanelLayout.setVerticalGroup(
@@ -1281,7 +1361,7 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(193, Short.MAX_VALUE))
+                .addContainerGap(231, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Configuration", configurationJPanel);
@@ -1299,15 +1379,16 @@ public class MainFrame extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1381, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap()
+                .addComponent(jTabbedPane1)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -1319,9 +1400,57 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_saveButtonActionPerformed
 
     private void resetAndSaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetAndSaveButtonActionPerformed
-        
+
         rawOutputTextArea.setText("");
         rawOutputTextAreaConfig.setText("");
+
+        rawPointsChartPanel.setVisible(false);
+        //plot2JInternalFrame.setVisible(false);
+        plot1JInternalFrame.setVisible(false);
+        rawPoints.removeSeries("points");
+        rawPointSeries = rawPoints.addSeries("points", new double[]{0}, new double[]{0});
+        rawPointSeries.setMarkerColor(Color.BLUE);
+        rawPointSeries.setMarker(SeriesMarkers.SQUARE);
+        
+        
+        
+        //series 1
+        lRegression.removeSeries("Points 1");
+        lRegressionPointsSeries1 = lRegression.addSeries("Points 1", new double[]{0}, new double[]{0});
+        lRegressionPointsSeries1.setMarkerColor(Color.GREEN);
+        lRegressionPointsSeries1.setLineColor(transparent);
+        lRegressionPointsSeries1.setLineWidth(lineWidth);
+        lRegressionPointsSeries1.setMarker(SeriesMarkers.SQUARE);
+        
+        //series 2
+        lRegression.removeSeries("Points 2");
+        lRegressionPointsSeries2 = lRegression.addSeries("Points 2", new double[]{0}, new double[]{0});
+        lRegressionPointsSeries2.setMarkerColor(Color.RED);
+        lRegressionPointsSeries2.setLineColor(transparent);
+        lRegressionPointsSeries2.setLineWidth(lineWidth);        
+        lRegressionPointsSeries2.setMarker(SeriesMarkers.SQUARE);        
+        
+        
+        //series 3
+        lRegression.removeSeries("Line 1");
+        lRegressionLineSeries1 = lRegression.addSeries("Line 1", new double[]{0}, new double[]{0});
+        lRegressionLineSeries1.setMarkerColor(transparent);
+        lRegressionLineSeries1.setLineColor(Color.GREEN);
+        lRegressionLineSeries1.setMarker(SeriesMarkers.SQUARE);         
+        
+        
+        //series 4
+        lRegression.removeSeries("Line 2");
+        lRegressionLineSeries2 = lRegression.addSeries("Line 2", new double[]{0}, new double[]{0});
+        lRegressionLineSeries2.setMarkerColor(transparent);
+        lRegressionLineSeries2.setLineColor(Color.RED);
+        lRegressionLineSeries2.setMarker(SeriesMarkers.SQUARE);        
+        
+        rawPointsChartPanel.setVisible(true);
+        //plot2JInternalFrame.setVisible(true);        
+        plot1JInternalFrame.setVisible(true);
+
+
         if (port != null) {
 
             try {
@@ -1371,6 +1500,10 @@ public class MainFrame extends javax.swing.JFrame {
             serialPortReader = new Thread(rsp);
             serialPortReader.start();
             loadFields();
+//            rawPoints.removeSeries("points");
+//            rawPoints.addSeries("points", new double[]{0,1,2,3,4}, new double[]{0,1,2,3,4});
+            //rawPointschartPanel.setVisible(true);
+           
 
         }
     }//GEN-LAST:event_serialConnectButtonActionPerformed
@@ -1747,8 +1880,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton openDataFileButton;
     private javax.swing.JButton openVolumeFileButton;
     private javax.swing.JComboBox<String> parityComboBox;
-    private javax.swing.JPanel plot1Panel;
-    private javax.swing.JPanel plot2Panel;
+    private javax.swing.JInternalFrame plot1JInternalFrame;
     private javax.swing.JScrollPane rawOutputScrollPane;
     private javax.swing.JTextArea rawOutputTextArea;
     private javax.swing.JTextArea rawOutputTextAreaConfig;
@@ -2912,6 +3044,138 @@ double computeSWDensity(double T, double S){
         m2TextField.setText(String.format("%1$.6f", round(l2.slope(), 6)));
         mse2TextField.setText(String.format("%1$.6f", round(l2.getMSE(), 6)));
         //this.rawOutputTextArea.setText(l.toString()+"\n");
+        
+        updateLinearRegressionPlot(titrant1,current1,titrant2,current2);
 
     }//end method
+    
+    void updateRawDataPoints(HashMap<Integer, Points> points) {
+        Iterator pointsIterator = points.entrySet().iterator();
+        int pointsSize = points.size();
+        // only plot the latest 10
+        if (pointsSize > 10) {
+
+            for (int i = 0; i < pointsSize - 10; i++) {
+                if (pointsIterator.hasNext()) {
+                    pointsIterator.next();
+                }//end if
+
+            }//end for            
+            pointsSize = 10;
+        }
+
+        double[] titrant = new double[pointsSize];
+        double[] current = new double[pointsSize];
+
+        
+
+        
+        
+        int i = 0;
+
+        while (pointsIterator.hasNext()) {
+            Map.Entry mapping = (Map.Entry) pointsIterator.next();
+            titrant[i] = ((Points) mapping.getValue()).getTitrant();
+            current[i] = ((Points) mapping.getValue()).getCurrent();
+
+            i++;
+        }//end while        
+
+        rawPointsChartPanel.setVisible(false);
+        rawPoints.removeSeries("points");
+        rawPointSeries = rawPoints.addSeries("points", titrant, current);
+        rawPointSeries.setMarkerColor(Color.BLUE);
+        rawPointSeries.setMarker(SeriesMarkers.SQUARE);
+        rawPointsChartPanel.setVisible(true);
+    }//end method
+    
+    
+    
+    
+    
+    
+    void updateLinearRegressionPlot(double[] titrant1,double[] current1,double[] titrant2,double[] current2) {
+
+
+        //plot2JInternalFrame.setVisible(false);
+        plot1JInternalFrame.setVisible(false);
+        //series 1
+        lRegression.removeSeries("Points 1");
+        lRegressionPointsSeries1 = lRegression.addSeries("Points 1", titrant1, current1);
+        lRegressionPointsSeries1.setMarkerColor(Color.GREEN);
+        lRegressionPointsSeries1.setLineColor(transparent);
+        lRegressionPointsSeries1.setLineWidth(lineWidth);
+        lRegressionPointsSeries1.setMarker(SeriesMarkers.SQUARE);
+        
+        //series 2
+        lRegression.removeSeries("Points 2");
+        lRegressionPointsSeries2 = lRegression.addSeries("Points 2", titrant2, current2);
+        lRegressionPointsSeries2.setMarkerColor(Color.RED);
+        lRegressionPointsSeries2.setLineColor(transparent);
+        lRegressionPointsSeries2.setLineWidth(lineWidth);        
+        lRegressionPointsSeries2.setMarker(SeriesMarkers.SQUARE);
+        
+        
+        
+       
+ 
+        double[] x1 = new double[2];
+        double[] y1 = new double[2];
+        double[] x2 = new double[2];
+        double[] y2 = new double[2];
+        double[] m = new double[2];
+        double[] b = new double[2];
+
+        m[0] = Double.parseDouble(getM1());
+        b[0] = Double.parseDouble(getB1());
+        
+        m[1] = Double.parseDouble(getM2());
+        b[1] = Double.parseDouble(getB2());
+        
+
+        //line 1
+        x1[0] = titrant1[ 0 ];
+        x1[1] = titrant2[ titrant2.length - 1 ];
+        
+        y1[0] = m[0] * x1[0] + b[0];
+        y1[1] = m[0] * x1[1] + b[0];        
+        
+        //line 2
+        x2[0] = titrant1[ 0 ];
+        x2[1] = titrant2[ titrant2.length - 1 ];
+        
+        y2[0] = m[1] * x2[0] + b[1];
+        y2[1] = m[1] * x2[1] + b[1];
+        
+        
+        
+        
+        
+        
+        //series 3
+        lRegression.removeSeries("Line 1");
+        lRegressionLineSeries1 = lRegression.addSeries("Line 1", x1, y1);
+        lRegressionLineSeries1.setMarkerColor(transparent);
+        lRegressionLineSeries1.setLineColor(Color.GREEN);
+        lRegressionLineSeries1.setMarker(SeriesMarkers.SQUARE);         
+        
+        
+        //series 4
+        lRegression.removeSeries("Line 2");
+        lRegressionLineSeries2 = lRegression.addSeries("Line 2", x2, y2);
+        lRegressionLineSeries2.setMarkerColor(transparent);
+        lRegressionLineSeries2.setLineColor(Color.RED);
+        lRegressionLineSeries2.setMarker(SeriesMarkers.SQUARE);
+        
+        
+        
+        
+        
+        
+       //plot2JInternalFrame.setVisible(true);
+       plot1JInternalFrame.setVisible(true);
+
+
+    }//end method    
+    
 }// end class
