@@ -408,6 +408,17 @@ public class MainFrame extends javax.swing.JFrame {
         rawOutputTextAreaConfig = new javax.swing.JTextArea();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jSeparator7 = new javax.swing.JPopupMenu.Separator();
+        jSeparator6 = new javax.swing.JPopupMenu.Separator();
+        jSeparator5 = new javax.swing.JPopupMenu.Separator();
+        jSeparator3 = new javax.swing.JPopupMenu.Separator();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -449,7 +460,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        castSpinner.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+        castSpinner.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
         rawOutputTextArea.setEditable(false);
         rawOutputTextArea.setColumns(20);
@@ -1054,7 +1065,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(mainJPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Main", mainJPanel);
@@ -1204,7 +1215,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(dateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9)
                     .addComponent(dateButton))
-                .addContainerGap(96, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {dateTextField, slopeTextField, speedTextField, timeTextField, ulOffsetTextField, ulPerstTextField, waitTextField});
@@ -1371,7 +1382,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(configurationJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane1)
                     .addGroup(configurationJPanelLayout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(160, 160, 160))
@@ -1380,6 +1391,66 @@ public class MainFrame extends javax.swing.JFrame {
         jTabbedPane1.addTab("Configuration", configurationJPanel);
 
         jMenu1.setText("File");
+
+        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem2.setText("Sample");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem2);
+
+        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem3.setText("Fill");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem3);
+
+        jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem4.setText("Blank");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem4);
+
+        jMenuItem5.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem5.setText("Reset & Save");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem5);
+
+        jMenuItem6.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem6.setText("Save");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem6);
+
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem1.setText("Exit");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+        jMenu1.add(jSeparator7);
+        jMenu1.add(jSeparator6);
+        jMenu1.add(jSeparator5);
+        jMenu1.add(jSeparator3);
+        jMenu1.add(jSeparator1);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Edit");
@@ -1408,82 +1479,15 @@ public class MainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
-        this.saveFields();
-        saveDataFiles();
+
+        save();
+
     }//GEN-LAST:event_saveButtonActionPerformed
 
     private void resetAndSaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetAndSaveButtonActionPerformed
 
-        rawOutputTextArea.setText("");
-        rawOutputTextAreaConfig.setText("");
+        resetAndSave();
 
-        rawPointsChartPanel.setVisible(false);
-        //plot2JInternalFrame.setVisible(false);
-        plot1JInternalFrame.setVisible(false);
-        rawPoints.removeSeries("points");
-        rawPointSeries = rawPoints.addSeries("points", new double[]{0}, new double[]{0});
-        rawPointSeries.setMarkerColor(Color.BLUE);
-        rawPointSeries.setMarker(SeriesMarkers.SQUARE);
-        
-        
-        
-        //series 1
-        lRegression.removeSeries("Points 1");
-        lRegressionPointsSeries1 = lRegression.addSeries("Points 1", new double[]{0}, new double[]{0});
-        lRegressionPointsSeries1.setMarkerColor(Color.GREEN);
-        lRegressionPointsSeries1.setLineColor(transparent);
-        lRegressionPointsSeries1.setLineWidth(lineWidth);
-        lRegressionPointsSeries1.setMarker(SeriesMarkers.SQUARE);
-        
-        //series 2
-        lRegression.removeSeries("Points 2");
-        lRegressionPointsSeries2 = lRegression.addSeries("Points 2", new double[]{0}, new double[]{0});
-        lRegressionPointsSeries2.setMarkerColor(Color.RED);
-        lRegressionPointsSeries2.setLineColor(transparent);
-        lRegressionPointsSeries2.setLineWidth(lineWidth);        
-        lRegressionPointsSeries2.setMarker(SeriesMarkers.SQUARE);        
-        
-        
-        //series 3
-        lRegression.removeSeries("Line 1");
-        lRegressionLineSeries1 = lRegression.addSeries("Line 1", new double[]{0}, new double[]{0});
-        lRegressionLineSeries1.setMarkerColor(transparent);
-        lRegressionLineSeries1.setLineColor(Color.GREEN);
-        lRegressionLineSeries1.setMarker(SeriesMarkers.SQUARE);         
-        
-        
-        //series 4
-        lRegression.removeSeries("Line 2");
-        lRegressionLineSeries2 = lRegression.addSeries("Line 2", new double[]{0}, new double[]{0});
-        lRegressionLineSeries2.setMarkerColor(transparent);
-        lRegressionLineSeries2.setLineColor(Color.RED);
-        lRegressionLineSeries2.setMarker(SeriesMarkers.SQUARE);        
-        
-        rawPointsChartPanel.setVisible(true);
-        //plot2JInternalFrame.setVisible(true);        
-        plot1JInternalFrame.setVisible(true);
-
-
-        if (port != null) {
-
-            try {
-                PrintStream os = null;
-
-                os = new PrintStream(port.getOutputStream());
-                os.print("R\r");
-
-                if (os != null) {
-                    os.flush();
-                    os.close();
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }// end catch
-
-            this.saveFields();
-            saveDataFiles();
-        }//end if
     }//GEN-LAST:event_resetAndSaveButtonActionPerformed
 
     private void longitudeTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_longitudeTextFieldActionPerformed
@@ -1626,64 +1630,21 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_dateButtonActionPerformed
 
     private void fillButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fillButtonActionPerformed
-        if (port != null) {
+        
+        fill();
 
-            try {
-                PrintStream os = null;
-
-                os = new PrintStream(port.getOutputStream());
-                os.print("F\r");
-
-                if (os != null) {
-                    os.flush();
-                    os.close();
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }// end catch
-        }//end if
     }//GEN-LAST:event_fillButtonActionPerformed
 
     private void blankButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_blankButtonActionPerformed
-        if (port != null) {
 
-            try {
-                PrintStream os = null;
-
-                os = new PrintStream(port.getOutputStream());
-                os.print("B\r");
-
-                if (os != null) {
-                    os.flush();
-                    os.close();
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }// end catch
-        }//end if
+        blank();
+        
     }//GEN-LAST:event_blankButtonActionPerformed
 
     private void sampleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sampleButtonActionPerformed
-        if (port != null && resetAndSave ) {
-            //saveFields();
 
-            try {
-                PrintStream os = null;
-
-                os = new PrintStream(port.getOutputStream());
-                os.print("S\r");
-
-                if (os != null) {
-                    os.flush();
-                    os.close();
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }// end catch
-        }//end if
+        sample();
+        
     }//GEN-LAST:event_sampleButtonActionPerformed
 
     private void openDataFileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openDataFileButtonActionPerformed
@@ -1789,6 +1750,41 @@ public class MainFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_mse1TextFieldActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        save();
+        System.exit(0);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+
+        sample();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+
+        fill();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+
+        blank();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+
+        resetAndSave();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+
+        save();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1875,13 +1871,24 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JPopupMenu.Separator jSeparator5;
+    private javax.swing.JPopupMenu.Separator jSeparator6;
+    private javax.swing.JPopupMenu.Separator jSeparator7;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField lattitudeTextField;
     private javax.swing.JTextField longitudeTextField;
@@ -3067,7 +3074,7 @@ double computeSWDensity(double T, double S){
         updateLinearRegressionPlot(titrant1,current1,titrant2,current2);
 
     }//end method
-    
+
     void updateRawDataPoints(HashMap<Integer, Points> points) {
         Iterator pointsIterator = points.entrySet().iterator();
         int pointsSize = points.size();
@@ -3086,10 +3093,6 @@ double computeSWDensity(double T, double S){
         double[] titrant = new double[pointsSize];
         double[] current = new double[pointsSize];
 
-        
-
-        
-        
         int i = 0;
 
         while (pointsIterator.hasNext()) {
@@ -3107,14 +3110,8 @@ double computeSWDensity(double T, double S){
         rawPointSeries.setMarker(SeriesMarkers.SQUARE);
         rawPointsChartPanel.setVisible(true);
     }//end method
-    
-    
-    
-    
-    
-    
-    void updateLinearRegressionPlot(double[] titrant1,double[] current1,double[] titrant2,double[] current2) {
 
+    void updateLinearRegressionPlot(double[] titrant1, double[] current1, double[] titrant2, double[] current2) {
 
         //plot2JInternalFrame.setVisible(false);
         plot1JInternalFrame.setVisible(false);
@@ -3125,19 +3122,15 @@ double computeSWDensity(double T, double S){
         lRegressionPointsSeries1.setLineColor(transparent);
         lRegressionPointsSeries1.setLineWidth(lineWidth);
         lRegressionPointsSeries1.setMarker(SeriesMarkers.SQUARE);
-        
+
         //series 2
         lRegression.removeSeries("Points 2");
         lRegressionPointsSeries2 = lRegression.addSeries("Points 2", titrant2, current2);
         lRegressionPointsSeries2.setMarkerColor(Color.RED);
         lRegressionPointsSeries2.setLineColor(transparent);
-        lRegressionPointsSeries2.setLineWidth(lineWidth);        
+        lRegressionPointsSeries2.setLineWidth(lineWidth);
         lRegressionPointsSeries2.setMarker(SeriesMarkers.SQUARE);
-        
-        
-        
-       
- 
+
         double[] x1 = new double[2];
         double[] y1 = new double[2];
         double[] x2 = new double[2];
@@ -3147,54 +3140,177 @@ double computeSWDensity(double T, double S){
 
         m[0] = Double.parseDouble(getM1());
         b[0] = Double.parseDouble(getB1());
-        
+
         m[1] = Double.parseDouble(getM2());
         b[1] = Double.parseDouble(getB2());
-        
 
         //line 1
-        x1[0] = titrant1[ 0 ];
-        x1[1] = titrant2[ titrant2.length - 1 ];
-        
+        x1[0] = titrant1[0];
+        x1[1] = titrant2[titrant2.length - 1];
+
         y1[0] = m[0] * x1[0] + b[0];
-        y1[1] = m[0] * x1[1] + b[0];        
-        
+        y1[1] = m[0] * x1[1] + b[0];
+
         //line 2
-        x2[0] = titrant1[ 0 ];
-        x2[1] = titrant2[ titrant2.length - 1 ];
-        
+        x2[0] = titrant1[0];
+        x2[1] = titrant2[titrant2.length - 1];
+
         y2[0] = m[1] * x2[0] + b[1];
         y2[1] = m[1] * x2[1] + b[1];
-        
-        
-        
-        
-        
-        
+
         //series 3
         lRegression.removeSeries("Line 1");
         lRegressionLineSeries1 = lRegression.addSeries("Line 1", x1, y1);
         lRegressionLineSeries1.setMarkerColor(transparent);
         lRegressionLineSeries1.setLineColor(Color.GREEN);
-        lRegressionLineSeries1.setMarker(SeriesMarkers.SQUARE);         
-        
-        
+        lRegressionLineSeries1.setMarker(SeriesMarkers.SQUARE);
+
         //series 4
         lRegression.removeSeries("Line 2");
         lRegressionLineSeries2 = lRegression.addSeries("Line 2", x2, y2);
         lRegressionLineSeries2.setMarkerColor(transparent);
         lRegressionLineSeries2.setLineColor(Color.RED);
         lRegressionLineSeries2.setMarker(SeriesMarkers.SQUARE);
-        
-        
-        
-        
-        
-        
-       //plot2JInternalFrame.setVisible(true);
-       plot1JInternalFrame.setVisible(true);
 
+        //plot2JInternalFrame.setVisible(true);
+        plot1JInternalFrame.setVisible(true);
 
-    }//end method    
-    
+    }//end method  
+
+    void resetAndSave() {
+        rawOutputTextArea.setText("");
+        rawOutputTextAreaConfig.setText("");
+
+        rawPointsChartPanel.setVisible(false);
+        //plot2JInternalFrame.setVisible(false);
+        plot1JInternalFrame.setVisible(false);
+        rawPoints.removeSeries("points");
+        rawPointSeries = rawPoints.addSeries("points", new double[]{0}, new double[]{0});
+        rawPointSeries.setMarkerColor(Color.BLUE);
+        rawPointSeries.setMarker(SeriesMarkers.SQUARE);
+
+        //series 1
+        lRegression.removeSeries("Points 1");
+        lRegressionPointsSeries1 = lRegression.addSeries("Points 1", new double[]{0}, new double[]{0});
+        lRegressionPointsSeries1.setMarkerColor(Color.GREEN);
+        lRegressionPointsSeries1.setLineColor(transparent);
+        lRegressionPointsSeries1.setLineWidth(lineWidth);
+        lRegressionPointsSeries1.setMarker(SeriesMarkers.SQUARE);
+
+        //series 2
+        lRegression.removeSeries("Points 2");
+        lRegressionPointsSeries2 = lRegression.addSeries("Points 2", new double[]{0}, new double[]{0});
+        lRegressionPointsSeries2.setMarkerColor(Color.RED);
+        lRegressionPointsSeries2.setLineColor(transparent);
+        lRegressionPointsSeries2.setLineWidth(lineWidth);
+        lRegressionPointsSeries2.setMarker(SeriesMarkers.SQUARE);
+
+        //series 3
+        lRegression.removeSeries("Line 1");
+        lRegressionLineSeries1 = lRegression.addSeries("Line 1", new double[]{0}, new double[]{0});
+        lRegressionLineSeries1.setMarkerColor(transparent);
+        lRegressionLineSeries1.setLineColor(Color.GREEN);
+        lRegressionLineSeries1.setMarker(SeriesMarkers.SQUARE);
+
+        //series 4
+        lRegression.removeSeries("Line 2");
+        lRegressionLineSeries2 = lRegression.addSeries("Line 2", new double[]{0}, new double[]{0});
+        lRegressionLineSeries2.setMarkerColor(transparent);
+        lRegressionLineSeries2.setLineColor(Color.RED);
+        lRegressionLineSeries2.setMarker(SeriesMarkers.SQUARE);
+
+        rawPointsChartPanel.setVisible(true);
+        //plot2JInternalFrame.setVisible(true);        
+        plot1JInternalFrame.setVisible(true);
+
+        if (port != null) {
+
+            try {
+                PrintStream os = null;
+
+                os = new PrintStream(port.getOutputStream());
+                os.print("R\r");
+
+                if (os != null) {
+                    os.flush();
+                    os.close();
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }// end catch
+
+            this.saveFields();
+            saveDataFiles();
+        }//end if
+
+    }//end method
+
+    void fill() {
+        if (port != null) {
+
+            try {
+                PrintStream os = null;
+
+                os = new PrintStream(port.getOutputStream());
+                os.print("F\r");
+
+                if (os != null) {
+                    os.flush();
+                    os.close();
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }// end catch
+        }//end if 
+
+    }//end method
+
+    void blank() {
+        if (port != null) {
+
+            try {
+                PrintStream os = null;
+
+                os = new PrintStream(port.getOutputStream());
+                os.print("B\r");
+
+                if (os != null) {
+                    os.flush();
+                    os.close();
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }// end catch
+        }//end if
+    }//end method
+
+    void sample() {
+        if (port != null && resetAndSave) {
+            //saveFields();
+
+            try {
+                PrintStream os = null;
+
+                os = new PrintStream(port.getOutputStream());
+                os.print("S\r");
+
+                if (os != null) {
+                    os.flush();
+                    os.close();
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }// end catch
+        }//end if    
+    }//end method
+
+    void save() {
+        this.saveFields();
+        saveDataFiles();
+    }//endmethod
+
 }// end class
