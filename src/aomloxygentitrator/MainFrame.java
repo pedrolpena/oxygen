@@ -409,16 +409,16 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
         jSeparator7 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jSeparator6 = new javax.swing.JPopupMenu.Separator();
-        jSeparator5 = new javax.swing.JPopupMenu.Separator();
-        jSeparator3 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem4 = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem5 = new javax.swing.JMenuItem();
+        jSeparator3 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem6 = new javax.swing.JMenuItem();
+        jSeparator5 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -427,13 +427,20 @@ public class MainFrame extends javax.swing.JFrame {
 
         runDateTextField.setEditable(false);
         runDateTextField.setText("12/20/19");
+        runDateTextField.setToolTipText("The date the sample was processed.");
 
+        blkulTextField.setToolTipText("The reagent blank in micro-liters");
+
+        thioTempTextField.setToolTipText("The temperature of the ThioSulfate in the lab at time of analysis in C");
         thioTempTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 thioTempTextFieldActionPerformed(evt);
             }
         });
 
+        stdulTextField.setToolTipText("The titrated volume of the standards in micro-liters");
+
+        salinityTextField.setToolTipText("The salinity of the sample");
         salinityTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 salinityTextFieldActionPerformed(evt);
@@ -454,17 +461,22 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel37.setFont(new java.awt.Font("Monospaced", 1, 12)); // NOI18N
         jLabel37.setText("VKIO3");
 
+        drawTempTextField.setToolTipText("The draw temperature in C");
         drawTempTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 drawTempTextFieldActionPerformed(evt);
             }
         });
 
-        castSpinner.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        volKIO3TextField.setToolTipText("The volume of the KIO3 at 20 C in mL");
+
+        castSpinner.setModel(new javax.swing.SpinnerNumberModel(1, 0, null, 1));
+        castSpinner.setToolTipText("The cast number for the station. A station can have multiple casts.");
 
         rawOutputTextArea.setEditable(false);
         rawOutputTextArea.setColumns(20);
         rawOutputTextArea.setRows(5);
+        rawOutputTextArea.setToolTipText("This text area displays the raw data received from the titrator");
         rawOutputTextArea.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         rawOutputScrollPane.setViewportView(rawOutputTextArea);
 
@@ -475,6 +487,7 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel33.setText("Thio.tL");
 
         niskinSpinner.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        niskinSpinner.setToolTipText("The niskin bottle the sample was taken from.");
 
         jLabel16.setFont(new java.awt.Font("Monospaced", 1, 12)); // NOI18N
         jLabel16.setText("Cast");
@@ -482,6 +495,9 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel27.setFont(new java.awt.Font("Monospaced", 1, 12)); // NOI18N
         jLabel27.setText("Sample D");
 
+        NKIO3TextField.setToolTipText("The normailty of the KIO3");
+
+        longitudeTextField.setToolTipText("The stations longitude");
         longitudeTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 longitudeTextFieldActionPerformed(evt);
@@ -495,10 +511,14 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel25.setText("Lat");
 
         botVolTextField.setEditable(false);
+        botVolTextField.setToolTipText("The volume of oxygen flask at 20C");
+
+        volRegTextField.setToolTipText("The volume of reagents added to the sample in mL");
 
         jLabel34.setFont(new java.awt.Font("Monospaced", 1, 12)); // NOI18N
         jLabel34.setText("NKIO3");
 
+        depthTextField.setToolTipText("The sample depth. ");
         depthTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 depthTextFieldActionPerformed(evt);
@@ -506,7 +526,9 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         stationSpinner.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+        stationSpinner.setToolTipText("The station number where the sample was taken.\nThis value is used in to create the filenames.");
 
+        cruiseTextField.setToolTipText("The Cruise designation. The name in this field will be used to create the filenames.");
         cruiseTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cruiseTextFieldActionPerformed(evt);
@@ -517,8 +539,10 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel29.setText("Bottle #");
 
         thioDensityTextField.setEditable(false);
+        thioDensityTextField.setToolTipText("The density of the ThioSulfate");
 
         bottleSpinner.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        bottleSpinner.setToolTipText("The  bottle/flask number of the sample.");
         bottleSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 bottleSpinnerStateChanged(evt);
@@ -526,22 +550,32 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         M_thio_tl_TextField.setEditable(false);
+        M_thio_tl_TextField.setToolTipText("The molarity of the ThioSulfate at the time of analysis in moles per liter ");
 
         jLabel38.setFont(new java.awt.Font("Monospaced", 1, 12)); // NOI18N
         jLabel38.setText("STD");
 
         EPTextField.setEditable(false);
+        EPTextField.setToolTipText("The calculated enpoint in micro-liters");
 
         jLabel18.setFont(new java.awt.Font("Monospaced", 1, 12)); // NOI18N
         jLabel18.setText("Depth");
 
+        lattitudeTextField.setToolTipText("The stations lattitude.");
+
         M_thio_20C_TextField.setEditable(false);
+        M_thio_20C_TextField.setToolTipText("The molarity of the ThioSulfate at 20 C in moles per liter ");
+
+        sampleDateTextField.setToolTipText("The date the sample was taken.");
 
         swDensityTextField.setEditable(false);
+        swDensityTextField.setToolTipText("The density of the sea water");
 
         o2umTextField.setEditable(false);
+        o2umTextField.setToolTipText("The oxygen concentration in volumetric units");
 
         o2_umolPerKgTextField.setEditable(false);
+        o2_umolPerKgTextField.setToolTipText("The oxygen concentration per unit mass of seawater");
         o2_umolPerKgTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 o2_umolPerKgTextFieldActionPerformed(evt);
@@ -591,6 +625,7 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel48.setText("VBot.ts");
 
         DrawTempBottleVolTextField.setEditable(false);
+        DrawTempBottleVolTextField.setToolTipText("The volume of oxygen flask at draw temperature");
 
         jLabel28.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
         jLabel28.setText("Volume File");
@@ -599,8 +634,10 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel39.setText("Data File");
 
         btlVolFileTextField.setEditable(false);
+        btlVolFileTextField.setToolTipText("The file that holds the measured volumes for each flask.");
 
         dataFileTextField.setEditable(false);
+        dataFileTextField.setToolTipText("The directory where the data files will be saved.");
 
         openVolumeFileButton.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
         openVolumeFileButton.setText("OPEN");
@@ -705,6 +742,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         b1TextField.setEditable(false);
         b1TextField.setText("                         ");
+        b1TextField.setToolTipText("The y intercept for the linear regression where the current is \nless than 5 uA  and U = 1 ");
         b1TextField.setMaximumSize(new java.awt.Dimension(85, 28));
         b1TextField.setMinimumSize(new java.awt.Dimension(85, 28));
         b1TextField.setPreferredSize(new java.awt.Dimension(79, 28));
@@ -720,6 +758,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         m1TextField.setEditable(false);
         m1TextField.setText("                       ");
+        m1TextField.setToolTipText("the slope for the linear regression where the current is less than 5 uA \nand U = 1 ");
         m1TextField.setMaximumSize(new java.awt.Dimension(79, 28));
         m1TextField.setMinimumSize(new java.awt.Dimension(79, 28));
         m1TextField.setName(""); // NOI18N
@@ -735,6 +774,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         mse1TextField.setEditable(false);
         mse1TextField.setText("                         ");
+        mse1TextField.setToolTipText("The Mean Squared Error for the linear regression where the current is less than 5 uA \nand U = 1 ");
         mse1TextField.setMaximumSize(new java.awt.Dimension(85, 28));
         mse1TextField.setMinimumSize(new java.awt.Dimension(85, 28));
         mse1TextField.setName(""); // NOI18N
@@ -751,6 +791,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         b2TextField.setEditable(false);
         b2TextField.setText("                         ");
+        b2TextField.setToolTipText("The y intercept for the linear regression where the current is \nless than 5 uA  and U >= 2");
         b2TextField.setMaximumSize(new java.awt.Dimension(85, 28));
         b2TextField.setMinimumSize(new java.awt.Dimension(85, 28));
         b2TextField.setPreferredSize(new java.awt.Dimension(79, 28));
@@ -761,6 +802,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         m2TextField.setEditable(false);
         m2TextField.setText("                       ");
+        m2TextField.setToolTipText("the slope for the linear regression where the current is less than 5 uA \nand U >= 2 ");
         m2TextField.setMaximumSize(new java.awt.Dimension(85, 28));
         m2TextField.setMinimumSize(new java.awt.Dimension(85, 28));
         m2TextField.setName(""); // NOI18N
@@ -771,6 +813,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         mse2TextField.setEditable(false);
         mse2TextField.setText("                         ");
+        mse2TextField.setToolTipText("The Mean Squared Error for the linear regression where the current is less than 5 uA \nand U >=2 ");
         mse2TextField.setMaximumSize(new java.awt.Dimension(85, 28));
         mse2TextField.setMinimumSize(new java.awt.Dimension(85, 28));
         mse2TextField.setPreferredSize(new java.awt.Dimension(79, 28));
@@ -1043,7 +1086,7 @@ public class MainFrame extends javax.swing.JFrame {
         plot1JInternalFrame.setFocusable(false);
         plot1JInternalFrame.setFrameIcon(null);
         plot1JInternalFrame.setVisible(true);
-        plot1JInternalFrame.getContentPane().setLayout(new java.awt.GridLayout());
+        plot1JInternalFrame.getContentPane().setLayout(new java.awt.GridLayout(1, 0));
 
         javax.swing.GroupLayout mainJPanelLayout = new javax.swing.GroupLayout(mainJPanel);
         mainJPanel.setLayout(mainJPanelLayout);
@@ -1400,6 +1443,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jMenuItem2);
+        jMenu1.add(jSeparator7);
 
         jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem3.setText("Fill");
@@ -1409,6 +1453,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jMenuItem3);
+        jMenu1.add(jSeparator6);
 
         jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem4.setText("Blank");
@@ -1418,6 +1463,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jMenuItem4);
+        jMenu1.add(jSeparator1);
 
         jMenuItem5.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem5.setText("Reset & Save");
@@ -1427,6 +1473,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jMenuItem5);
+        jMenu1.add(jSeparator3);
 
         jMenuItem6.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem6.setText("Save");
@@ -1436,6 +1483,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jMenuItem6);
+        jMenu1.add(jSeparator5);
 
         jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem1.setText("Exit");
@@ -1445,11 +1493,6 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jMenuItem1);
-        jMenu1.add(jSeparator7);
-        jMenu1.add(jSeparator6);
-        jMenu1.add(jSeparator5);
-        jMenu1.add(jSeparator3);
-        jMenu1.add(jSeparator1);
 
         jMenuBar1.add(jMenu1);
 
