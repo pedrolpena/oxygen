@@ -7,6 +7,7 @@ import gnu.io.CommPortIdentifier;
 import gnu.io.SerialPort;
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.util.Enumeration;
@@ -65,6 +66,7 @@ public class MainFrame extends javax.swing.JFrame {
     double depth;
     String lattitude;
     String longitude;
+    String bottleFileName;
     int bottle;
     String sampleDate;
     String runDate;
@@ -383,12 +385,12 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         timeTextField = new javax.swing.JTextField();
         dateButton = new javax.swing.JButton();
-        jLabel8 = new javax.swing.JLabel();
-        slopeTextField = new javax.swing.JTextField();
         dateTextField = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
+        slopeTextField = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         serialPortComboBox = new javax.swing.JComboBox<>();
@@ -418,6 +420,10 @@ public class MainFrame extends javax.swing.JFrame {
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
         jMenuItem6 = new javax.swing.JMenuItem();
         jSeparator5 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem7 = new javax.swing.JMenuItem();
+        jSeparator8 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem8 = new javax.swing.JMenuItem();
+        jSeparator9 = new javax.swing.JPopupMenu.Separator();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
@@ -430,6 +436,11 @@ public class MainFrame extends javax.swing.JFrame {
         runDateTextField.setToolTipText("The date the sample was processed.");
 
         blkulTextField.setToolTipText("The reagent blank in micro-liters");
+        blkulTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                blkulTextFieldActionPerformed(evt);
+            }
+        });
 
         thioTempTextField.setToolTipText("The temperature of the ThioSulfate in the lab at time of analysis in C");
         thioTempTextField.addActionListener(new java.awt.event.ActionListener() {
@@ -439,6 +450,11 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         stdulTextField.setToolTipText("The titrated volume of the standards in micro-liters");
+        stdulTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                stdulTextFieldActionPerformed(evt);
+            }
+        });
 
         salinityTextField.setToolTipText("The salinity of the sample");
         salinityTextField.addActionListener(new java.awt.event.ActionListener() {
@@ -469,6 +485,11 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         volKIO3TextField.setToolTipText("The volume of the KIO3 at 20 C in mL");
+        volKIO3TextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                volKIO3TextFieldActionPerformed(evt);
+            }
+        });
 
         castSpinner.setModel(new javax.swing.SpinnerNumberModel(1, 0, null, 1));
         castSpinner.setToolTipText("The cast number for the station. A station can have multiple casts.");
@@ -496,6 +517,11 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel27.setText("Sample D");
 
         NKIO3TextField.setToolTipText("The normailty of the KIO3");
+        NKIO3TextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NKIO3TextFieldActionPerformed(evt);
+            }
+        });
 
         longitudeTextField.setToolTipText("The stations longitude");
         longitudeTextField.addActionListener(new java.awt.event.ActionListener() {
@@ -514,6 +540,11 @@ public class MainFrame extends javax.swing.JFrame {
         botVolTextField.setToolTipText("The volume of oxygen flask at 20C");
 
         volRegTextField.setToolTipText("The volume of reagents added to the sample in mL");
+        volRegTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                volRegTextFieldActionPerformed(evt);
+            }
+        });
 
         jLabel34.setFont(new java.awt.Font("Monospaced", 1, 12)); // NOI18N
         jLabel34.setText("NKIO3");
@@ -1077,7 +1108,7 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(sampleButton)
                             .addComponent(saveButton))))
                 .addGap(18, 18, 18)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {DrawTempBottleVolTextField, EPTextField, M_thio_20C_TextField, M_thio_tl_TextField, NKIO3TextField, blkulTextField, botVolTextField, bottleSpinner, castSpinner, cruiseTextField, depthTextField, drawTempTextField, lattitudeTextField, longitudeTextField, niskinSpinner, o2_umolPerKgTextField, o2umTextField, runDateTextField, salinityTextField, sampleDateTextField, stationSpinner, stdulTextField, swDensityTextField, thioDensityTextField, thioTempTextField, volKIO3TextField, volRegTextField});
@@ -1096,19 +1127,19 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(plot1JInternalFrame, javax.swing.GroupLayout.DEFAULT_SIZE, 634, Short.MAX_VALUE)
+                .addComponent(plot1JInternalFrame, javax.swing.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE)
                 .addContainerGap())
         );
         mainJPanelLayout.setVerticalGroup(
             mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mainJPanelLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(plot1JInternalFrame)
-                .addGap(54, 54, 54))
-            .addGroup(mainJPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(mainJPanelLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(plot1JInternalFrame)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Main", mainJPanel);
@@ -1168,13 +1199,13 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel8.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
-        jLabel8.setText("Slope");
-
         dateTextField.setEditable(false);
 
         jLabel9.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
         jLabel9.setText("Date");
+
+        jLabel8.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
+        jLabel8.setText("Slope");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -1184,37 +1215,39 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel9))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel3)
+                                .addComponent(jLabel9))
+                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(speedTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
-                                    .addComponent(ulPerstTextField))
-                                .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel8)
-                                        .addGap(18, 18, 18)
+                                        .addComponent(ulPerstTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(142, 142, 142)
+                                        .addComponent(jLabel4))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(slopeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(23, 23, 23)
+                                        .addComponent(jLabel5)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(speedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jLabel6))
-                                    .addComponent(jLabel4))
+                                        .addComponent(jLabel6)))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(ulOffsetTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
                                     .addComponent(waitTextField))
-                                .addGap(18, 18, Short.MAX_VALUE))
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(dateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
                                 .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(timeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(26, 26, 26)))
+                                .addGap(20, 20, 20)
+                                .addComponent(timeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(dateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(uLSetButton, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1241,15 +1274,20 @@ public class MainFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(speedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6)
-                    .addComponent(waitTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(slopeSpeedWaitButton)
-                    .addComponent(slopeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8))
-                .addGap(3, 3, 3)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(speedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6)
+                            .addComponent(waitTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(slopeSpeedWaitButton))
+                        .addGap(3, 3, 3))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(slopeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(9, 9, 9)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1415,7 +1453,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 745, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 587, Short.MAX_VALUE)
                 .addContainerGap())
         );
         configurationJPanelLayout.setVerticalGroup(
@@ -1485,6 +1523,26 @@ public class MainFrame extends javax.swing.JFrame {
         jMenu1.add(jMenuItem6);
         jMenu1.add(jSeparator5);
 
+        jMenuItem7.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem7.setText("Open data files location");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem7);
+        jMenu1.add(jSeparator8);
+
+        jMenuItem8.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem8.setText("Open volume file location");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem8);
+        jMenu1.add(jSeparator9);
+
         jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem1.setText("Exit");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -1514,7 +1572,7 @@ public class MainFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 651, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1523,12 +1581,14 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
 
+        calculateAndUpdate();
         save();
 
     }//GEN-LAST:event_saveButtonActionPerformed
 
     private void resetAndSaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetAndSaveButtonActionPerformed
 
+        calculateAndUpdate();
         resetAndSave();
 
     }//GEN-LAST:event_resetAndSaveButtonActionPerformed
@@ -1787,6 +1847,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void thioTempTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_thioTempTextFieldActionPerformed
         // TODO add your handling code here:
+        calculateAndUpdate();
     }//GEN-LAST:event_thioTempTextFieldActionPerformed
 
     private void mse1TextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mse1TextFieldActionPerformed
@@ -1794,8 +1855,8 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_mse1TextFieldActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        save();
-        System.exit(0);
+
+        closeApplication();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
@@ -1827,6 +1888,60 @@ public class MainFrame extends javax.swing.JFrame {
         save();
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void volKIO3TextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volKIO3TextFieldActionPerformed
+        // TODO add your handling code here:
+        calculateAndUpdate();
+    }//GEN-LAST:event_volKIO3TextFieldActionPerformed
+
+    private void NKIO3TextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NKIO3TextFieldActionPerformed
+        // TODO add your handling code here:
+        calculateAndUpdate();
+    }//GEN-LAST:event_NKIO3TextFieldActionPerformed
+
+    private void stdulTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stdulTextFieldActionPerformed
+        // TODO add your handling code here:
+        calculateAndUpdate();
+    }//GEN-LAST:event_stdulTextFieldActionPerformed
+
+    private void blkulTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_blkulTextFieldActionPerformed
+        // TODO add your handling code here
+        calculateAndUpdate();
+    }//GEN-LAST:event_blkulTextFieldActionPerformed
+
+    private void volRegTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volRegTextFieldActionPerformed
+        // TODO add your handling code here:
+        calculateAndUpdate();
+    }//GEN-LAST:event_volRegTextFieldActionPerformed
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        Desktop desktop;
+        try {
+            if (Desktop.isDesktopSupported()) {
+                desktop = Desktop.getDesktop();
+                desktop.open(new File(getDataPath()));
+            }
+        } catch (Exception e) {
+
+        }
+   
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        Desktop desktop;
+        String fName = getBottleFileName();
+        File file = new File(fName);
+        File parent = new File(file.getParent());
+        
+        try {
+            if (Desktop.isDesktopSupported()) {
+                desktop = Desktop.getDesktop();
+                desktop.open(parent);
+            }
+        } catch (Exception e) {
+
+        }
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1920,6 +2035,8 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -1932,6 +2049,8 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator5;
     private javax.swing.JPopupMenu.Separator jSeparator6;
     private javax.swing.JPopupMenu.Separator jSeparator7;
+    private javax.swing.JPopupMenu.Separator jSeparator8;
+    private javax.swing.JPopupMenu.Separator jSeparator9;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField lattitudeTextField;
     private javax.swing.JTextField longitudeTextField;
@@ -2194,7 +2313,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     double getThioTemp() {
         String s = thioTempTextField.getText();
-        double x = Double.parseDouble(s);
+        double x = string2Double(s);
         thioTemp = x;
         return thioTemp ;
     }//end method 
@@ -2208,43 +2327,43 @@ public class MainFrame extends javax.swing.JFrame {
 
     double getNKIO3() {
         String s = NKIO3TextField.getText();
-        NKIO3 = Double.parseDouble(s);
+        NKIO3 = string2Double(s);
         return NKIO3;
     }//end method  
 
     double getStdul() {
         String s = stdulTextField.getText();
-        stduL = Double.parseDouble(s);
+        stduL = string2Double(s);
         return stduL;
     }//end method    
 
     double getBlkul() {
         String s = blkulTextField.getText();
-        blkul = Double.parseDouble(s);
+        blkul = string2Double(s);
         return blkul;
     }//end method
 
     double getVolReg() {
         String s = volRegTextField.getText();
-        double volReg = Double.parseDouble(s);
+        double volReg = string2Double(s);
         return volReg;
     }//end method      
 
     double getDrawTemp() {
         String s = drawTempTextField.getText();
-        drawTemp = Double.parseDouble(s);
+        drawTemp = string2Double(s);
         return drawTemp;
     }//end method      
 
     double getSalinty() {
         String s = salinityTextField.getText();
-        salinity = Double.parseDouble(s);
+        salinity = string2Double(s);
         return salinity;
     }//end method    
 
     double getEPul() {
         String s = EPTextField.getText();
-        EP = Double.parseDouble(s);
+        EP = string2Double(s);
         return EP;
     }//end method  
 
@@ -2274,25 +2393,25 @@ public class MainFrame extends javax.swing.JFrame {
         if (s.isEmpty()) {
             s = "0.0";
         }
-        double x = Double.parseDouble(s);
+        double x = string2Double(s);
         return x + "";
     }//end method 
 
     double getBotVol() {
         String s = botVolTextField.getText();
-        botVolume = Double.parseDouble(s);
+        botVolume = string2Double(s);
         return botVolume;
     }//end method       
 
     String getO2um() {
         String s = o2umTextField.getText();
-        double x = Double.parseDouble(s);
+        double x = string2Double(s);
         return x + "";
     }//end method  
 
     String geto2_umolPerKg() {
         String s = o2_umolPerKgTextField.getText();
-        double x = Double.parseDouble(s);
+        double x = string2Double(s);
         return x + "";
     }//end method     
 
@@ -2301,7 +2420,7 @@ public class MainFrame extends javax.swing.JFrame {
         if (s.isEmpty()) {
             s = "0.0";
         }
-        double x = Double.parseDouble(s);
+        double x = string2Double(s);
         return x + "";
     }//end method 
 
@@ -2310,7 +2429,7 @@ public class MainFrame extends javax.swing.JFrame {
         if (s.isEmpty()) {
             s = "0.0";
         }
-        double x = Double.parseDouble(s);
+        double x = string2Double(s);
         return x + "";
     }//end method  
 
@@ -2319,7 +2438,7 @@ public class MainFrame extends javax.swing.JFrame {
         if (s.isEmpty()) {
             s = "0.0";
         }
-        double x = Double.parseDouble(s);
+        double x = string2Double(s);
         return x + "";
     }//end method     
 
@@ -2328,7 +2447,7 @@ public class MainFrame extends javax.swing.JFrame {
         if (s.isEmpty()) {
             s = "0.0";
         }
-        double x = Double.parseDouble(s);
+        double x = string2Double(s);
         return x + "";
     }//end method 
 
@@ -2337,8 +2456,8 @@ public class MainFrame extends javax.swing.JFrame {
         if (s.isEmpty()) {
             s = "0.0000000";
         }
-        s = String.format("%1$.6f", round(Double.parseDouble(s), 6));
-        //double x = Double.parseDouble(s);
+        s = String.format("%1$.6f", round(string2Double(s), 6));
+        //double x = string2Double(s);
         return s;
     }//end method 
 
@@ -2347,15 +2466,15 @@ public class MainFrame extends javax.swing.JFrame {
         if (s.isEmpty()) {
             s = "0.0000000";
         }
-        s = String.format("%1$.6f", round(Double.parseDouble(s), 6));
-        //double x = Double.parseDouble(s);
+        s = String.format("%1$.6f", round(string2Double(s), 6));
+        //double x = string2Double(s);
         return s;
     }//end method  
 
 
     String getUlPerStep() {
         String s1 = "";
-        double num1 = Double.parseDouble(ulPerstTextField.getText().trim());
+        double num1 = string2Double(ulPerstTextField.getText().trim());
         s1 = String.format("%1$.4f", num1);
         return s1;
     }//end method  
@@ -2363,7 +2482,7 @@ public class MainFrame extends javax.swing.JFrame {
     
     String getUlOffset() {
         String s2 = "";
-        double num2 = Double.parseDouble(ulOffsetTextField.getText().trim());
+        double num2 = string2Double(ulOffsetTextField.getText().trim());
         s2 = String.format("%1$.1f", num2);
         return s2;
     }//end method    
@@ -2371,21 +2490,21 @@ public class MainFrame extends javax.swing.JFrame {
     
     String getSlope() {
         String s1 = "";
-        double num1 = Double.parseDouble(slopeTextField.getText().trim());
+        double num1 = string2Double(slopeTextField.getText().trim());
         s1 = String.format("%1$.1f", num1);
         return s1;
     }//end method
     
     String getSpeed() {
         String s2 = "";
-        double num2 = Double.parseDouble(speedTextField.getText().trim());
+        double num2 = string2Double(speedTextField.getText().trim());
         s2 = String.format("%1$.1f", num2);
         return s2;
     }//end method
     
     String getWait() {
         String s3 = "";
-        int num3 = Integer.parseInt(waitTextField.getText().trim().trim());
+        int num3 = string2Int(waitTextField.getText().trim().trim());
         s3 = String.format("%1$04d", num3);
         return s3;
     }//end method
@@ -2417,12 +2536,12 @@ public class MainFrame extends javax.swing.JFrame {
                     row = line.split("\t");
 
                     if (row.length == 2 && line.matches("[0-9]+(\\t| )+[\\.0-9]+(.)[0-9]")) {
-                        
+
                         bottleNumber = row[0];
                         bottleVolume = row[1];
 
                         bottle = Integer.parseInt(bottleNumber);
-                        botVolume = Double.parseDouble(bottleVolume);
+                        botVolume = string2Double(bottleVolume);
 
                         bottleVolumeMap.put(bottle, botVolume);
 
@@ -2435,40 +2554,43 @@ public class MainFrame extends javax.swing.JFrame {
             }
 
             this.bottleSpinner.setValue(bottle);
-            
+
+            setBottleFileName(file);
+
             br.close();
             //String everything = sb.toString();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }//end method
-    
-    void saveFields() {
-        prefs.put("cruise", cruiseTextField.getText());
-        prefs.putInt("station", Integer.parseInt(stationSpinner.getValue().toString()));
-        prefs.putInt("cast", Integer.parseInt(castSpinner.getValue().toString()));
-        prefs.putInt("niskin", Integer.parseInt(niskinSpinner.getValue().toString()));
-        prefs.putDouble("depth", Double.parseDouble(depthTextField.getText()));
-        prefs.put("lattitude", getLattitude());
-        prefs.put("longitude", getLongitude());
-        prefs.putInt("bottle", Integer.parseInt(bottleSpinner.getValue().toString()));
-        prefs.put("sampleDate", getSampleDate());
-        prefs.put("runDate", getRunDate());
-        prefs.putDouble("thioTemp", Double.parseDouble(thioTempTextField.getText()));
-        prefs.putDouble("volKIO3", Double.parseDouble(volKIO3TextField.getText()));
-        prefs.putDouble("NKIO3", Double.parseDouble(NKIO3TextField.getText()));
-        prefs.putDouble("stduL", Double.parseDouble(stdulTextField.getText()));
-        prefs.putDouble("blkul", Double.parseDouble(blkulTextField.getText()));
-        prefs.putDouble("volReg", Double.parseDouble(volRegTextField.getText()));
-        prefs.putDouble("drawTemp", Double.parseDouble(drawTempTextField.getText()));
-        prefs.putDouble("salinity", Double.parseDouble(salinityTextField.getText()));
 
-        prefs.putDouble("ulPerst", Double.parseDouble(ulPerstTextField.getText()));
-        prefs.putDouble("ulOffset", Double.parseDouble(ulOffsetTextField.getText()));
-        prefs.putDouble("slope", Double.parseDouble(slopeTextField.getText()));
-        prefs.putDouble("speed", Double.parseDouble(speedTextField.getText()));
-        prefs.putInt("wait", Integer.parseInt(waitTextField.getText()));
-        
+    void saveFields() {
+        if (port != null) {
+            prefs.put("cruise", cruiseTextField.getText());
+            prefs.putInt("station", Integer.parseInt(stationSpinner.getValue().toString()));
+            prefs.putInt("cast", Integer.parseInt(castSpinner.getValue().toString()));
+            prefs.putInt("niskin", Integer.parseInt(niskinSpinner.getValue().toString()));
+            prefs.putDouble("depth", string2Double(depthTextField.getText()));
+            prefs.put("lattitude", getLattitude());
+            prefs.put("longitude", getLongitude());
+            prefs.putInt("bottle", Integer.parseInt(bottleSpinner.getValue().toString()));
+            prefs.put("sampleDate", getSampleDate());
+            prefs.put("runDate", getRunDate());
+            prefs.putDouble("thioTemp", string2Double(thioTempTextField.getText()));
+            prefs.putDouble("volKIO3", string2Double(volKIO3TextField.getText()));
+            prefs.putDouble("NKIO3", string2Double(NKIO3TextField.getText()));
+            prefs.putDouble("stduL", string2Double(stdulTextField.getText()));
+            prefs.putDouble("blkul", string2Double(blkulTextField.getText()));
+            prefs.putDouble("volReg", string2Double(volRegTextField.getText()));
+            prefs.putDouble("drawTemp", string2Double(drawTempTextField.getText()));
+            prefs.putDouble("salinity", string2Double(salinityTextField.getText()));
+            prefs.putDouble("EP", string2Double(EPTextField.getText()));
+            prefs.putDouble("ulPerst", string2Double(ulPerstTextField.getText()));
+            prefs.putDouble("ulOffset", string2Double(ulOffsetTextField.getText()));
+            prefs.putDouble("slope", string2Double(slopeTextField.getText()));
+            prefs.putDouble("speed", string2Double(speedTextField.getText()));
+            prefs.putInt("wait", string2Int(waitTextField.getText()));
+        }//end of
 
     }
 
@@ -2561,12 +2683,12 @@ public class MainFrame extends javax.swing.JFrame {
 
         }//end if 
 
-        runDate = prefs.get("runDate", "");
-        if (runDate.equals("")) {
-            runDate = "01/01/1970";
-            prefs.put("runDate", runDate);
-
-        }//end if   
+//        runDate = prefs.get("runDate", "");
+//        if (runDate.equals("")) {
+//            runDate = "01/01/1970";
+//            prefs.put("runDate", runDate);
+//
+//        }//end if   
 
         thioTemp = prefs.getDouble("thioTemp", -1);
         if (thioTemp == -1) {
@@ -2670,9 +2792,9 @@ public class MainFrame extends javax.swing.JFrame {
         this.depthTextField.setText(depth + "");
         this.lattitudeTextField.setText(lattitude + "");
         this.longitudeTextField.setText(longitude + "");
-        //this.bottleSpinner.setValue(bottle);
+        this.bottleSpinner.setValue(bottle);
         this.sampleDateTextField.setText(sampleDate);
-        this.runDateTextField.setText(runDate);
+        //this.runDateTextField.setText(runDate);
         this.thioTempTextField.setText(thioTemp + "");
         this.volKIO3TextField.setText(volKIO3 + "");
         this.NKIO3TextField.setText(NKIO3 + "");
@@ -2743,7 +2865,7 @@ double computeSWDensity(double T, double S){
     double computeVIO3(double temp) {
 
         double vio3;
-        volKIO3 = Double.parseDouble(this.volKIO3TextField.getText());
+        volKIO3 = string2Double(this.volKIO3TextField.getText());
         vio3 = volKIO3 * ( 1.0 + (.00000975 * ( temp - 20) ) );
         return round(vio3,6);
 
@@ -3181,11 +3303,11 @@ double computeSWDensity(double T, double S){
         double[] m = new double[2];
         double[] b = new double[2];
 
-        m[0] = Double.parseDouble(getM1());
-        b[0] = Double.parseDouble(getB1());
+        m[0] = string2Double(getM1());
+        b[0] = string2Double(getB1());
 
-        m[1] = Double.parseDouble(getM2());
-        b[1] = Double.parseDouble(getB2());
+        m[1] = string2Double(getM2());
+        b[1] = string2Double(getB2());
 
         //line 1
         x1[0] = titrant1[0];
@@ -3352,8 +3474,44 @@ double computeSWDensity(double T, double S){
     }//end method
 
     void save() {
-        this.saveFields();
+        
+        saveFields();
         saveDataFiles();
     }//endmethod
+    
+    double string2Double(String s) {
+        double num = -999.999;
+        if (s.matches("^[-+]?[0-9]*\\.?[0-9]+$")) {
+            
+            num = Double.parseDouble(s);
+        }
+        
+        return num;
+    }//end method
+
+    int string2Int(String s) {
+        int num = -999;
+        if (s.matches("^[-+]?[0-9]*\\.?[0-9]+$")) {
+            
+            num = Integer.parseInt(s);
+        }
+        
+        return num;
+    }//end method
+
+void setBottleFileName(String s){
+
+    bottleFileName = s;
+}//end method  
+
+String getBottleFileName(){
+return bottleFileName;
+}//end method
+
+    int closeApplication() {
+        save();
+        System.exit(0);
+        return 0;
+    }//end method
 
 }// end class

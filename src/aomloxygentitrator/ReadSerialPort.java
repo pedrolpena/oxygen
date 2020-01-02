@@ -127,8 +127,8 @@ public class ReadSerialPort implements Runnable {
                                
 
                                 int sampleNumber = Integer.parseInt(line[3].trim());
-                                double titrant = Double.parseDouble(line[1].trim());
-                                double current = Double.parseDouble(line[2].trim());
+                                double titrant = string2Double(line[1].trim());
+                                double current = string2Double(line[2].trim());
                                 int U = Integer.parseInt(line[4].trim());
                                 points.put(sampleNumber, new Points(titrant,current,U));
                                 mainFrame.updateRawDataPoints(points);
@@ -143,7 +143,7 @@ public class ReadSerialPort implements Runnable {
                                 double x;
                                 String[] a = someLine.split(" ");
                                 String num = a[a.length - 1];
-                                x = Double.parseDouble(num);
+                                x = string2Double(num);
                                 mainFrame.setEP(x);
                                 mainFrame.setPoints(points);
                                 mainFrame.calculateAndUpdate();
@@ -245,6 +245,15 @@ public class ReadSerialPort implements Runnable {
         }// end catch
     }// end logText   
 
-    
+ 
+    double string2Double(String s) {
+        double num = -999.999;
+        if (s.matches("^[-+]?[0-9]*\\.?[0-9]+$")) {
+            
+            num = Double.parseDouble(s);
+        }
+        
+        return num;
+    }//end method    
     
 }//end class
