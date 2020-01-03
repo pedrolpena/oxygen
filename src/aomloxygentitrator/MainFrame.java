@@ -10,6 +10,7 @@ import java.awt.Component;
 import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.util.Enumeration;
 import java.util.prefs.Preferences;
 import javax.swing.JTextArea;
@@ -18,6 +19,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -25,6 +27,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import org.knowm.xchart.SwingWrapper;
@@ -130,7 +133,15 @@ public class MainFrame extends javax.swing.JFrame {
         }
         //main(new String[0]);
         initComponents();
+//        URL iconURL = getClass().getResource("/home/pedro/Pictures/o2icon.png");
+        ImageIcon icon = new ImageIcon(getClass().getResource("/aomloxygentitrator/resources/o2icon.png"));
+        this.setIconImage(icon.getImage());
 
+
+
+
+        //this.setIconImage(Toolkit.getDefaultToolkit().getImage("resources/o2icon.png"));
+        
         bottleVolumeMap = new HashMap<>();
         String sp = "/dev/ttyUSB0";
         String spTmp = "";
@@ -194,14 +205,8 @@ public class MainFrame extends javax.swing.JFrame {
         dateButton.setBorderPainted(false);        
         
         serialDisconnectButton.setEnabled(false);
-        resetAndSaveButton.setEnabled(false);
-        fillButton.setEnabled(false);
-        blankButton.setEnabled(false);
-        sampleButton.setEnabled(false);
-        saveButton.setEnabled(false);
-        uLSetButton.setEnabled(false);
-        slopeSpeedWaitButton.setEnabled(false);
-        dateButton.setEnabled(false);
+
+        setFieldsEnabled(false);
 
         transparent = new Color(1f, 0f, 0f, 0f);
 
@@ -218,8 +223,6 @@ public class MainFrame extends javax.swing.JFrame {
         rawPointSeries.setMarkerColor(Color.BLUE);
         rawPointSeries.setMarker(SeriesMarkers.SQUARE);
         rawPointsChartPanel = new XChartPanel<XYChart>(rawPoints);
-        //rawPointsChartPanel.setAlignmentY(Component.CENTER_ALIGNMENT);
-        //plot1JInternalFrame.add(rawPointsChartPanel, BorderLayout.CENTER);
         plot1JInternalFrame.add(rawPointsChartPanel, new GridLayout(0,1,0,0));
 
         //linear regression plots
@@ -426,10 +429,21 @@ public class MainFrame extends javax.swing.JFrame {
         jSeparator9 = new javax.swing.JPopupMenu.Separator();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        jMenuItem9 = new javax.swing.JMenuItem();
+        jMenuItem10 = new javax.swing.JMenuItem();
+        jMenuItem11 = new javax.swing.JMenuItem();
+        jMenuItem12 = new javax.swing.JMenuItem();
+        jMenuItem13 = new javax.swing.JMenuItem();
+        jMenuItem14 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("AOML Oxygen Titratior");
         setSize(new java.awt.Dimension(1366, 768));
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+        });
 
         runDateTextField.setEditable(false);
         runDateTextField.setText("12/20/19");
@@ -1473,7 +1487,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         jMenu1.setText("File");
 
-        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Z, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem2.setText("Sample");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1554,7 +1568,62 @@ public class MainFrame extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Edit");
+        jMenu2.setText("Spinners");
+
+        jMenuItem9.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_CLOSE_BRACKET, 0));
+        jMenuItem9.setText("Increment Flask");
+        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem9ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem9);
+
+        jMenuItem10.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_OPEN_BRACKET, 0));
+        jMenuItem10.setText("Decrement Flask");
+        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem10ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem10);
+
+        jMenuItem11.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_EQUALS, 0));
+        jMenuItem11.setText("Increment Niskin");
+        jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem11ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem11);
+
+        jMenuItem12.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_MINUS, 0));
+        jMenuItem12.setText("Decrement Niskin");
+        jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem12ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem12);
+
+        jMenuItem13.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F12, 0));
+        jMenuItem13.setText("Increment Station");
+        jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem13ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem13);
+
+        jMenuItem14.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F11, 0));
+        jMenuItem14.setText("Decrement Station");
+        jMenuItem14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem14ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem14);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -1604,25 +1673,14 @@ public class MainFrame extends javax.swing.JFrame {
     private void serialConnectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_serialConnectButtonActionPerformed
 
         if (serialPortReader == null) {
+            setFieldsEnabled(true);
             serialConnectButton.setEnabled(false);
             serialDisconnectButton.setEnabled(true);
-
-            resetAndSaveButton.setEnabled(true);
-            fillButton.setEnabled(true);
-            blankButton.setEnabled(true);
-            sampleButton.setEnabled(true);
-            saveButton.setEnabled(true);
-            uLSetButton.setEnabled(true);
-            slopeSpeedWaitButton.setEnabled(true);
-            dateButton.setEnabled(true);
-
             rsp = new ReadSerialPort(this);
             serialPortReader = new Thread(rsp);
             serialPortReader.start();
             loadFields();
-//            rawPoints.removeSeries("points");
-//            rawPoints.addSeries("points", new double[]{0,1,2,3,4}, new double[]{0,1,2,3,4});
-            //rawPointschartPanel.setVisible(true);
+
            
 
         }
@@ -1636,16 +1694,10 @@ public class MainFrame extends javax.swing.JFrame {
             dateTextField.setText("");
             timeTextField.setText("");
             bottleVolumeMap.clear();
+            setFieldsEnabled(false);
             serialConnectButton.setEnabled(true);
             serialDisconnectButton.setEnabled(false);
-            resetAndSaveButton.setEnabled(false);
-            fillButton.setEnabled(false);
-            blankButton.setEnabled(false);
-            sampleButton.setEnabled(false);
-            saveButton.setEnabled(false);
-            uLSetButton.setEnabled(false);
-            slopeSpeedWaitButton.setEnabled(false);
-            dateButton.setEnabled(false);
+
         }//end if
     }//GEN-LAST:event_serialDisconnectButtonActionPerformed
 
@@ -1943,6 +1995,49 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+
+    }//GEN-LAST:event_formKeyPressed
+
+    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+        // TODO add your handling code here:
+        bottleSpinner.setValue((int)bottleSpinner.getValue() +1);
+    }//GEN-LAST:event_jMenuItem9ActionPerformed
+
+    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
+        // TODO add your handling code here:
+        int btl = (int) bottleSpinner.getValue();
+        if (btl > 1) {
+            bottleSpinner.setValue((int) bottleSpinner.getValue() - 1);
+        }
+    }//GEN-LAST:event_jMenuItem10ActionPerformed
+
+    private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
+        // TODO add your handling code here:
+        niskinSpinner.setValue((int)niskinSpinner.getValue() +1);
+    }//GEN-LAST:event_jMenuItem11ActionPerformed
+
+    private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
+        // TODO add your handling code here:
+        int nsk = (int) niskinSpinner.getValue();
+        if (nsk > 1) {
+            niskinSpinner.setValue((int) niskinSpinner.getValue() - 1);
+        }
+    }//GEN-LAST:event_jMenuItem12ActionPerformed
+
+    private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
+        // TODO add your handling code here:
+        stationSpinner.setValue((int)stationSpinner.getValue() +1);
+    }//GEN-LAST:event_jMenuItem13ActionPerformed
+
+    private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
+        // TODO add your handling code here:
+        int sta = (int) stationSpinner.getValue();
+        if (sta > 0) {
+            stationSpinner.setValue((int) stationSpinner.getValue() - 1);
+        }        
+    }//GEN-LAST:event_jMenuItem14ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -2030,6 +2125,11 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem10;
+    private javax.swing.JMenuItem jMenuItem11;
+    private javax.swing.JMenuItem jMenuItem12;
+    private javax.swing.JMenuItem jMenuItem13;
+    private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
@@ -2037,6 +2137,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -2678,7 +2779,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         sampleDate = prefs.get("sampleDate", "");
         if (sampleDate.equals("")) {
-            sampleDate = "01/01/1970";
+            sampleDate = "01/01/70";
             prefs.put("sampleDate", sampleDate);
 
         }//end if 
@@ -3514,4 +3615,73 @@ return bottleFileName;
         return 0;
     }//end method
 
+    
+    void setFieldsEnabled(boolean set) {
+
+        //set fields
+        this.cruiseTextField.setEnabled(set);
+        this.stationSpinner.setEnabled(set);
+        this.castSpinner.setEnabled(set);
+        this.niskinSpinner.setEnabled(set);
+        this.depthTextField.setEnabled(set);
+        this.lattitudeTextField.setEnabled(set);
+        this.longitudeTextField.setEnabled(set);
+        this.bottleSpinner.setEnabled(set);
+        this.sampleDateTextField.setEnabled(set);
+        this.runDateTextField.setEnabled(set);
+        this.thioTempTextField.setEnabled(set);
+        this.volKIO3TextField.setEnabled(set);
+        this.NKIO3TextField.setEnabled(set);
+        this.stdulTextField.setEnabled(set);
+        this.blkulTextField.setEnabled(set);
+        this.volRegTextField.setEnabled(set);
+        this.drawTempTextField.setEnabled(set);
+        this.salinityTextField.setEnabled(set);
+        this.EPTextField.setEnabled(set);
+        this.swDensityTextField.setEnabled(set);
+        this.thioDensityTextField.setEnabled(set);
+        this.M_thio_20C_TextField.setEnabled(set);
+        this.M_thio_tl_TextField.setEnabled(set);
+        this.botVolTextField.setEnabled(set);
+        this.DrawTempBottleVolTextField.setEnabled(set);
+        this.o2umTextField.setEnabled(set);
+        this.o2_umolPerKgTextField.setEnabled(set);
+        this.b1TextField.setEnabled(set);
+        this.b2TextField.setEnabled(set);
+        this.m1TextField.setEnabled(set);
+        this.m2TextField.setEnabled(set);
+        this.mse2TextField.setEnabled(set);
+        this.mse1TextField.setEnabled(set);
+        this.ulPerstTextField.setEnabled(set);
+        this.ulOffsetTextField.setEnabled(set);
+        this.slopeTextField.setEnabled(set);
+        this.speedTextField.setEnabled(set);
+        this.waitTextField.setEnabled(set);
+        this.dateTextField.setEnabled(set);
+        this.timeTextField.setEnabled(set);
+        this.dataFileTextField.setEnabled(set);
+        this.rawOutputTextArea.setEnabled(set);
+        this.rawOutputTextAreaConfig.setEnabled(set);
+        
+        
+
+        //set buttons
+        resetAndSaveButton.setEnabled(set);
+        fillButton.setEnabled(set);
+        blankButton.setEnabled(set);
+        sampleButton.setEnabled(set);
+        saveButton.setEnabled(set);
+        uLSetButton.setEnabled(set);
+        slopeSpeedWaitButton.setEnabled(set);
+        dateButton.setEnabled(set);
+        openDataFileButton.setEnabled(set);
+
+        serialPortComboBox.setEnabled(!set);
+        baudRateComboBox.setEnabled(!set);
+        dataBitsComboBox.setEnabled(!set);
+        parityComboBox.setEnabled(!set);
+        stopBitsComboBox.setEnabled(!set);
+        flowControlComboBox.setEnabled(!set);
+
+    }
 }// end class
