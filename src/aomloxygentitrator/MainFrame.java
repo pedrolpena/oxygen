@@ -3369,12 +3369,14 @@ double computeSWDensity(double T, double S){
             i++;
         }//end while        
 
-        rawPointsChartPanel.setVisible(false);
-        rawPoints.removeSeries("points");
-        rawPointSeries = rawPoints.addSeries("points", titrant, current);
-        rawPointSeries.setMarkerColor(Color.BLUE);
-        rawPointSeries.setMarker(SeriesMarkers.SQUARE);
-        rawPointsChartPanel.setVisible(true);
+        if (pointsSize > 0) {
+            rawPointsChartPanel.setVisible(false);
+            rawPoints.removeSeries("points");
+            rawPointSeries = rawPoints.addSeries("points", titrant, current);
+            rawPointSeries.setMarkerColor(Color.BLUE);
+            rawPointSeries.setMarker(SeriesMarkers.SQUARE);
+            rawPointsChartPanel.setVisible(true);
+        }
     }//end method
 
     void updateLinearRegressionPlot(double[] titrant1, double[] current1, double[] titrant2, double[] current2) {
