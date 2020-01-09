@@ -1,1 +1,0 @@
-typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"aomloxygentitrator","l":"AOMLOxygenTitrator"},{"p":"aomloxygentitrator","l":"LinearRegression"},{"p":"aomloxygentitrator","l":"MainFrame"},{"p":"aomloxygentitrator","l":"Points"},{"p":"aomloxygentitrator","l":"ReadSerialPort"}]

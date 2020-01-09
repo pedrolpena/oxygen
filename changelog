@@ -1,0 +1,5 @@
+aomloxygentitrator (1.0) xenial; urgency=medium
+
+  * moved resources folder into src directory
+
+ -- Pedro Pena <pedro.pena@noaa.gov>  Wed, 8 Jan 2020 22:10:26 +0000

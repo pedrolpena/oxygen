@@ -2699,7 +2699,7 @@ public class MainFrame extends javax.swing.JFrame {
         String defaultPWD = System.getProperty("user.home") + File.separatorChar + "data" + File.separatorChar + "oxygen";
 
         if (OS.indexOf("win") >= 0) {
-            defaultPWD = System.getProperty("user.home") + File.separatorChar + "Documents" + File.separatorChar + "data" + File.separatorChar + "salinometer";
+            defaultPWD = System.getProperty("user.home") + File.separatorChar + "Documents" + File.separatorChar + "data" + File.separatorChar + "oxygen";
         }//end if
 
         try {
