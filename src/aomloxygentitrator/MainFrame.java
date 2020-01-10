@@ -643,7 +643,8 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel19.setText("Sal");
 
         jLabel22.setFont(new java.awt.Font("Monospaced", 1, 12)); // NOI18N
-        jLabel22.setText("EP");
+        jLabel22.setForeground(java.awt.Color.blue);
+        jLabel22.setText("-->EP");
 
         jLabel23.setFont(new java.awt.Font("Monospaced", 1, 12)); // NOI18N
         jLabel23.setText("SW rho");
@@ -923,15 +924,15 @@ public class MainFrame extends javax.swing.JFrame {
                                     .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel19, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel22, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel23, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel26, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel42, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel32, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel30, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel48, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel35, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel36, javax.swing.GroupLayout.Alignment.TRAILING))
+                                    .addComponent(jLabel36, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel23, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel22, javax.swing.GroupLayout.Alignment.TRAILING))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(blkulTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1804,8 +1805,15 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void openDataFileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openDataFileButtonActionPerformed
 
-        JFileChooser saveFolder = new JFileChooser();
+        File file = null;
+        String fName = this.getDataPath();
+        if (fName != null) {
+            file = new File(fName);
+        }
+
+        JFileChooser saveFolder = new JFileChooser(file);
         saveFolder.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        saveFolder.setPreferredSize(new Dimension(650, 600));
         int returnVal = saveFolder.showOpenDialog(null);
 
         if (returnVal == JFileChooser.APPROVE_OPTION) {
@@ -1822,8 +1830,15 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void openVolumeFileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openVolumeFileButtonActionPerformed
 
+        File parent = null;
+        String fName = getBottleFileName();
+        if (fName != null) {
+            File file = new File(fName);
+            parent = new File(file.getParent());
+        }
 
-        JFileChooser saveFolder = new JFileChooser();
+        JFileChooser saveFolder = new JFileChooser(parent);
+        saveFolder.setPreferredSize(new Dimension(650, 600));
         int returnVal = saveFolder.showOpenDialog(null);
 
         if (returnVal == JFileChooser.APPROVE_OPTION) {
