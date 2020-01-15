@@ -101,7 +101,7 @@ public class ReadSerialPort implements Runnable {
                         if (someLine.equals("Sample/Std")) {
                             isSampling = true;
                             points.clear();
-                            mainFrame.setresetAndSave(false);
+                            mainFrame.setresetAndSave(true);
 
                         }//end if
 
