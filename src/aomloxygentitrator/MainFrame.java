@@ -3011,7 +3011,7 @@ double computeSWDensity(double T, double S){
         if (dV !=0 ){ 
            o2um = ( 250 * ( ( getEPul() - getBlkul() ) *  computeThioMolarity(getThioTemp()) ) - 76 ) / dV;
                 }//end if
-        return round(o2um,2);
+        return round(o2um,3);
     }//end method
     
     double getO2uMPerKg(){
@@ -3024,7 +3024,7 @@ double computeSWDensity(double T, double S){
     if ( swDen !=0 ){
         o2uMperKg = getO2uM() / swDen;
     }//end if
-    return round(o2uMperKg,2);
+    return round(o2uMperKg,3);
     }//end method
     
     void setO2(){
@@ -3032,8 +3032,8 @@ double computeSWDensity(double T, double S){
         String s2;
         
         
-        s1 = String.format("%1$.2f", getO2uM());
-        s2 = String.format("%1$.2f", getO2uMPerKg());
+        s1 = String.format("%1$.3f", getO2uM());
+        s2 = String.format("%1$.3f", getO2uMPerKg());
         
        o2umTextField.setText(s1);
        o2_umolPerKgTextField.setText(s2);
