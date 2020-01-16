@@ -644,7 +644,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabel22.setFont(new java.awt.Font("Monospaced", 1, 12)); // NOI18N
         jLabel22.setForeground(java.awt.Color.blue);
-        jLabel22.setText("-->EP");
+        jLabel22.setText("*EP*");
 
         jLabel23.setFont(new java.awt.Font("Monospaced", 1, 12)); // NOI18N
         jLabel23.setText("SW rho");
@@ -662,7 +662,8 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel36.setText("O2.uM.kg");
 
         jLabel35.setFont(new java.awt.Font("Monospaced", 1, 12)); // NOI18N
-        jLabel35.setText("O2.uM.l");
+        jLabel35.setForeground(java.awt.Color.blue);
+        jLabel35.setText("*O2.uM.l*");
 
         jLabel42.setFont(new java.awt.Font("Monospaced", 1, 12)); // NOI18N
         jLabel42.setText("M.Thio.tL");
