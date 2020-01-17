@@ -1,6 +1,6 @@
 # Oxygen titration program
 
-Windows release
+**Download Windows release with the link below**
 
 https://github.com/pedrolpena/oxygen/releases/latest
 
@@ -9,6 +9,65 @@ Make sure the user is in the dialout group.
 
 to compile you need ant and a jdk or
 make and a jdk
+
+
+
+------------------------------------------------
+**QUICK COMPILE AND INSTALL UNDER UBUNTU 18.04**
+------------------------------------------------
+Open a terminal and copy and paste the steps below to download, compile and install the O2 program.
+If openjdk-11-jdk isnt available, try openjdk-8-jdk instead.
+
+There is a test bottle volumes file included in the folder. you'll need this for testing.
+
+```BASH
+sudo apt-get install openjdk-11-jdk librxtx-java git make
+git clone https://github.com/pedrolpena/oxygen.git
+cd oxygen
+make clean
+make
+sudo make install
+sudo usermod -a -G dialout $USER
+```
+
+The O2 should  now be installed and it should be able to run. 
+You need to be in the dialout group to be able to access serial ports. The
+last line takes care of this.
+
+Now you have to log out and log back into your session. You can check to see
+if the dialout group was added by opening a terminal and typing groups.
+groups displays the groups you're a member of. If you don't see the dialout group,
+then reboot and try again.
+
+```bash
+groups
+```
+You can start the program from the menu icon now. If it doesn't start, open a terminal and type
+
+```bash
+java -jar /usr/lib/aomloxygentitrator/AOMLOxygenTitrator.jar 
+```
+
+You'll probably see the error
+
+-----------------------------------------------------------------------------
+**java.lang.NullPointerException thrown while loading gnu.io.RXTXCommDriver**
+-----------------------------------------------------------------------------
+
+On newer versions of java sometimes an exception is thrown and no serial ports are listed.
+```
+java.lang.NullPointerException thrown while loading gnu.io.RXTXCommDriver
+```
+
+You can start the program with 
+
+```bash
+java -Djava.ext.dirs -jar /usr/lib/aomloxygentitrator/AOMLOxygenTitrator.jar
+
+
+```
+Once it's installed you'll have to go to the configuration tab choose and connect a serial port for the fields to become active 
+
 
 -------------------------------
 **INSTALLING RXTX UNDER LINUX**
@@ -110,5 +169,5 @@ java.lang.NullPointerException thrown while loading gnu.io.RXTXCommDriver
 You can start the program with 
 
 ```
-java -Djava.ext.dirs -jar IESTelemetry.jar
+java -Djava.ext.dirs -jar AOMLOxygenTitrator.jar
 ```
