@@ -348,13 +348,6 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel42 = new javax.swing.JLabel();
         jLabel48 = new javax.swing.JLabel();
         DrawTempBottleVolTextField = new javax.swing.JTextField();
-        jPanel4 = new javax.swing.JPanel();
-        jLabel28 = new javax.swing.JLabel();
-        jLabel39 = new javax.swing.JLabel();
-        btlVolFileTextField = new javax.swing.JTextField();
-        dataFileTextField = new javax.swing.JTextField();
-        openVolumeFileButton = new javax.swing.JButton();
-        openDataFileButton = new javax.swing.JButton();
         resetAndSaveButton = new javax.swing.JButton();
         fillButton = new javax.swing.JButton();
         blankButton = new javax.swing.JButton();
@@ -373,6 +366,12 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel47 = new javax.swing.JLabel();
         mse2TextField = new javax.swing.JTextField();
         plot1JInternalFrame = new javax.swing.JInternalFrame();
+        openDataFileButton = new javax.swing.JButton();
+        dataFileTextField = new javax.swing.JTextField();
+        jLabel39 = new javax.swing.JLabel();
+        btlVolFileTextField = new javax.swing.JTextField();
+        openVolumeFileButton = new javax.swing.JButton();
+        jLabel28 = new javax.swing.JLabel();
         configurationJPanel = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -428,6 +427,7 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuItem8 = new javax.swing.JMenuItem();
         jSeparator9 = new javax.swing.JPopupMenu.Separator();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
@@ -674,68 +674,6 @@ public class MainFrame extends javax.swing.JFrame {
         DrawTempBottleVolTextField.setEditable(false);
         DrawTempBottleVolTextField.setToolTipText("The volume of oxygen flask at draw temperature");
 
-        jLabel28.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
-        jLabel28.setText("Volume File");
-
-        jLabel39.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
-        jLabel39.setText("Data File");
-
-        btlVolFileTextField.setEditable(false);
-        btlVolFileTextField.setToolTipText("The file that holds the measured volumes for each flask.");
-
-        dataFileTextField.setEditable(false);
-        dataFileTextField.setToolTipText("The directory where the data files will be saved.");
-
-        openVolumeFileButton.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
-        openVolumeFileButton.setText("OPEN");
-        openVolumeFileButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                openVolumeFileButtonActionPerformed(evt);
-            }
-        });
-
-        openDataFileButton.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
-        openDataFileButton.setText("OPEN");
-        openDataFileButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                openDataFileButtonActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel39)
-                    .addComponent(jLabel28))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btlVolFileTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE)
-                    .addComponent(dataFileTextField))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(openVolumeFileButton, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(openDataFileButton, javax.swing.GroupLayout.Alignment.TRAILING)))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btlVolFileTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel28)
-                    .addComponent(openVolumeFileButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(openDataFileButton)
-                    .addComponent(dataFileTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel39))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
         resetAndSaveButton.setBackground(java.awt.Color.yellow);
         resetAndSaveButton.setFont(new java.awt.Font("Monospaced", 0, 16)); // NOI18N
         resetAndSaveButton.setForeground(java.awt.Color.black);
@@ -875,121 +813,112 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel31)
+                        .addComponent(jLabel27))
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel24)
+                        .addComponent(jLabel29)
+                        .addComponent(jLabel25)
+                        .addComponent(jLabel18))
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel37)
+                            .addComponent(jLabel33)
+                            .addComponent(jLabel34)
+                            .addComponent(jLabel38))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel16)
+                            .addComponent(jLabel20)
+                            .addComponent(jLabel2))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel31)
-                                .addComponent(jLabel27))
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel24)
-                                .addComponent(jLabel29)
-                                .addComponent(jLabel25)
-                                .addComponent(jLabel18))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabel37)
-                                        .addComponent(jLabel33)
-                                        .addComponent(jLabel34)
-                                        .addComponent(jLabel38))
-                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabel16)
-                                        .addComponent(jLabel20)
-                                        .addComponent(jLabel2))
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))))
-                        .addGap(12, 12, 12)
+                            .addComponent(stationSpinner)
+                            .addComponent(castSpinner)
+                            .addComponent(niskinSpinner)
+                            .addComponent(depthTextField)
+                            .addComponent(lattitudeTextField)
+                            .addComponent(longitudeTextField)
+                            .addComponent(bottleSpinner)
+                            .addComponent(sampleDateTextField)
+                            .addComponent(runDateTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
+                            .addComponent(thioTempTextField)
+                            .addComponent(volKIO3TextField)
+                            .addComponent(NKIO3TextField)
+                            .addComponent(stdulTextField))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(stdulTextField)
-                                    .addComponent(NKIO3TextField)
-                                    .addComponent(volKIO3TextField)
-                                    .addComponent(thioTempTextField)
-                                    .addComponent(runDateTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
-                                    .addComponent(sampleDateTextField)
-                                    .addComponent(bottleSpinner)
-                                    .addComponent(longitudeTextField)
-                                    .addComponent(lattitudeTextField)
-                                    .addComponent(depthTextField)
-                                    .addComponent(niskinSpinner)
-                                    .addComponent(castSpinner)
-                                    .addComponent(stationSpinner))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel19, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel26, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel42, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel32, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel30, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel48, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel35, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel36, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel23, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel22, javax.swing.GroupLayout.Alignment.TRAILING))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(blkulTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(volRegTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(drawTempTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(salinityTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(EPTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(swDensityTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(thioDensityTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(M_thio_tl_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(M_thio_20C_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(botVolTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(DrawTempBottleVolTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(o2umTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(o2_umolPerKgTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(cruiseTextField))
+                            .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel19, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel26, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel42, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel32, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel30, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel48, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel35, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel36, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel23, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel22, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(jLabel45)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(b2TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(jLabel41)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(b1TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel46)
-                                    .addComponent(jLabel43))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(m1TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(m2TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel44)
-                                    .addComponent(jLabel47, javax.swing.GroupLayout.Alignment.TRAILING))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(mse1TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(mse2TextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(rawOutputScrollPane)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(sampleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(saveButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addComponent(resetAndSaveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(fillButton, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(blankButton, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(blkulTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(volRegTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(drawTempTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(salinityTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(EPTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(swDensityTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(thioDensityTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(M_thio_tl_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(M_thio_20C_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(botVolTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(DrawTempBottleVolTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(o2umTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(o2_umolPerKgTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(cruiseTextField))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(rawOutputScrollPane)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(resetAndSaveButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(fillButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(blankButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(sampleButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(saveButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel41)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(b1TextField, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel43)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(m1TextField, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel44)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(mse1TextField, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel45)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(b2TextField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel46)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(m2TextField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel47)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(mse2TextField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(28, 28, 28))
         );
 
         jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {NKIO3TextField, bottleSpinner, castSpinner, depthTextField, lattitudeTextField, longitudeTextField, niskinSpinner, runDateTextField, sampleDateTextField, stationSpinner, stdulTextField, thioTempTextField, volKIO3TextField});
@@ -1000,7 +929,7 @@ public class MainFrame extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
@@ -1123,11 +1052,12 @@ public class MainFrame extends javax.swing.JFrame {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(sampleButton)
                             .addComponent(saveButton))))
-                .addGap(18, 18, 18)
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {DrawTempBottleVolTextField, EPTextField, M_thio_20C_TextField, M_thio_tl_TextField, NKIO3TextField, blkulTextField, botVolTextField, bottleSpinner, castSpinner, cruiseTextField, depthTextField, drawTempTextField, lattitudeTextField, longitudeTextField, niskinSpinner, o2_umolPerKgTextField, o2umTextField, runDateTextField, salinityTextField, sampleDateTextField, stationSpinner, stdulTextField, swDensityTextField, thioDensityTextField, thioTempTextField, volKIO3TextField, volRegTextField});
+
+        jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {b1TextField, b2TextField, m1TextField, m2TextField, mse1TextField, mse2TextField});
 
         plot1JInternalFrame.setResizable(true);
         plot1JInternalFrame.setFocusable(false);
@@ -1135,28 +1065,87 @@ public class MainFrame extends javax.swing.JFrame {
         plot1JInternalFrame.setVisible(true);
         plot1JInternalFrame.getContentPane().setLayout(new java.awt.GridLayout(1, 0));
 
+        openDataFileButton.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
+        openDataFileButton.setText("OPEN");
+        openDataFileButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                openDataFileButtonActionPerformed(evt);
+            }
+        });
+
+        dataFileTextField.setEditable(false);
+        dataFileTextField.setToolTipText("The directory where the data files will be saved.");
+
+        jLabel39.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
+        jLabel39.setText("Data File");
+
+        btlVolFileTextField.setEditable(false);
+        btlVolFileTextField.setToolTipText("The file that holds the measured volumes for each flask.");
+
+        openVolumeFileButton.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
+        openVolumeFileButton.setText("OPEN");
+        openVolumeFileButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                openVolumeFileButtonActionPerformed(evt);
+            }
+        });
+
+        jLabel28.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
+        jLabel28.setText("Volume File");
+
         javax.swing.GroupLayout mainJPanelLayout = new javax.swing.GroupLayout(mainJPanel);
         mainJPanel.setLayout(mainJPanelLayout);
         mainJPanelLayout.setHorizontalGroup(
             mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mainJPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(plot1JInternalFrame, javax.swing.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE)
+                .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(mainJPanelLayout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel39)
+                            .addComponent(jLabel28))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btlVolFileTextField)
+                            .addComponent(dataFileTextField))
+                        .addGap(18, 18, 18)
+                        .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(openVolumeFileButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(openDataFileButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(mainJPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(10, 10, 10)
+                .addComponent(plot1JInternalFrame, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
                 .addContainerGap())
         );
+
+        mainJPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {openDataFileButton, openVolumeFileButton});
+
         mainJPanelLayout.setVerticalGroup(
             mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mainJPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(mainJPanelLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(plot1JInternalFrame)
+                .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(mainJPanelLayout.createSequentialGroup()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(openVolumeFileButton)
+                            .addComponent(btlVolFileTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel28))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(openDataFileButton)
+                            .addComponent(dataFileTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel39)))
+                    .addComponent(plot1JInternalFrame))
                 .addContainerGap())
         );
+
+        mainJPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {openDataFileButton, openVolumeFileButton});
+
+        mainJPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btlVolFileTextField, dataFileTextField});
 
         jTabbedPane1.addTab("Main", mainJPanel);
 
@@ -1231,51 +1220,55 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel5)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel3)
-                                .addComponent(jLabel9))
-                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(ulPerstTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(142, 142, 142)
-                                        .addComponent(jLabel4))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(slopeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(23, 23, 23)
-                                        .addComponent(jLabel5)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(speedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jLabel6)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(slopeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(47, 47, 47)
+                                .addComponent(jLabel6)
                                 .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(ulOffsetTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
-                                    .addComponent(waitTextField))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(dateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
-                                .addComponent(jLabel7)
-                                .addGap(20, 20, 20)
-                                .addComponent(timeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
+                                .addComponent(waitTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(slopeSpeedWaitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(speedTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(ulPerstTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(ulOffsetTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(uLSetButton, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jSeparator2)
+                        .addGap(29, 29, 29))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(dateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(uLSetButton, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(slopeSpeedWaitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jSeparator4, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(29, 29, 29))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(25, 25, 25)
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(dateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(51, 51, 51)
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(timeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(dateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jSeparator4, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addContainerGap())))
         );
 
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {dateTextField, timeTextField});
-
         jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {dateButton, slopeSpeedWaitButton, uLSetButton});
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {dateTextField, slopeTextField, speedTextField, timeTextField, ulOffsetTextField, ulPerstTextField, waitTextField});
 
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1289,30 +1282,32 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(speedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6)
-                            .addComponent(waitTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(slopeSpeedWaitButton))
-                        .addGap(3, 3, 3))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(slopeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                            .addComponent(jLabel8)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(waitTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(slopeSpeedWaitButton))))
+                .addGap(3, 3, 3)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(speedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(9, 9, 9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(timeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
                     .addComponent(dateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9)
                     .addComponent(dateButton))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addGap(17, 17, 17))
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {dateTextField, slopeTextField, speedTextField, timeTextField, ulOffsetTextField, ulPerstTextField, waitTextField});
@@ -1420,8 +1415,8 @@ public class MainFrame extends javax.swing.JFrame {
 
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(14, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
                     .addComponent(serialPortComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1449,7 +1444,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(serialConnectButton)
                     .addComponent(serialDisconnectButton))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {baudRateComboBox, dataBitsComboBox, flowControlComboBox, parityComboBox, serialPortComboBox, stopBitsComboBox});
@@ -1465,24 +1460,26 @@ public class MainFrame extends javax.swing.JFrame {
             configurationJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(configurationJPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(configurationJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(configurationJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 587, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 743, Short.MAX_VALUE)
                 .addContainerGap())
         );
         configurationJPanelLayout.setVerticalGroup(
             configurationJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, configurationJPanelLayout.createSequentialGroup()
+            .addGroup(configurationJPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(configurationJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1)
+                .addGroup(configurationJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(configurationJPanelLayout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(160, 160, 160))
+                        .addComponent(jScrollPane1)
+                        .addContainerGap())
+                    .addGroup(configurationJPanelLayout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(64, 64, 64))))
         );
 
         jTabbedPane1.addTab("Configuration", configurationJPanel);
@@ -1568,6 +1565,16 @@ public class MainFrame extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem1);
 
+        jCheckBoxMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_H, java.awt.event.InputEvent.CTRL_MASK));
+        jCheckBoxMenuItem1.setSelected(true);
+        jCheckBoxMenuItem1.setText("Toggle Hide/Show");
+        jCheckBoxMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jCheckBoxMenuItem1);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Spinners");
@@ -1643,34 +1650,12 @@ public class MainFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 684, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 641, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
-
-        calculateAndUpdate();
-        save();
-
-    }//GEN-LAST:event_saveButtonActionPerformed
-
-    private void resetAndSaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetAndSaveButtonActionPerformed
-
-        calculateAndUpdate();
-        resetAndSave();
-
-    }//GEN-LAST:event_resetAndSaveButtonActionPerformed
-
-    private void longitudeTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_longitudeTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_longitudeTextFieldActionPerformed
-
-    private void depthTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_depthTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_depthTextFieldActionPerformed
 
     private void serialConnectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_serialConnectButtonActionPerformed
 
@@ -1702,10 +1687,6 @@ public class MainFrame extends javax.swing.JFrame {
 
         }//end if
     }//GEN-LAST:event_serialDisconnectButtonActionPerformed
-
-    private void cruiseTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cruiseTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cruiseTextFieldActionPerformed
 
     private void serialPortComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_serialPortComboBoxActionPerformed
 
@@ -1786,104 +1767,6 @@ public class MainFrame extends javax.swing.JFrame {
         }//end if
     }//GEN-LAST:event_dateButtonActionPerformed
 
-    private void fillButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fillButtonActionPerformed
-        
-        fill();
-
-    }//GEN-LAST:event_fillButtonActionPerformed
-
-    private void blankButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_blankButtonActionPerformed
-
-        blank();
-        
-    }//GEN-LAST:event_blankButtonActionPerformed
-
-    private void sampleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sampleButtonActionPerformed
-
-        sample();
-        
-    }//GEN-LAST:event_sampleButtonActionPerformed
-
-    private void openDataFileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openDataFileButtonActionPerformed
-
-        File file = null;
-        String fName = this.getDataPath();
-        if (fName != null) {
-            file = new File(fName);
-        }
-
-        JFileChooser saveFolder = new JFileChooser(file);
-        saveFolder.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        saveFolder.setPreferredSize(new Dimension(650, 600));
-        int returnVal = saveFolder.showOpenDialog(null);
-
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-            String dir = saveFolder.getSelectedFile().getAbsolutePath();
-            prefs.put("dataPath", dir);
-            this.dataFileTextField.setText(dir);
-
-        }//end if
-    }//GEN-LAST:event_openDataFileButtonActionPerformed
-
-    private void b1TextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b1TextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_b1TextFieldActionPerformed
-
-    private void openVolumeFileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openVolumeFileButtonActionPerformed
-
-        File parent = null;
-        String fName = getBottleFileName();
-        if (fName != null) {
-            File file = new File(fName);
-            parent = new File(file.getParent());
-        }
-
-        JFileChooser saveFolder = new JFileChooser(parent);
-        saveFolder.setPreferredSize(new Dimension(650, 600));
-        int returnVal = saveFolder.showOpenDialog(null);
-
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-            String btlVolFileName = saveFolder.getSelectedFile().getAbsolutePath();
-            prefs.put("btlVol", btlVolFileName);
-            this.btlVolFileTextField.setText(btlVolFileName);
-           
-            this.loadBottleFile(btlVolFileName);
-
-        }//end if
-
-
-
-        // TODO add your handling code here:
-    }//GEN-LAST:event_openVolumeFileButtonActionPerformed
-
-    private void bottleSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_bottleSpinnerStateChanged
-
-        bottle = Integer.parseInt(bottleSpinner.getValue().toString());
-//        
-        if (bottleVolumeMap.containsKey(bottle)) {
-            botVolume = bottleVolumeMap.get(bottle);
-
-        } else {
-            botVolume = 0;
-        }
-//        botVolTextField.setText(botVolume + "");
-        setBottleVol(botVolume);
-        if (filesLoaded) {
-//            setDrawTempBottleVol();
-//            setO2();
-            calculateAndUpdate();
-            
-
-        }//end if
-
-
-    }//GEN-LAST:event_bottleSpinnerStateChanged
-
-    private void salinityTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salinityTextFieldActionPerformed
-        calculateAndUpdate();
-
-    }//GEN-LAST:event_salinityTextFieldActionPerformed
-
     private void ulOffsetTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ulOffsetTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ulOffsetTextFieldActionPerformed
@@ -1891,36 +1774,6 @@ public class MainFrame extends javax.swing.JFrame {
     private void ulPerstTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ulPerstTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ulPerstTextFieldActionPerformed
-
-    private void drawTempTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drawTempTextFieldActionPerformed
-        calculateAndUpdate();
-    }//GEN-LAST:event_drawTempTextFieldActionPerformed
-
-    private void salinityTextFieldPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_salinityTextFieldPropertyChange
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_salinityTextFieldPropertyChange
-
-    private void m1TextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m1TextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_m1TextFieldActionPerformed
-
-    private void o2_umolPerKgTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_o2_umolPerKgTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_o2_umolPerKgTextFieldActionPerformed
-
-    private void mse2TextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mse2TextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_mse2TextFieldActionPerformed
-
-    private void thioTempTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_thioTempTextFieldActionPerformed
-        // TODO add your handling code here:
-        calculateAndUpdate();
-    }//GEN-LAST:event_thioTempTextFieldActionPerformed
-
-    private void mse1TextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mse1TextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_mse1TextFieldActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
 
@@ -1956,31 +1809,6 @@ public class MainFrame extends javax.swing.JFrame {
         save();
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem6ActionPerformed
-
-    private void volKIO3TextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volKIO3TextFieldActionPerformed
-        // TODO add your handling code here:
-        calculateAndUpdate();
-    }//GEN-LAST:event_volKIO3TextFieldActionPerformed
-
-    private void NKIO3TextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NKIO3TextFieldActionPerformed
-        // TODO add your handling code here:
-        calculateAndUpdate();
-    }//GEN-LAST:event_NKIO3TextFieldActionPerformed
-
-    private void stdulTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stdulTextFieldActionPerformed
-        // TODO add your handling code here:
-        calculateAndUpdate();
-    }//GEN-LAST:event_stdulTextFieldActionPerformed
-
-    private void blkulTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_blkulTextFieldActionPerformed
-        // TODO add your handling code here
-        calculateAndUpdate();
-    }//GEN-LAST:event_blkulTextFieldActionPerformed
-
-    private void volRegTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volRegTextFieldActionPerformed
-        // TODO add your handling code here:
-        calculateAndUpdate();
-    }//GEN-LAST:event_volRegTextFieldActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
         Desktop desktop;
@@ -2054,6 +1882,180 @@ public class MainFrame extends javax.swing.JFrame {
         }        
     }//GEN-LAST:event_jMenuItem14ActionPerformed
 
+    private void jCheckBoxMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItem1ActionPerformed
+
+        
+        showComponents(!rawOutputScrollPane.isVisible());
+        
+    }//GEN-LAST:event_jCheckBoxMenuItem1ActionPerformed
+
+    private void mse2TextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mse2TextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mse2TextFieldActionPerformed
+
+    private void mse1TextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mse1TextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mse1TextFieldActionPerformed
+
+    private void m1TextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m1TextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_m1TextFieldActionPerformed
+
+    private void b1TextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b1TextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_b1TextFieldActionPerformed
+
+    private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
+
+        calculateAndUpdate();
+        save();
+    }//GEN-LAST:event_saveButtonActionPerformed
+
+    private void sampleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sampleButtonActionPerformed
+
+        sample();
+    }//GEN-LAST:event_sampleButtonActionPerformed
+
+    private void blankButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_blankButtonActionPerformed
+
+        blank();
+    }//GEN-LAST:event_blankButtonActionPerformed
+
+    private void fillButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fillButtonActionPerformed
+
+        fill();
+    }//GEN-LAST:event_fillButtonActionPerformed
+
+    private void resetAndSaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetAndSaveButtonActionPerformed
+
+        calculateAndUpdate();
+        resetAndSave();
+    }//GEN-LAST:event_resetAndSaveButtonActionPerformed
+
+    private void o2_umolPerKgTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_o2_umolPerKgTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_o2_umolPerKgTextFieldActionPerformed
+
+    private void bottleSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_bottleSpinnerStateChanged
+
+        bottle = Integer.parseInt(bottleSpinner.getValue().toString());
+        //
+        if (bottleVolumeMap.containsKey(bottle)) {
+            botVolume = bottleVolumeMap.get(bottle);
+
+        } else {
+            botVolume = 0;
+        }
+        //        botVolTextField.setText(botVolume + "");
+        setBottleVol(botVolume);
+        if (filesLoaded) {
+            //            setDrawTempBottleVol();
+            //            setO2();
+            calculateAndUpdate();
+
+        }//end if
+    }//GEN-LAST:event_bottleSpinnerStateChanged
+
+    private void cruiseTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cruiseTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cruiseTextFieldActionPerformed
+
+    private void depthTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_depthTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_depthTextFieldActionPerformed
+
+    private void volRegTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volRegTextFieldActionPerformed
+        // TODO add your handling code here:
+        calculateAndUpdate();
+    }//GEN-LAST:event_volRegTextFieldActionPerformed
+
+    private void longitudeTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_longitudeTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_longitudeTextFieldActionPerformed
+
+    private void NKIO3TextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NKIO3TextFieldActionPerformed
+        // TODO add your handling code here:
+        calculateAndUpdate();
+    }//GEN-LAST:event_NKIO3TextFieldActionPerformed
+
+    private void volKIO3TextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volKIO3TextFieldActionPerformed
+        // TODO add your handling code here:
+        calculateAndUpdate();
+    }//GEN-LAST:event_volKIO3TextFieldActionPerformed
+
+    private void drawTempTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drawTempTextFieldActionPerformed
+        calculateAndUpdate();
+    }//GEN-LAST:event_drawTempTextFieldActionPerformed
+
+    private void salinityTextFieldPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_salinityTextFieldPropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_salinityTextFieldPropertyChange
+
+    private void salinityTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salinityTextFieldActionPerformed
+        calculateAndUpdate();
+    }//GEN-LAST:event_salinityTextFieldActionPerformed
+
+    private void stdulTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stdulTextFieldActionPerformed
+        // TODO add your handling code here:
+        calculateAndUpdate();
+    }//GEN-LAST:event_stdulTextFieldActionPerformed
+
+    private void thioTempTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_thioTempTextFieldActionPerformed
+        // TODO add your handling code here:
+        calculateAndUpdate();
+    }//GEN-LAST:event_thioTempTextFieldActionPerformed
+
+    private void blkulTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_blkulTextFieldActionPerformed
+        // TODO add your handling code here
+        calculateAndUpdate();
+    }//GEN-LAST:event_blkulTextFieldActionPerformed
+
+    private void openDataFileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openDataFileButtonActionPerformed
+
+        File file = null;
+        String fName = this.getDataPath();
+        if (fName != null) {
+            file = new File(fName);
+        }
+
+        JFileChooser saveFolder = new JFileChooser(file);
+        saveFolder.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        saveFolder.setPreferredSize(new Dimension(650, 600));
+        int returnVal = saveFolder.showOpenDialog(null);
+
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            String dir = saveFolder.getSelectedFile().getAbsolutePath();
+            prefs.put("dataPath", dir);
+            this.dataFileTextField.setText(dir);
+
+        }//end if
+    }//GEN-LAST:event_openDataFileButtonActionPerformed
+
+    private void openVolumeFileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openVolumeFileButtonActionPerformed
+
+        File parent = null;
+        String fName = getBottleFileName();
+        if (fName != null) {
+            File file = new File(fName);
+            parent = new File(file.getParent());
+        }
+
+        JFileChooser saveFolder = new JFileChooser(parent);
+        saveFolder.setPreferredSize(new Dimension(650, 600));
+        int returnVal = saveFolder.showOpenDialog(null);
+
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            String btlVolFileName = saveFolder.getSelectedFile().getAbsolutePath();
+            prefs.put("btlVol", btlVolFileName);
+            this.btlVolFileTextField.setText(btlVolFileName);
+
+            this.loadBottleFile(btlVolFileName);
+
+        }//end if
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_openVolumeFileButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -2089,6 +2091,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTextField drawTempTextField;
     private javax.swing.JButton fillButton;
     private javax.swing.JComboBox<String> flowControlComboBox;
+    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -2157,7 +2160,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
@@ -3702,4 +3704,68 @@ return bottleFileName;
         flowControlComboBox.setEnabled(!set);
 
     }
+    
+    void showComponents(boolean show)
+    {
+    
+        this.saveButton.setVisible(show);
+        this.resetAndSaveButton.setVisible(show);
+        this.blankButton.setVisible(show);
+        this.fillButton.setVisible(show);
+        this.sampleButton.setVisible(show);
+        this.b1TextField.setVisible(show);
+        this.b2TextField.setVisible(show);
+        this.m1TextField.setVisible(show);
+        this.m2TextField.setVisible(show);
+        this.mse1TextField.setVisible(show);
+        this.mse2TextField.setVisible(show);
+        this.rawOutputScrollPane.setVisible(show);
+        this.rawOutputTextArea.setVisible(show);
+        this.btlVolFileTextField.setVisible(show);
+        this.dataFileTextField.setVisible(show);
+        this.openDataFileButton.setVisible(show);
+        this.openVolumeFileButton.setVisible(show);
+        jLabel41.setVisible(show);
+        jLabel45.setVisible(show);
+        jLabel43.setVisible(show);
+        jLabel46.setVisible(show);
+        jLabel44.setVisible(show);
+        jLabel47.setVisible(show);
+        jLabel28.setVisible(show);
+        jLabel39.setVisible(show);
+        
+        
+        Dimension d = rawOutputScrollPane.getSize();
+        Dimension x = this.getSize();
+        int h = d.height;
+        int w = d.width;
+        
+        int h1 = x.height;
+        int w1 = x.width;
+         int H =0;
+         int W = 0;
+        
+        if (show){
+        
+            W = w + w1;
+            
+        }//end if
+        else
+        {
+            W = w1 - w;
+
+        }
+
+        Dimension d1 = new Dimension(W, h1);
+        this.setSize(d1);
+
+        if (show) {
+            this.pack();
+        }
+
+        
+        
+        
+        
+    }//end method
 }// end class
