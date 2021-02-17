@@ -3184,6 +3184,8 @@ double computeSWDensity(double T, double S){
         b2 = getB2();
         m2 = getM2();
         mse2 = getMse2();
+        botVolume = getBotVol();
+        
 
         ABRline = " " + sta + "\t"
                 + cast + " \t"
@@ -3220,6 +3222,7 @@ double computeSWDensity(double T, double S){
                 + stduL + "\t"
                 + blk + "\t"
                 + volReg + "\t"
+                + botVolume + "\t"
                 + o2uM + "\t"
                 + drawT + "\t"
                 + sal + "\t"
