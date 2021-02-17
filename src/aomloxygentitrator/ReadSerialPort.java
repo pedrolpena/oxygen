@@ -98,7 +98,7 @@ public class ReadSerialPort implements Runnable {
                         logText(someLine + "\n", mainFrame.getCruise() + "_" + mainFrame.getStationNumber() + ".dat_ABR_TRT");
 
                         // detect if the titrator is sampling
-                        if (someLine.equals("Sample/Std")) {
+                        if (someLine.equals("Sample/Std") || someLine.equals("Blank")) {
                             isSampling = true;
                             points.clear();
                             mainFrame.setresetAndSave(true);
