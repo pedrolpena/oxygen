@@ -3,7 +3,7 @@
 JC             = javac
 JRT            = java
 JAR            = jar
-JCFLAGS        = -source 1.8 -target 1.8 -d ./
+JCFLAGS        = -d ./
 ###############Paths####################################################
 DESTDIR        =
 DESTDIR_B4     = $(DESTDIR)/..
@@ -18,7 +18,7 @@ PREFIXI        = $(PREFIX)
 STARTDIRI      = $(STARTDIR)
 ICONDIRI       = $(ICONDIR)
 ##############Program specific info.####################################
-CP             = .:./dist/lib/RXTXcomm.jar:./dist/lib/xchart-3.6.1-SNAPSHOT.jar
+CP             = .:./dist/lib/rxtx-api-2.2-stabilize-SNAPSHOT.jar:./dist/lib/rxtxSerial-2.2-stabilize-SNAPSHOT.jar:./dist/lib/xchart-3.6.1-SNAPSHOT.jar
 JPACKAGE       = aomloxygentitrator
 MAIN           = AOMLOxygenTitrator
 SOURCEDIR      = src/$(JPACKAGE)
@@ -57,9 +57,9 @@ MAKEDEB        = 0
 
 
 
-all: copyres build archive dist desktop
+all: copyres buildit archive dist desktop
 
-build:
+buildit:
 	$(JC) $(JCFLAGS) -cp $(CP) $(JDP) $(SOURCEFILES)
 
 copyres:
