@@ -18,7 +18,7 @@ PREFIXI        = $(PREFIX)
 STARTDIRI      = $(STARTDIR)
 ICONDIRI       = $(ICONDIR)
 ##############Program specific info.####################################
-CP             = .:./dist/lib/rxtx-api-2.2-stabilize-SNAPSHOT.jar:./dist/lib/rxtxSerial-2.2-stabilize-SNAPSHOT.jar:./dist/lib/xchart-3.6.1-SNAPSHOT.jar
+CP             = .:./dist/lib/nrjavaserial.jar:./dist/lib/xchart.jar
 JPACKAGE       = aomloxygentitrator
 MAIN           = AOMLOxygenTitrator
 SOURCEDIR      = src/$(JPACKAGE)
@@ -43,7 +43,7 @@ MAINTAINER     = "Pedro Pena"
 EMAIL          = "pedro.pena@noaa.gov"
 STDVER         = "3.9.7"
 BUILDDEPENDS   = "gzip (>=1.5), debhelper (>=9), default-jre | \
-java8-runtime , librxtx-java (>= 2.2pre2-3)"
+java8-runtime"
 
 # Package section
 DESCRIPTION    = "Process oxygen samples with oxygen titrator\n A platform independent \
@@ -51,7 +51,7 @@ program to process oxygen samples with the Automated Amperometric Oxygen Titrato
 ARCH           = "all"
 HOMEPAGE       = "https://github.com/pedrolpena/oxygen"
 DEPENDS        = "\$${misc:Depends}, jarwrapper, default-jre | \
-java8-runtime , librxtx-java (>= 2.2pre2-3)"
+java8-runtime"
 ##############MISC######################################################
 MAKEDEB        = 0
 
@@ -101,7 +101,7 @@ install:
 	cp -R dist/* $(PREFIX)/$(JPACKAGE)
 	chmod +x $(PREFIX)/$(JPACKAGE)/$(FILENAME)
 	echo "#!/bin/bash" > $(STARTDIR)/$(JPACKAGE)
-	echo "java -jar $(PREFIX)/$(JPACKAGE)/$(FILENAME)" >> $(STARTDIR)/$(JPACKAGE)
+	echo "java -cp $(PREFIX)/$(JPACKAGE):$(PREFIX)/$(JPACKAGE)/lib/xchart.jar:$(PREFIX)/$(JPACKAGE)/lib/nrjavaserial.jar:$(PREFIX)/$(JPACKAGE)/$(FILENAME) $(JPACKAGE).$(MAIN)" >> $(STARTDIR)/$(JPACKAGE)
 	chmod +x $(STARTDIR)/$(JPACKAGE)
 	cp icon.png $(ICONDIR)
 	cp copyright $(ICONDIR)
@@ -116,7 +116,6 @@ ifeq ($(MAKEDEB),1)
 	echo "set -e" >> $(DESTDIR)/DEBIAN/postinst
 	
 	echo 'LIBPATH="/usr/lib/jni"' >> $(DESTDIR)/DEBIAN/postinst
-	echo 'LIB="librxtxSerial.so"' >> $(DESTDIR)/DEBIAN/postinst
 	
 	echo 'if ! [ -f "/lib/$$LIB"  ] && [ "$$LIBPATH"/"$$LIB" ]; then' >> $(DESTDIR)/DEBIAN/postinst
 	echo '    ln -s "$$LIBPATH"/"$$LIB" /lib/$$LIB'>> $(DESTDIR)/DEBIAN/postinst
@@ -125,8 +124,6 @@ ifeq ($(MAKEDEB),1)
 	chmod +x $(DESTDIR)/DEBIAN/postinst
 else
 
-	if [ -f "/usr/lib/jni/librxtxSerial.so" ] && [ ! -f "/lib/librxtxSerial.so" ];then \
-	ln -s /usr/lib/jni/librxtxSerial.so /lib/librxtxSerial.so;fi
 	usermod -a -G dialout $(SUDO_USER)
 	
 endif

@@ -4,7 +4,7 @@ package aomloxygentitrator;
 import java.awt.Color;
 import javax.swing.UIManager;
 import gnu.io.CommPortIdentifier;
-import gnu.io.DriverManager;
+//import gnu.io.DriverManager;
 import gnu.io.SerialPort;
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -153,7 +153,7 @@ public class MainFrame extends javax.swing.JFrame {
         serialPortName = prefs.get("serialPortName", sp);
 
         CommPortIdentifier pid;
-        DriverManager.getInstance().loadDrivers();
+//        DriverManager.getInstance().loadDrivers();
         Enumeration portIdentifiers = CommPortIdentifier.getPortIdentifiers();
         while (portIdentifiers.hasMoreElements()) {
             //Thread.sleep(100);
