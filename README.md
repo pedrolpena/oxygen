@@ -4,11 +4,10 @@
 
 **Windows Release:** [Download the latest release for Windows here](https://github.com/pedrolpena/oxygen/releases/latest)
 
-## Quick Compile and Install Guide for Ubuntu 18.04
-
+## Quick Compile and Install Guide for Debian Bookworm
 ### Prerequisites
 
-Ensure `openjdk-11-jdk` is available on your system. If not, you may use `openjdk-8-jdk` as an alternative.
+Ensure `openjdk-17-jdk` is available on your system.
 
 ### Installation Steps
 
@@ -17,7 +16,7 @@ Ensure `openjdk-11-jdk` is available on your system. If not, you may use `openjd
    Open a terminal and execute the following commands to install the necessary packages:
 
    ```
-   sudo apt-get install openjdk-11-jdk librxtx-java git make
+   sudo apt-get install openjdk-17-jdk git make
    ```
 
 2. **Clone Repository and Compile**
@@ -53,52 +52,6 @@ Ensure `openjdk-11-jdk` is available on your system. If not, you may use `openjd
   java -jar /usr/lib/aomloxygentitrator/AOMLOxygenTitrator.jar
   ```
 
-- **Common Error and Solution:**
-
-  If you encounter the error `java.lang.NullPointerException thrown while loading gnu.io.RXTXCommDriver`, start the program with the following command:
-
-  ```
-  java -Djava.ext.dirs -jar /usr/lib/aomloxygentitrator/AOMLOxygenTitrator.jar
-  ```
-
-  After installation, go to the configuration tab, choose, and connect a serial port for the fields to become active.
-
-## Installing RXTX Under Linux
-
-### Ubuntu 14.04 and Up
-
-- Install `librxtx-java` using:
-
-  ```
-  sudo apt-get update
-  sudo apt-get install librxtx-java
-  ```
-
-### Fedora 22 and Similar Distributions
-
-1. **Install RXTX**
-
-   For Fedora (use `dnf` as `yum` is deprecated):
-
-   ```
-   sudo dnf install rxtx
-   ```
-
-2. **Fix Library Path**
-
-   Fedora might place the library in a different directory. Create a symbolic link to the correct path:
-
-   - **64-bit Fedora:**
-
-     ```
-     sudo ln -s /usr/lib64/rxtx/librxtxSerial-2.2pre1.so /usr/lib/librxtxSerial.so
-     ```
-
-   - **32-bit Fedora:**
-
-     ```
-     sudo ln -s /usr/lib/rxtx/librxtxSerial-2.2pre1.so /usr/lib/librxtxSerial.so
-     ```
 
 ## Permissions to Access the Serial Port
 
@@ -115,3 +68,6 @@ sudo usermod -a -G dialout $USER
 ```
 
 After adding, log out and log back in. Use `groups` to verify that `dialout` is listed among the user's groups.
+
+## Screenshots
+![Screenshot_2024-02-08_09-46-28](https://github.com/ExplodingTuna/oxygen/assets/146979376/154fae6d-263a-46d9-bb84-7b26c32d4132)
