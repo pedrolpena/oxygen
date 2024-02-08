@@ -45,6 +45,7 @@ Start the program via the menu icon. If it doesn't start, use the terminal comma
   ```
   
 ## Screenshots
-![Screenshot_2024-02-08_09-46-28](https://github.com/ExplodingTuna/oxygen/assets/146979376/154fae6d-263a-46d9-bb84-7b26c32d4132)
+![image](https://github.com/ExplodingTuna/oxygen/assets/146979376/1a30256d-6c2f-4347-94a4-274bec02ecdc)
+
 ![image](https://github.com/ExplodingTuna/oxygen/assets/146979376/8e5462f7-a3b3-4839-b7cb-a3142c59892a)
 
