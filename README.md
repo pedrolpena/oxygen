@@ -59,7 +59,7 @@ Ensure `openjdk-17-jdk` is available on your system.
 
 Serial ports should be available to the user by default.
 
-### Under Linux (Ubuntu 14.04 and Up)
+### Under Linux
 
 Users must be part of the `dialout` group to access serial ports. Add your user to the `dialout` group with:
 
