@@ -48,7 +48,7 @@ Start the program via the menu icon. If it doesn't start, use the terminal comma
   ```
   
 ## Screenshots
-![image](https://github.com/ExplodingTuna/oxygen/assets/146979376/1a30256d-6c2f-4347-94a4-274bec02ecdc)
+![oxygen_program_main_tab](/images/oxygen_program_main_tab.png?raw=true "Oxygen Program Main Tab")
 
-![image](https://github.com/ExplodingTuna/oxygen/assets/146979376/8e5462f7-a3b3-4839-b7cb-a3142c59892a)
+![oxygen_program_configuration_tab](/images/oxygen_program_configuration_tab.png?raw=true "Oxygen Program Configuration Tab")
 
