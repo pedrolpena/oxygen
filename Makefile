@@ -18,7 +18,7 @@ PREFIXI        = $(PREFIX)
 STARTDIRI      = $(STARTDIR)
 ICONDIRI       = $(ICONDIR)
 ##############Program specific info.####################################
-CP             = .:./dist/lib/nrjavaserial.jar:./dist/lib/xchart.jar
+CP             = .:./dist/lib/jSerialComm.jar:./dist/lib/xchart.jar
 JPACKAGE       = aomloxygentitrator
 MAIN           = AOMLOxygenTitrator
 SOURCEDIR      = src/$(JPACKAGE)
@@ -101,7 +101,7 @@ install:
 	cp -R dist/* $(PREFIX)/$(JPACKAGE)
 	chmod +x $(PREFIX)/$(JPACKAGE)/$(FILENAME)
 	echo "#!/bin/bash" > $(STARTDIR)/$(JPACKAGE)
-	echo "java -cp $(PREFIX)/$(JPACKAGE):$(PREFIX)/$(JPACKAGE)/lib/xchart.jar:$(PREFIX)/$(JPACKAGE)/lib/nrjavaserial.jar:$(PREFIX)/$(JPACKAGE)/$(FILENAME) $(JPACKAGE).$(MAIN)" >> $(STARTDIR)/$(JPACKAGE)
+	echo "java -cp $(PREFIX)/$(JPACKAGE):$(PREFIX)/$(JPACKAGE)/lib/xchart.jar:$(PREFIX)/$(JPACKAGE)/lib/jSerialComm.jar:$(PREFIX)/$(JPACKAGE)/$(FILENAME) $(JPACKAGE).$(MAIN)" >> $(STARTDIR)/$(JPACKAGE)
 	chmod +x $(STARTDIR)/$(JPACKAGE)
 	cp icon.png $(ICONDIR)
 	cp copyright $(ICONDIR)

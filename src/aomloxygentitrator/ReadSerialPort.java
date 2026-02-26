@@ -5,15 +5,13 @@
  */
 package aomloxygentitrator;
 
-import gnu.io.CommPortIdentifier;
-import gnu.io.SerialPort;
+import com.fazecast.jSerialComm.SerialPort;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.TimeZone;
 import java.util.prefs.Preferences;
@@ -29,7 +27,6 @@ public class ReadSerialPort implements Runnable {
     private SerialPort port = null;
     private BufferedReader is = null;
     private InputStreamReader ist = null;
-    private CommPortIdentifier portId = null;
     private Preferences prefs;
 
     public ReadSerialPort(MainFrame mF) {
@@ -41,7 +38,7 @@ public class ReadSerialPort implements Runnable {
     @Override
     public void run() {
 
-        portId = getPort(mainFrame.getSelectedSerialPort());
+        port = getPort(mainFrame.getSelectedSerialPort());
         String someChar = "";
         String someLine = "";
         String temp;
@@ -53,22 +50,33 @@ public class ReadSerialPort implements Runnable {
 
         try {
 
-            port = (SerialPort) portId.open("OxygenTitator", 10000);
-            port.setSerialPortParams(
-                    mainFrame.getPortSpeed(),
-                    mainFrame.getPortDataBits(),
-                    mainFrame.getStopBits(),
-                    mainFrame.getPortParity());
-            mainFrame.setPort(port);
-
-            ist = new InputStreamReader(port.getInputStream());
+            if (port != null) {
+                // Configure serial port parameters
+                port.setComPortParameters(
+                        mainFrame.getPortSpeed(),
+                        mainFrame.getPortDataBits(),
+                        mainFrame.getStopBits(),
+                        mainFrame.getPortParity());
+                
+                // Set timeouts - non-blocking read with 100ms timeout
+                port.setComPortTimeouts(SerialPort.TIMEOUT_READ_SEMI_BLOCKING, 100, 0);
+                
+                // Open the port
+                if (!port.openPort()) {
+                    System.err.println("Failed to open port: " + port.getSystemPortName());
+                    return;
+                }
+                
+                mainFrame.setPort(port);
+                ist = new InputStreamReader(port.getInputStream());
+            }
 
         }//end try
         catch (Exception e) {
             e.printStackTrace();
         }//end catch
 
-        while (!stopped && port != null) {
+        while (!stopped && port != null && port.isOpen()) {
             Date time = new Date();
             date = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
             date.setTime(time);
@@ -189,15 +197,10 @@ public class ReadSerialPort implements Runnable {
             }//end f
 
             if (port != null) {
-                port.close();
+                port.closePort();
                 port = null;
 
             }//end if        
-
-            if (portId != null) {
-                portId = null;
-
-            }//end if
 
         }//end try
         catch (Exception e) {
@@ -208,22 +211,18 @@ public class ReadSerialPort implements Runnable {
     /**
      * Searches for available ports
      *
-     * @param port String the name of the port that you want to return
-     * @return CommPortIdentifier
+     * @param portName String the name of the port that you want to return
+     * @return SerialPort
      */
-    private CommPortIdentifier getPort(String port) {
-        // Javacomm fields
-        Enumeration portIdentifiers = CommPortIdentifier.getPortIdentifiers();
-        CommPortIdentifier pid = null;
-        while (portIdentifiers.hasMoreElements()) {
-            pid = (CommPortIdentifier) portIdentifiers.nextElement();
-            // this.portComboBox.addItem(pid.getName());
-            if (pid.getName().equals(port)) {
-                break;
+    private SerialPort getPort(String portName) {
+        SerialPort[] ports = SerialPort.getCommPorts();
+        for (SerialPort p : ports) {
+            if (p.getSystemPortName().equals(portName) || 
+                p.getDescriptivePortName().contains(portName)) {
+                return p;
             }
         }
-
-        return pid;
+        return null;
     }// end getPort
 
     /**

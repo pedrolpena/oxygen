@@ -1,7 +1,25 @@
 # Oxygen Titration Program for Linux, Windows, and OSX
 
 ## Disclaimer
-This repository is a scientific product and is not official communication of the National Oceanic and Atmospheric Administration, or the United States Department of Commerce. All NOAA GitHub project code is provided on an ‘as is’ basis and the user assumes responsibility for its use. Any claims against the Department of Commerce or Department of Commerce bureaus stemming from the use of this GitHub project will be governed by all applicable Federal law. Any reference to specific commercial products, processes, or services by service mark, trademark, manufacturer, or otherwise, does not constitute or imply their endorsement, recommendation or favoring by the Department of Commerce. The Department of Commerce seal and logo, or the seal and logo of a DOC bureau, shall not be used in any manner to imply endorsement of any commercial product or activity by DOC or the United States Government.
+This repository is a scientific product and is not official communication of the National Oceanic and Atmospheric Administration, or the United States Department of Commerce. All NOAA GitHub project code is provided on an 'as is' basis and the user assumes responsibility for its use. Any claims against the Department of Commerce or Department of Commerce bureaus stemming from the use of this GitHub project will be governed by all applicable Federal law. Any reference to specific commercial products, processes, or services by service mark, trademark, manufacturer, or otherwise, does not constitute or imply their endorsement, recommendation or favoring by the Department of Commerce. The Department of Commerce seal and logo, or the seal and logo of a DOC bureau, shall not be used in any manner to imply endorsement of any commercial product or activity by DOC or the United States Government.
+
+## Dependencies
+
+This project uses the following libraries:
+- **jSerialComm** (v2.10.4 or later) - Platform-independent serial port library
+- **XChart** - Charting library (included in `libs/`)
+
+### Installing jSerialComm
+
+Download jSerialComm from Maven Central or GitHub and place it in the `libs/` directory:
+
+```bash
+# From Maven Central
+curl -L -o libs/jSerialComm.jar "https://repo1.maven.org/maven2/com/fazecast/jSerialComm/2.10.4/jSerialComm-2.10.4.jar"
+
+# Or from GitHub releases
+curl -L -o libs/jSerialComm.jar "https://github.com/Fazecast/jSerialComm/releases/download/v2.10.4/jSerialComm-2.10.4.jar"
+```
 
 ## Download
 
@@ -52,3 +70,11 @@ Start the program via the menu icon. If it doesn't start, use the terminal comma
 
 ![oxygen_program_configuration_tab](/images/oxygen_program_configuration_tab.png?raw=true "Oxygen Program Configuration Tab")
 
+## Migration from nrjavaserial
+
+This project has been migrated from nrjavaserial (gnu.io) to jSerialComm for improved cross-platform compatibility and easier installation. jSerialComm is a pure Java library that doesn't require native library installation.
+
+### Key changes:
+- Replace `libs/nrjavaserial.jar` with `libs/jSerialComm.jar`
+- No native library installation required
+- Better support for modern operating systems

@@ -3,16 +3,13 @@ package aomloxygentitrator;
 
 import java.awt.Color;
 import javax.swing.UIManager;
-import gnu.io.CommPortIdentifier;
-//import gnu.io.DriverManager;
-import gnu.io.SerialPort;
+import com.fazecast.jSerialComm.SerialPort;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
-import java.util.Enumeration;
 import java.util.prefs.Preferences;
 import javax.swing.JTextArea;
 import java.io.BufferedReader;
@@ -54,7 +51,6 @@ public class MainFrame extends javax.swing.JFrame {
 
     private Preferences prefs;
     private SerialPort port = null;
-    private CommPortIdentifier portId = null;
     private boolean filesLoaded = false;
     private boolean resetAndSave = true;
     private String serialPortName = "";
@@ -152,20 +148,15 @@ public class MainFrame extends javax.swing.JFrame {
         }//end if
         serialPortName = prefs.get("serialPortName", sp);
 
-        CommPortIdentifier pid;
-//        DriverManager.getInstance().loadDrivers();
-        Enumeration portIdentifiers = CommPortIdentifier.getPortIdentifiers();
-        while (portIdentifiers.hasMoreElements()) {
-            //Thread.sleep(100);
-
-            pid = (CommPortIdentifier) portIdentifiers.nextElement();
-            spTmp = new String(pid.getName());
+        // Get available serial ports using jSerialComm
+        SerialPort[] ports = SerialPort.getCommPorts();
+        for (SerialPort p : ports) {
+            spTmp = p.getSystemPortName();
             if (!spTmp.toLowerCase().contains("lpt")) {
                 serialPortComboBox.addItem(spTmp);
             }
             serialPortComboBox.setSelectedItem(serialPortName);
-
-        }// end while        
+        }// end for        
 
         //loadFields();
         
@@ -2282,14 +2273,14 @@ public class MainFrame extends javax.swing.JFrame {
 
         switch (selectedIndex) {
             case -1:
-                selection = 0;
+                selection = SerialPort.ONE_STOP_BIT;
                 break;
 
             case 0:
-                selection = SerialPort.STOPBITS_1;
+                selection = SerialPort.ONE_STOP_BIT;
                 break;
             case 1:
-                selection = SerialPort.STOPBITS_2;
+                selection = SerialPort.TWO_STOP_BITS;
                 break;
 
         }// end switch
@@ -2304,17 +2295,17 @@ public class MainFrame extends javax.swing.JFrame {
 
         switch (selectedIndex) {
             case -1:
-                selection = 0;
+                selection = SerialPort.NO_PARITY;
                 break;
 
             case 0:
-                selection = SerialPort.PARITY_NONE;
+                selection = SerialPort.NO_PARITY;
                 break;
             case 1:
-                selection = SerialPort.PARITY_EVEN;
+                selection = SerialPort.EVEN_PARITY;
                 break;
             case 2:
-                selection = SerialPort.PARITY_ODD;
+                selection = SerialPort.ODD_PARITY;
                 break;
 
         }// end switch
@@ -2325,24 +2316,24 @@ public class MainFrame extends javax.swing.JFrame {
     public int getPortDataBits() {
 
         int selectedIndex = this.dataBitsComboBox.getSelectedIndex();
-        int selection = -1;
+        int selection = 8;
 
         switch (selectedIndex) {
             case -1:
-                selection = 0;
+                selection = 8;
                 break;
 
             case 0:
-                selection = SerialPort.DATABITS_8;
+                selection = 8;
                 break;
             case 1:
-                selection = SerialPort.DATABITS_7;
+                selection = 7;
                 break;
             case 2:
-                selection = SerialPort.DATABITS_6;
+                selection = 6;
                 break;
             case 3:
-                selection = SerialPort.DATABITS_5;
+                selection = 5;
                 break;
 
         }// end switch
